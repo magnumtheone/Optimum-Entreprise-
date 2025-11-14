@@ -705,6 +705,106 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   </div>
 </section>
+<!-- DEBUT : Teaser Offres Optimum — coller après la page d'accueil -->
+<section id="teaser-offres" class="relative overflow-hidden py-12">
+  <!-- Decorative background -->
+  <div aria-hidden="true" class="absolute -left-32 -top-32 w-96 h-96 rounded-full" style="background:linear-gradient(135deg,#5d1212 0%, #f6c85f 100%); filter: blur(70px); opacity:0.18"></div>
+  <div aria-hidden="true" class="absolute -right-32 -bottom-32 w-80 h-80 rounded-full" style="background:linear-gradient(135deg,#f6c85f 0%, #fecaca 100%); filter: blur(60px); opacity:0.14"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+      <!-- Left: texte & CTA -->
+      <div>
+        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold text-[color:var(--opt-bordeaux,#5d1212)] bg-[color:var(--opt-yellow,#f6c85f)]/20">NOUVEAU • PACKS HÔTEL</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-extrabold text-[color:var(--opt-bordeaux,#5d1212)] leading-tight">
+          Transformez vos visiteurs en clients — Sites prêts à convertir
+        </h2>
+        <p class="mt-4 text-gray-600 dark:text-gray-300 max-w-xl">
+          Offres claires (Essentielle, Premium, Prestige). Des sites rapides, sécurisés et pensés pour la réservation. Découvrez nos packs et choisissez la formule qui correspond à votre ambition.
+        </p>
+
+        <div class="mt-6 flex gap-3">
+          <!-- Primary CTA: va vers la page offres (ou ancre #offres) -->
+          <a href="/offres-premium.modern.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[color:var(--opt-bordeaux,#5d1212)] text-white font-semibold shadow hover:scale-105 transition">
+            Voir les offres
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+
+          <!-- Secondary CTA: courte démo / contact -->
+          <a href="#devis-form" class="inline-flex items-center gap-2 px-4 py-3 rounded-full border border-gray-200 dark:border-gray-700 text-sm font-medium hover:bg-gray-50 dark:hover:bg-white/5 transition">
+            Demander un devis
+          </a>
+        </div>
+
+        <ul class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-600 dark:text-gray-300 max-w-md">
+          <li>• Site responsive & SEO-friendly</li>
+          <li>• Système de réservation optimisé</li>
+          <li>• Intégration Google Maps & WhatsApp</li>
+          <li>• Hébergement & nom de domaine offerts (selon offre)</li>
+        </ul>
+      </div>
+
+      <!-- Right: mini-carousel / aperçu d'offres -->
+      <div class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <!-- Card 1 -->
+          <figure class="col-span-1 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white/60 dark:bg-black/40 shadow-sm hover:translate-y-[-4px] transition-transform">
+            <div class="w-full h-28 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <!-- image volontairement vide -->
+              <img src="" alt="aperçu-essentielle" class="w-full h-full object-cover" />
+              <span class="absolute text-xs text-gray-400">Image</span>
+            </div>
+            <figcaption class="p-3">
+              <div class="text-sm font-semibold text-[color:var(--opt-bordeaux,#5d1212)]">Essentielle</div>
+              <div class="text-xs text-gray-500">Présence pro & réservation</div>
+            </figcaption>
+          </figure>
+
+          <!-- Card 2 -->
+          <figure class="col-span-1 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white/60 dark:bg-black/40 shadow-sm hover:translate-y-[-4px] transition-transform">
+            <div class="w-full h-28 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <img src="" alt="aperçu-premium" class="w-full h-full object-cover" />
+              <span class="absolute text-xs text-gray-400">Image</span>
+            </div>
+            <figcaption class="p-3">
+              <div class="text-sm font-semibold text-[color:var(--opt-bordeaux,#5d1212)]">Premium</div>
+              <div class="text-xs text-gray-500">Réservation + optimisation</div>
+            </figcaption>
+          </figure>
+
+          <!-- Card 3 -->
+          <figure class="col-span-1 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white/60 dark:bg-black/40 shadow-sm hover:translate-y-[-4px] transition-transform">
+            <div class="w-full h-28 bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
+              <img src="" alt="aperçu-prestige" class="w-full h-full object-cover" />
+              <span class="absolute text-xs text-gray-400">Image</span>
+            </div>
+            <figcaption class="p-3">
+              <div class="text-sm font-semibold text-[color:var(--opt-bordeaux,#5d1212)]">Prestige</div>
+              <div class="text-xs text-gray-500">Haut standing & support VIP</div>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Thin strip: mini-gallery horizontale (sites récents) -->
+        <div class="mt-2 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 bg-white/60 dark:bg-black/40">
+          <div class="flex gap-1 p-2">
+            <div class="w-1/3 h-16 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <img src="" alt="recent-1" class="w-full h-full object-cover" />
+            </div>
+            <div class="w-1/3 h-16 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <img src="" alt="recent-2" class="w-full h-full object-cover" />
+            </div>
+            <div class="w-1/3 h-16 rounded-md overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <img src="" alt="recent-3" class="w-full h-full object-cover" />
+            </div>
+          </div>
+          <div class="p-2 text-xs text-gray-500 dark:text-gray-300">Exemples récents — cliquez sur "Voir les offres" pour en voir plus</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FIN : Teaser Offres -->
 
 
         <!-- Vue d'ensemble des Services — VERSION MODERNE -->
@@ -725,6 +825,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Du site vitrine à l’application mobile en passant par le SEO et l’accompagnement.
       </p>
     </header>
+    
 
     <!-- Cartes -->
     <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
