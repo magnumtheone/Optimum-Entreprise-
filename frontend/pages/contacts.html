@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact – Optimum Entreprise</title>
+
+  <!-- Tailwind + palette -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { red: '#5d1212', yellow: '#facc15' }
+          },
+          boxShadow: { glow: '0 0 0 3px rgba(250,204,21,.35)' }
+        }
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body{font-family:'Inter',sans-serif}
+    .message-box{position:fixed;top:20px;right:20px;background:#22c55e;color:#fff;padding:12px 16px;border-radius:12px;z-index:1000;display:none;box-shadow:0 10px 30px -10px rgba(0,0,0,.3)}
+    .nav-link{position:relative}
+    .nav-link:after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:#facc15;transition:width .25s}
+    .nav-link:hover:after{width:100%}
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-amber-50/40 text-gray-800 dark:from-[#0b0f14] dark:to-[#0b0f14] dark:text-gray-100">
+
+  <!-- HEADER global : brand (#5d1212/#facc15), hamburger + sous-menus -->
+  <header class="sticky top-0 z-50 backdrop-blur bg-white/80 dark:bg-[#0b0f14]/80 border-b border-brand-red/10">
+    <nav class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="index.html#accueil" class="flex items-center gap-3 group">
+        <img src="../images/off.png" alt="Logo Optimum Entreprise" class="h-10 w-10 object-contain bg-white rounded-full border-2 border-brand-yellow shadow" loading="lazy">
+        <span class="text-xl md:text-2xl font-extrabold text-brand-red group-hover:underline decoration-brand-yellow/70">Optimum Entreprise</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href="index.html#accueil" class="nav-link hover:text-brand-red transition">Accueil</a>
+
+        <!-- Services (submenu) -->
+        <div class="relative group">
+          <button class="nav-link hover:text-brand-red transition inline-flex items-center gap-1">
+            Services <i class="fa-solid fa-chevron-down text-xs opacity-70"></i>
+          </button>
+          <div class="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition pointer-events-none group-hover:pointer-events-auto absolute left-0 mt-3 w-[560px]">
+            <div class="rounded-2xl border border-brand-red/10 bg-white/95 dark:bg-[#0b0f14]/95 shadow-xl p-4 grid grid-cols-2 gap-3">
+              <a href="programmation.html" class="p-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-white/10">
+                <div class="font-semibold text-brand-red">Programmation</div>
+                <p class="text-xs text-gray-600 dark:text-gray-400">Python, JS, Web, Apps</p>
+              </a>
+              <a href="seo-marketing.html" class="p-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-white/10">
+                <div class="font-semibold text-brand-red">SEO & Marketing</div>
+                <p class="text-xs text-gray-600 dark:text-gray-400">Visibilité & acquisition</p>
+              </a>
+              <a href="maintenance-securite.html" class="p-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-white/10">
+                <div class="font-semibold text-brand-red">Maintenance & Sécurité IT</div>
+                <p class="text-xs text-gray-600 dark:text-gray-400">Support & cybersécurité</p>
+              </a>
+              <a href="apps.html" class="p-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-white/10">
+                <div class="font-semibold text-brand-red">Applications web/mobile</div>
+                <p class="text-xs text-gray-600 dark:text-gray-400">Produits & MVP</p>
+              </a>
+              <a href="pack-young-expert.html" class="p-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-white/10">
+                <div class="font-semibold text-brand-red">Pack Young Expert</div>
+                <p class="text-xs text-gray-600 dark:text-gray-400">Formation & coaching</p>
+              </a>
+              <a href="consulting.html" class="p-3 rounded-xl hover:bg-yellow-50 dark:hover:bg-white/10">
+                <div class="font-semibold text-brand-red">Consulting</div>
+                <p class="text-xs text-gray-600 dark:text-gray-400">Audit & stratégie</p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a href="index.html#projets" class="nav-link hover:text-brand-red transition">Projets</a>
+        <a href="index.html#temoignages" class="nav-link hover:text-brand-red transition">Témoignages</a>
+        <a href="index.html#equipe" class="nav-link hover:text-brand-red transition">Équipe</a>
+        <a href="index.html#blog" class="nav-link hover:text-brand-red transition">Blog</a>
+        <a href="contact.html" class="px-4 py-2 rounded-full bg-brand-red text-white font-semibold hover:bg-[#4b0e0e]">Contact</a>
+
+        <button id="dark-toggle" class="ml-2 w-10 h-10 rounded-full bg-gray-800 text-yellow-300 hover:shadow-glow flex items-center justify-center" aria-label="Basculer le thème">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+
+      <!-- Mobile buttons -->
+      <div class="flex items-center md:hidden gap-2">
+        <button id="dark-toggle-mobile" class="w-10 h-10 rounded-full bg-gray-800 text-yellow-300 flex items-center justify-center" aria-label="Dark mode mobile">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <button id="mobile-menu-button" class="w-10 h-10 rounded-lg bg-brand-red text-white grid place-content-center" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu (accordions + sous-liens) -->
+    <div id="mobile-menu" class="md:hidden hidden bg-[#5d1212] text-white">
+      <div class="px-6 py-3 space-y-1">
+        <a href="index.html#accueil" class="block py-2 hover:bg-white/10 rounded-lg px-2">Accueil</a>
+
+        <!-- Services accordion -->
+        <details class="group">
+          <summary class="cursor-pointer py-2 px-2 rounded-lg hover:bg-white/10 flex items-center justify-between">
+            <span>Services</span>
+            <i class="fa-solid fa-chevron-down text-xs opacity-80 group-open:rotate-180 transition"></i>
+          </summary>
+          <nav class="pl-3 py-2 space-y-1">
+            <a href="programmation.html" class="block py-2 px-2 rounded hover:bg-white/10">Programmation</a>
+            <a href="seo-marketing.html" class="block py-2 px-2 rounded hover:bg-white/10">SEO & Marketing</a>
+            <a href="maintenance-securite.html" class="block py-2 px-2 rounded hover:bg-white/10">Maintenance & Sécurité IT</a>
+            <a href="apps.html" class="block py-2 px-2 rounded hover:bg-white/10">Applications web/mobile</a>
+            <a href="pack-young-expert.html" class="block py-2 px-2 rounded hover:bg-white/10">Pack Young Expert</a>
+            <a href="consulting.html" class="block py-2 px-2 rounded hover:bg-white/10">Consulting</a>
+          </nav>
+        </details>
+
+        <a href="index.html#projets" class="block py-2 hover:bg-white/10 rounded-lg px-2">Projets</a>
+        <a href="index.html#temoignages" class="block py-2 hover:bg-white/10 rounded-lg px-2">Témoignages</a>
+        <a href="index.html#equipe" class="block py-2 hover:bg-white/10 rounded-lg px-2">Équipe</a>
+        <a href="index.html#blog" class="block py-2 hover:bg-white/10 rounded-lg px-2">Blog</a>
+        <a href="contact.html" class="block py-2 hover:bg-white/10 rounded-lg px-2 font-semibold">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 opacity-20 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(250,204,21,.35),transparent_70%)]"></div>
+    <div class="max-w-7xl mx-auto px-6 pt-10 pb-8 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-brand-red">Contactez-nous</h1>
+      <p class="mt-3 text-lg md:text-xl text-gray-700 dark:text-gray-300">
+        Un point d’entrée unique pour <span class="font-semibold">tous nos services</span> : Programmation, SEO/Marketing, Maintenance & Sécurité IT, Applications web/mobile, Pack Young Expert, Consulting.
+      </p>
+      <div class="mt-6 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-yellow-100 text-brand-red ring-1 ring-yellow-300 dark:bg-yellow-500/15 dark:ring-yellow-400/40">
+        <i class="fa-solid fa-headset"></i> Réponse sous 24 h ouvrées
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENU -->
+  <main class="max-w-7xl mx-auto px-6 grid lg:grid-cols-3 gap-8 pb-16">
+    <!-- Colonne gauche -->
+    <aside class="space-y-6">
+      <!-- Canaux rapides -->
+      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h2 class="text-lg font-extrabold text-brand-red">Canaux rapides</h2>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <a target="_blank" href="https://wa.me/243840665620" class="flex items-center gap-3 p-3 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5 hover:shadow">
+            <i class="fa-brands fa-whatsapp text-2xl text-brand-red"></i><span>WhatsApp</span>
+          </a>
+          <a href="mailto:optimumentreprise1@gmail.com" class="flex items-center gap-3 p-3 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow">
+            <i class="fa-solid fa-envelope text-2xl text-brand-red"></i><span>Email</span>
+          </a>
+          <a target="_blank" href="tel:+243840665620" class="flex items-center gap-3 p-3 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow">
+            <i class="fa-solid fa-phone text-2xl text-brand-red"></i><span>Téléphone</span>
+          </a>
+          <a target="_blank" href="https://maps.google.com/?q=7+Avenue+KIWELE,+N27,+Makiso,+Kisangani" class="flex items-center gap-3 p-3 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow">
+            <i class="fa-solid fa-location-dot text-2xl text-brand-red"></i><span>Localisation</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Horaires & adresse + Google Maps -->
+      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h2 class="text-lg font-extrabold text-brand-red">Horaires & adresse</h2>
+        <ul class="mt-3 text-sm text-gray-700 dark:text-gray-300 space-y-2">
+          <li><i class="fa-regular fa-clock text-brand-yellow"></i> Lun–Ven : 08:30–18:00</li>
+          <li><i class="fa-regular fa-clock text-brand-yellow"></i> Sam : 09:00–13:00</li>
+          <li><i class="fa-solid fa-location-dot text-brand-yellow"></i> 7 Avenue KIWELE, N° 27, Makiso, Kisangani (RDC)</li>
+          <li><i class="fa-solid fa-envelope text-brand-yellow"></i> optimumentreprise1@gmail.com</li>
+          <li><i class="fa-solid fa-phone text-brand-yellow"></i> +243 84 066 56 20</li>
+        </ul>
+        <!-- Google Maps réel -->
+        <div class="mt-4 overflow-hidden rounded-xl border border-brand-red/10">
+          <iframe
+            title="Optimum Entreprise - Localisation"
+            width="100%" height="260" style="border:0"
+            loading="lazy" allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=7+Avenue+KIWELE,+N%C2%B0+27,+Makiso,+Kisangani&output=embed">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Mini FAQ -->
+      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h2 class="text-lg font-extrabold text-brand-red">Questions fréquentes</h2>
+        <div class="mt-3 space-y-2">
+          <details class="group">
+            <summary class="cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between">
+              Demander un devis
+              <i class="fa-solid fa-chevron-down text-xs opacity-60 group-open:rotate-180 transition"></i>
+            </summary>
+            <p class="text-sm mt-1 text-gray-600 dark:text-gray-400">Choisissez « Devis / Estimation » et précisez vos objectifs, délais et budget cible.</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between">
+              Délais de réponse
+              <i class="fa-solid fa-chevron-down text-xs opacity-60 group-open:rotate-180 transition"></i>
+            </summary>
+            <p class="text-sm mt-1 text-gray-600 dark:text-gray-400">Sous 24 h ouvrées (souvent plus rapide via WhatsApp).</p>
+          </details>
+          <details class="group">
+            <summary class="cursor-pointer text-sm font-semibold text-gray-800 dark:text-gray-200 flex items-center justify-between">
+              Paiements & facturation
+              <i class="fa-solid fa-chevron-down text-xs opacity-60 group-open:rotate-180 transition"></i>
+            </summary>
+            <p class="text-sm mt-1 text-gray-600 dark:text-gray-400">Mobile money, virement ou cash. Facture à la confirmation.</p>
+          </details>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Colonne droite : Formulaire -->
+    <section class="lg:col-span-2">
+      <div class="p-6 md:p-8 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h2 class="text-2xl font-extrabold text-brand-red">Écrivez-nous</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Nous orienterons votre demande vers l’équipe la plus adaptée.</p>
+
+        <!-- Pills des services -->
+        <div class="mt-5 flex flex-wrap gap-2" id="service-pills">
+          <button class="pill active px-3 py-1.5 rounded-full text-sm bg-brand-red text-white" data-service="Programmation">Programmation</button>
+          <button class="pill px-3 py-1.5 rounded-full text-sm bg-yellow-50 text-brand-red ring-1 ring-yellow-200" data-service="SEO & Marketing">SEO & Marketing</button>
+          <button class="pill px-3 py-1.5 rounded-full text-sm bg-yellow-50 text-brand-red ring-1 ring-yellow-200" data-service="Maintenance & Sécurité IT">Maintenance & Sécurité IT</button>
+          <button class="pill px-3 py-1.5 rounded-full text-sm bg-yellow-50 text-brand-red ring-1 ring-yellow-200" data-service="Applications web/mobile">Applications web/mobile</button>
+          <button class="pill px-3 py-1.5 rounded-full text-sm bg-yellow-50 text-brand-red ring-1 ring-yellow-200" data-service="Pack Young Expert">Pack Young Expert</button>
+          <button class="pill px-3 py-1.5 rounded-full text-sm bg-yellow-50 text-brand-red ring-1 ring-yellow-200" data-service="Consulting">Consulting</button>
+          <button class="pill px-3 py-1.5 rounded-full text-sm bg-yellow-50 text-brand-red ring-1 ring-yellow-200" data-service="Autre">Autre</button>
+        </div>
+
+        <!-- Formulaire central -->
+        <form id="contact-form" class="mt-6 grid md:grid-cols-2 gap-4" novalidate>
+          <input type="text" name="website" autocomplete="off" tabindex="-1" class="hidden" aria-hidden="true"/>
+
+          <div>
+            <label class="text-sm font-semibold" for="nom">Nom complet</label>
+            <input id="nom" name="nom" required class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow"/>
+            <p class="hidden text-xs text-red-600 mt-1" data-error-for="nom">Veuillez renseigner votre nom.</p>
+          </div>
+          <div>
+            <label class="text-sm font-semibold" for="email">Email</label>
+            <input id="email" type="email" name="email" required class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow"/>
+            <p class="hidden text-xs text-red-600 mt-1" data-error-for="email">Saisissez un email valide.</p>
+          </div>
+          <div>
+            <label class="text-sm font-semibold" for="phone">Téléphone (WhatsApp)</label>
+            <input id="phone" name="phone" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow"/>
+          </div>
+          <div>
+            <label class="text-sm font-semibold" for="service">Service</label>
+            <select id="service" name="service" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow">
+              <option>Programmation</option>
+              <option>SEO & Marketing</option>
+              <option>Maintenance & Sécurité IT</option>
+              <option>Applications web/mobile</option>
+              <option>Pack Young Expert</option>
+              <option>Consulting</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-semibold" for="objet">Objet</label>
+            <select id="objet" name="objet" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow">
+              <option>Devis / Estimation</option>
+              <option>Brief Projet</option>
+              <option>Partenariat</option>
+              <option>Support / Maintenance</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-semibold" for="budget">Budget (optionnel)</label>
+            <select id="budget" name="budget" class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow">
+              <option>Je ne sais pas</option>
+              <option>&lt; 300 USD</option>
+              <option>300 – 800 USD</option>
+              <option>800 – 2 000 USD</option>
+              <option>&gt; 2 000 USD</option>
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label class="text-sm font-semibold" for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required class="mt-1 w-full rounded-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-yellow" placeholder="Décrivez votre besoin, délais, objectifs…"></textarea>
+            <p class="hidden text-xs text-red-600 mt-1" data-error-for="message">Merci de préciser votre demande.</p>
+          </div>
+          <div class="md:col-span-2 flex items-center gap-2 text-sm">
+            <input id="rgpd" type="checkbox" required class="rounded border-gray-300"/>
+            <label for="rgpd">J'accepte d'être recontacté·e (RGPD).</label>
+          </div>
+          <div class="md:col-span-2 flex flex-col sm:flex-row gap-3">
+            <button type="submit" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-brand-red text-white py-3 font-semibold hover:bg-[#4b0e0e] transition">
+              <i class="fa-solid fa-paper-plane"></i> Envoyer ma demande
+            </button>
+            <a id="cta-whatsapp" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-brand-yellow text-brand-red py-3 font-extrabold hover:bg-[#ffd84d] transition">
+              <i class="fa-brands fa-whatsapp"></i> Continuer sur WhatsApp
+            </a>
+          </div>
+        </form>
+
+        <div class="mt-6 p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5 text-sm text-gray-700 dark:text-gray-300">
+          <i class="fa-solid fa-circle-info text-brand-yellow"></i>
+          <span class="ml-2">Besoin d’un rendez-vous visio ? Indiquez-le et nous vous proposerons des créneaux.</span>
+        </div>
+      </div>
+
+      <!-- Tuiles raccourcis par service -->
+      <div class="mt-6 grid md:grid-cols-3 gap-4">
+        <a class="p-4 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow" href="#contact-form" data-quick="Programmation">
+          <div class="font-bold text-brand-red mb-1">Programmation</div>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Sites, apps, intégrations</p>
+        </a>
+        <a class="p-4 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow" href="#contact-form" data-quick="SEO & Marketing">
+          <div class="font-bold text-brand-red mb-1">SEO & Marketing</div>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Visibilité & acquisition</p>
+        </a>
+        <a class="p-4 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow" href="#contact-form" data-quick="Maintenance & Sécurité IT">
+          <div class="font-bold text-brand-red mb-1">Maintenance & Sécurité IT</div>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Support & cybersécurité</p>
+        </a>
+        <a class="p-4 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow" href="#contact-form" data-quick="Applications web/mobile">
+          <div class="font-bold text-brand-red mb-1">Applications web/mobile</div>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Produits & MVP</p>
+        </a>
+        <a class="p-4 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow" href="#contact-form" data-quick="Pack Young Expert">
+          <div class="font-bold text-brand-red mb-1">Pack Young Expert</div>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Formation & coaching</p>
+        </a>
+        <a class="p-4 rounded-2xl border border-brand-red/10 bg-white dark:bg-white/5 hover:shadow" href="#contact-form" data-quick="Consulting">
+          <div class="font-bold text-brand-red mb-1">Consulting</div>
+          <p class="text-xs text-gray-600 dark:text-gray-400">Audit & stratégie</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div id="message-box" class="message-box"></div>
+
+  <!-- Scripts (dark, hamburger, sous-menus, validation, WhatsApp) -->
+  <script>
+    // Dark mode persistant
+    (function(){
+      const KEY='prefers-dark', root=document.documentElement;
+      if(localStorage.getItem(KEY)==='true'){ root.classList.add('dark'); }
+      const toggle = ()=>{ root.classList.toggle('dark'); localStorage.setItem(KEY, root.classList.contains('dark')); };
+      document.getElementById('dark-toggle')?.addEventListener('click',toggle);
+      document.getElementById('dark-toggle-mobile')?.addEventListener('click',toggle);
+    })();
+
+    // Hamburger mobile
+    (function(){
+      const btn = document.getElementById('mobile-menu-button');
+      const menu = document.getElementById('mobile-menu');
+      btn?.addEventListener('click', ()=>{
+        const isHidden = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !isHidden);
+        btn.innerHTML = isHidden ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+        btn.setAttribute('aria-expanded', String(isHidden));
+      });
+    })();
+
+    // Pills services -> synchroniser le select + objet + CTA WhatsApp
+    (function(){
+      const pills = document.querySelectorAll('#service-pills .pill');
+      const select = document.getElementById('service');
+      const objet  = document.getElementById('objet');
+
+      function setActive(service){
+        pills.forEach(p=>{
+          const active = p.dataset.service===service;
+          p.classList.toggle('active', active);
+          p.classList.toggle('bg-brand-red', active);
+          p.classList.toggle('text-white', active);
+          p.classList.toggle('bg-yellow-50', !active);
+          p.classList.toggle('text-brand-red', !active);
+          p.classList.toggle('ring-1', !active);
+          p.classList.toggle('ring-yellow-200', !active);
+        });
+        if(select) select.value = service;
+        if(objet){
+          if(service==='Programmation' || service==='Applications web/mobile') objet.value='Brief Projet';
+          else if(service==='SEO & Marketing') objet.value='Devis / Estimation';
+          else if(service==='Maintenance & Sécurité IT') objet.value='Support / Maintenance';
+          else objet.value='Devis / Estimation';
+        }
+        buildWhatsapp();
+      }
+
+      pills.forEach(p=>p.addEventListener('click',()=>setActive(p.dataset.service)));
+      select?.addEventListener('change',()=>setActive(select.value));
+      setActive('Programmation');
+
+      // Quick tiles
+      document.querySelectorAll('[data-quick]').forEach(a=>{
+        a.addEventListener('click', (e)=>{ e.preventDefault(); setActive(a.dataset.quick); document.getElementById('contact-form').scrollIntoView({behavior:'smooth'}); });
+      });
+    })();
+
+    // Validation + envoi vers backend + toast + WhatsApp fallback
+    (function(){
+      const form  = document.getElementById('contact-form');
+      const toast = document.getElementById('message-box');
+      const err = name => document.querySelector(`[data-error-for="${name}"]`);
+      const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+      form?.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        if(data.website) return; // honeypot
+
+        let ok = true;
+        if(!data.nom?.trim()){ err('nom')?.classList.remove('hidden'); ok=false; } else err('nom')?.classList.add('hidden');
+        if(!isEmail(data.email||'')){ err('email')?.classList.remove('hidden'); ok=false; } else err('email')?.classList.add('hidden');
+        if(!data.message?.trim()){ err('message')?.classList.remove('hidden'); ok=false; } else err('message')?.classList.add('hidden');
+        if(!document.getElementById('rgpd').checked){ ok=false; }
+        if(!ok) return;
+
+        try{
+          await fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data) });
+        }catch(_){}
+
+        toast.textContent='Merci ! Votre message a été transmis. Nous revenons vers vous rapidement.';
+        toast.style.display='block'; setTimeout(()=>toast.style.display='none', 4000);
+
+        buildWhatsapp(data);
+        form.reset();
+        document.getElementById('rgpd').checked=false;
+      });
+    })();
+
+    // CTA WhatsApp dynamique
+    function buildWhatsapp(prefill){
+      const btn = document.getElementById('cta-whatsapp');
+      const service = document.getElementById('service')?.value || 'Programmation';
+      const objet = document.getElementById('objet')?.value || 'Devis / Estimation';
+      const nom = document.getElementById('nom')?.value || '';
+      const email = document.getElementById('email')?.value || '';
+      const phone = document.getElementById('phone')?.value || '';
+      const budget = document.getElementById('budget')?.value || 'Je ne sais pas';
+      const message = (document.getElementById('message')?.value || '').trim();
+
+      const d = prefill || {};
+      const text = encodeURIComponent(
+`Bonjour Optimum 👋
+Je vous contacte via la page Contact.
+
+Service : ${service}
+Objet : ${objet}
+Nom : ${d.nom || nom}
+Email : ${d.email || email}
+Téléphone : ${d.phone || phone}
+Budget : ${d.budget || budget}
+
+Message :
+${d.message || message || '(à préciser)'}`
+      );
+      btn?.setAttribute('href', `https://wa.me/243840665620?text=${text}`);
+    }
+    buildWhatsapp();
+  </script>
+</body>
+</html>

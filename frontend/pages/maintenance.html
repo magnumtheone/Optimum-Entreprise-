@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formation Maintenance & Sécurité IT – Optimum Entreprise</title>
+
+  <!-- Tailwind + palette -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { brand: { red: '#5d1212', yellow: '#facc15' } },
+          boxShadow: { glow: '0 0 0 3px rgba(250,204,21,.35)' }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body{font-family:'Inter',sans-serif}
+    .message-box{position:fixed;top:20px;right:20px;background:#22c55e;color:#fff;padding:12px 16px;border-radius:12px;z-index:1000;display:none;box-shadow:0 10px 30px -10px rgba(0,0,0,.3)}
+    .lds-dual-ring{display:inline-block;width:20px;height:20px}
+    .lds-dual-ring:after{content:" ";display:block;width:16px;height:16px;margin:2px;border-radius:50%;border:3px solid #fff;border-color:#fff transparent #fff transparent;animation:lds 1.2s linear infinite}
+    @keyframes lds{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+  </style>
+</head>
+<body class="bg-gradient-to-b from-white to-amber-50/40 text-gray-800 dark:from-[#0b0f14] dark:to-[#0b0f14] dark:text-gray-100">
+
+  <!-- Header local -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/75 dark:bg-[#0b0f14]/80 border-b border-brand-red/10">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="../images/off.png" class="h-10 w-10 rounded-full ring-2 ring-brand-yellow bg-white" alt="Logo Optimum"/>
+        <span class="font-extrabold text-brand-red group-hover:underline decoration-brand-yellow/70">Optimum Entreprise</span>
+      </a>
+      <div class="flex items-center gap-2">
+        <a href="#inscription-form" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-red text-white font-semibold hover:bg-[#4b0e0e] transition">
+          <i class="fa-solid fa-shield-halved"></i> S'inscrire
+        </a>
+        <button id="dark-toggle" class="w-10 h-10 rounded-full border border-white/20 text-brand-red dark:text-yellow-300 hover:shadow-glow" aria-label="Basculer le thème">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 opacity-20 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(250,204,21,.35),transparent_70%)]"></div>
+    <div class="max-w-6xl mx-auto px-6 pt-10 pb-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-brand-red">Formation Maintenance & Sécurité IT</h1>
+      <p class="mt-3 text-lg md:text-xl text-gray-700 dark:text-gray-300">Protégez, entretenez et sécurisez vos systèmes informatiques professionnels.</p>
+      <div class="mt-6 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-yellow-100 text-brand-red ring-1 ring-yellow-300 dark:bg-yellow-500/15 dark:ring-yellow-400/40">
+        <i class="fa-solid fa-clock"></i> 3 semaines • Présentiel ou en ligne • Certificat
+      </div>
+    </div>
+  </section>
+
+  <!-- Main grid -->
+  <main class="max-w-6xl mx-auto px-6 grid lg:grid-cols-3 gap-8 pb-16">
+    <!-- Colonne contenu -->
+    <article class="lg:col-span-2">
+      <div class="bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10 overflow-hidden">
+        <img src="../images/consult.jpg" alt="Maintenance IT" class="w-full h-64 md:h-80 object-cover"/>
+        <div class="p-6 md:p-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-brand-red mb-3">Ce que vous allez apprendre</h2>
+          <ul class="space-y-3 text-[1.05rem] text-gray-700 dark:text-gray-200">
+            <li class="flex gap-3"><i class="fa-solid fa-screwdriver-wrench text-brand-yellow mt-1"></i><span><strong>Diagnostic & dépannage matériel</strong> (HDD/SSD, cartes mères, RAM) sur desktop & laptop.</span></li>
+            <li class="flex gap-3"><i class="fa-solid fa-rotate text-brand-yellow mt-1"></i><span><strong>Réinstallation & optimisation logicielle</strong> (Windows/macOS), anti-malwares, tuning performances.</span></li>
+            <li class="flex gap-3"><i class="fa-solid fa-database text-brand-yellow mt-1"></i><span><strong>Sauvegarde & restauration</strong> : plans automatisés, reprise après sinistre.</span></li>
+            <li class="flex gap-3"><i class="fa-solid fa-network-wired text-brand-yellow mt-1"></i><span><strong>Sécurisation réseau</strong> : pare-feu, routeurs, Wi-Fi d’entreprise.</span></li>
+            <li class="flex gap-3"><i class="fa-solid fa-user-shield text-brand-yellow mt-1"></i><span><strong>Cybersécurité</strong> : politiques internes, sensibilisation phishing/ransomware, surveillance proactive.</span></li>
+          </ul>
+
+          <h3 class="mt-8 text-2xl font-bold text-brand-red">Pour qui ?</h3>
+          <p class="mt-2 text-gray-700 dark:text-gray-300">Entreprises, responsables IT, étudiants, et toute personne souhaitant sécuriser son environnement numérique.</p>
+
+          <h3 class="mt-8 text-2xl font-bold text-brand-red">Modalités</h3>
+          <div class="mt-4 grid sm:grid-cols-3 gap-4">
+            <div class="p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5">
+              <div class="font-extrabold text-brand-red">Durée</div>
+              <div class="text-sm">3 semaines (présentiel / en ligne)</div>
+            </div>
+            <div class="p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5">
+              <div class="font-extrabold text-brand-red">Certificat</div>
+              <div class="text-sm">Délivré en fin de parcours</div>
+            </div>
+            <div class="p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5">
+              <div class="font-extrabold text-brand-red">Support</div>
+              <div class="text-sm">Pédagogique inclus</div>
+            </div>
+          </div>
+
+          <div id="inscription" class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a id="cta-whatsapp" href="https://wa.me/243840665620" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 bg-brand-yellow text-brand-red font-extrabold text-lg py-3 px-5 rounded-full shadow hover:bg-[#ffd84d] transition">
+              <i class="fa-brands fa-whatsapp"></i> S'inscrire via WhatsApp
+            </a>
+            <a href="index.html" class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-gray-100 font-semibold text-lg py-3 px-5 rounded-full shadow hover:bg-gray-300 dark:hover:bg-white/15 transition">
+              <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat assistant -->
+      <section class="mt-8 p-6 md:p-8 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h4 class="text-xl font-extrabold text-brand-red mb-4">Une question ? Demandez à notre assistant IA !</h4>
+        <div class="flex flex-col gap-4">
+          <div id="chat-messages" class="h-64 overflow-y-auto p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-200/60 dark:border-white/10"></div>
+          <div class="flex flex-wrap gap-2">
+            <button class="quick-question-btn px-4 py-2 bg-gray-200 dark:bg-white/10 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-white/15 transition">Quelle est la durée ?</button>
+            <button class="quick-question-btn px-4 py-2 bg-gray-200 dark:bg-white/10 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-white/15 transition">Quel est le programme ?</button>
+            <button class="quick-question-btn px-4 py-2 bg-gray-200 dark:bg-white/10 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-white/15 transition">Prendre un rendez-vous</button>
+          </div>
+          <div class="flex">
+            <input id="user-input" type="text" placeholder="Posez votre question..." class="flex-grow p-3 rounded-l-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent focus:outline-none focus:ring-2 focus:ring-brand-yellow"/>
+            <button id="send-button" class="bg-brand-red text-white px-5 rounded-r-xl font-semibold hover:bg-[#4b0e0e] transition flex items-center gap-3">
+              <span id="button-text">Envoyer</span>
+              <div id="loading-spinner" class="lds-dual-ring hidden"></div>
+            </button>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    <!-- Colonne droite -->
+    <aside class="space-y-6">
+      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h3 class="text-lg font-extrabold text-brand-red">Programme indicatif</h3>
+        <ol class="mt-3 space-y-3 text-sm text-gray-700 dark:text-gray-300">
+          <li><span class="font-bold text-brand-red">S1</span> — Matériel, diagnostics, OS</li>
+          <li><span class="font-bold text-brand-red">S2</span> — Réseaux, pare-feu, durcissement</li>
+          <li><span class="font-bold text-brand-red">S3</span> — SecOps, sauvegardes, PRA</li>
+        </ol>
+      </div>
+      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
+        <h3 class="text-lg font-extrabold text-brand-red">Pourquoi nous ?</h3>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li class="flex gap-2"><i class="fa-solid fa-user-shield text-brand-yellow mt-1"></i> Cas réels d’entreprise</li>
+          <li class="flex gap-2"><i class="fa-solid fa-screwdriver-wrench text-brand-yellow mt-1"></i> Ateliers pratiques</li>
+          <li class="flex gap-2"><i class="fa-solid fa-certificate text-brand-yellow mt-1"></i> Certificat + support</li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Toast -->
+  <div id="message-box" class="message-box"></div>
+
+  <!-- Scripts -->
+  <script>
+    // Dark mode persistant
+    (function(){
+      const KEY='prefers-dark', root=document.documentElement;
+      if(localStorage.getItem(KEY)==='true'){ root.classList.add('dark'); }
+      document.getElementById('dark-toggle')?.addEventListener('click',()=>{
+        root.classList.toggle('dark');
+        localStorage.setItem(KEY, root.classList.contains('dark'));
+      });
+    })();
+
+    // CTA WhatsApp prérempli
+    (function(){
+      const btn=document.getElementById('cta-whatsapp');
+      const txt=encodeURIComponent("Bonjour 👋, je souhaite m'inscrire à la Formation Maintenance & Sécurité IT (3 semaines).");
+      btn?.setAttribute('href', `https://wa.me/243840665620?text=${txt}`);
+    })();
+
+    // Chat (simulation côté client)
+    const chatMessages=document.getElementById('chat-messages');
+    const userInput=document.getElementById('user-input');
+    const sendButton=document.getElementById('send-button');
+    const loadingSpinner=document.getElementById('loading-spinner');
+    const buttonText=document.getElementById('button-text');
+
+    function pushMsg(text, side='left', accent=false){
+      const wrap=document.createElement('div');
+      wrap.className=`flex ${side==='right'?'justify-end':''} mb-2`;
+      wrap.innerHTML=`<div class="${accent?'bg-yellow-100 text-brand-red':'bg-gray-100 dark:bg-white/10'} p-3 rounded-xl max-w-xs shadow-sm">${text}</div>`;
+      chatMessages.appendChild(wrap); chatMessages.scrollTop=chatMessages.scrollHeight;
+    }
+    document.querySelectorAll('.quick-question-btn').forEach(b=>b.addEventListener('click',()=>{ userInput.value=b.textContent; sendMessage(); }));
+
+    async function sendMessage(){
+      const msg=userInput.value.trim(); if(!msg) return;
+      pushMsg(msg,'right',true); userInput.value='';
+      sendButton.disabled=true; buttonText.classList.add('hidden'); loadingSpinner.classList.remove('hidden');
+      try{
+        const lower=msg.toLowerCase();
+        let reply="Je n'ai pas bien compris. Pouvez-vous reformuler ?";
+        if(lower.includes('durée')) reply="La formation dure 3 semaines (présentiel ou en ligne) et inclut un certificat + support.";
+        else if(lower.includes('programme')) reply="S1: matériel & OS • S2: réseaux & sécurité • S3: SecOps, sauvegardes & PRA.";
+        else if(lower.includes('rendez')||lower.includes('inscri')) reply=`Parfait ! Inscription / rendez-vous via WhatsApp : <a class="underline font-semibold" target="_blank" href="https://wa.me/243840665620">cliquez ici</a>.`;
+        else if(lower.includes('prix')||lower.includes('tarif')) reply="Écrivez-nous sur WhatsApp pour les tarifs actualisés et promotions.";
+        pushMsg(reply);
+      }catch(e){
+        pushMsg("Un souci technique est survenu. Contactez-nous sur WhatsApp.");
+      }finally{
+        sendButton.disabled=false; buttonText.classList.remove('hidden'); loadingSpinner.classList.add('hidden');
+      }
+    }
+    sendButton.addEventListener('click',sendMessage);
+    userInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); sendMessage(); }});
+
+    // Message d'accueil
+    pushMsg("Bonjour ! Posez vos questions sur la formation Maintenance & Sécurité IT ou demandez un rendez-vous.");
+  </script>
+</body>
+</html>

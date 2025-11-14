@@ -1,0 +1,329 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Offres — Optimum Entreprise</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --opt-bordeaux: #5d1212;
+      --opt-yellow: #f6c85f;
+      --glass: rgba(255,255,255,0.06);
+    }
+    /* Decorative blob backgrounds */
+    .blob {
+      position: absolute;
+      filter: blur(60px);
+      opacity: 0.35;
+      transform: translate3d(0,0,0);
+      z-index: 0;
+    }
+    /* Glass card fallback for non-supported browsers */
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      backdrop-filter: blur(8px);
+    }
+
+    /* Dark-mode support for elements that need custom colors */
+    .dark .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    }
+
+    /* Prevent horizontal overflow on small screens (fix mobile débordement) */
+    html, body { overflow-x: hidden; }
+
+    /* Ensure blobs never cause horizontal scroll on very small widths */
+    @media (max-width: 640px) {
+      .blob { left: -30px !important; right: auto !important; filter: blur(40px); opacity: 0.25; }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-b from-gray-50 to-white text-gray-900 antialiased transition-colors duration-300">
+  <!-- Dark mode script toggles 'dark' on <html> for Tailwind dark: utilities -->
+  <script>
+    // Initialize theme from localStorage or system preference
+    (function(){
+      const saved = localStorage.getItem('opt-theme');
+      if(saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+        document.body.classList.add('bg-gray-900','text-gray-100');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.remove('bg-gray-900','text-gray-100');
+      }
+    })();
+    function toggleTheme(){
+      const isDark = document.documentElement.classList.toggle('dark');
+      if(isDark){
+        document.body.classList.add('bg-gray-900','text-gray-100');
+        localStorage.setItem('opt-theme','dark');
+      } else {
+        document.body.classList.remove('bg-gray-900','text-gray-100');
+        localStorage.setItem('opt-theme','light');
+      }
+    }
+  </script>
+
+  <!-- Decorative background blobs -->
+  <div aria-hidden="true" class="blob" style="width:420px;height:420px;left:-80px;top:-80px;background:linear-gradient(135deg,#5d1212 0%, #f6c85f 100%);border-radius:50%;"></div>
+  <div aria-hidden="true" class="blob" style="width:320px;height:320px;right:-60px;top:120px;background:linear-gradient(135deg,#f6c85f 0%, #fecaca 100%);border-radius:50%;"></div>
+
+  <header class="relative z-10">
+    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <!-- logo placeholder (the real logo should be kept) -->
+        <div class="w-12 h-12 rounded-md bg-[color:var(--opt-bordeaux)] flex items-center justify-center text-white font-bold">OE</div>
+        <div>
+          <div class="text-lg font-semibold">Optimum Entreprise</div>
+          <div class="text-sm text-gray-500 dark:text-gray-300">Votre vision, notre mission digitale.</div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleTheme()" aria-label="Toggle dark mode" class="px-3 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-white/5 glass-card">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" class="inline-block">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <a href="#devis-form" class="px-4 py-2 rounded-full bg-[color:var(--opt-bordeaux)] text-white text-sm shadow">Demander un devis</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 max-w-6xl mx-auto px-6 py-12">
+    <section class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-[color:var(--opt-bordeaux)]">Offres pour hôtels — Design & performance</h1>
+      <p class="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Formules claires et packages complets pour transformer vos visiteurs en clients. Images volontairement laissées vides — ajoutez les vôtres.</p>
+    </section>
+
+    <!-- Cards -->
+    <section class="grid gap-6 md:grid-cols-3 mb-12">
+      <!-- Essentielle -->
+      <article class="relative p-6 rounded-2xl glass-card border border-white/10 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-xl font-semibold text-[color:var(--opt-bordeaux)]">OFFRE ESSENTIELLE</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Pour une présence professionnelle fiable et crédible.</p>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-extrabold text-[color:var(--opt-yellow)]">$499</div>
+            <div class="text-xs text-gray-400">One-shot</div>
+          </div>
+        </div>
+
+        <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+          <li>Page d’accueil moderne</li>
+          <li>Design responsive</li>
+          <li>Galerie photo & description des chambres</li>
+          <li>Formulaire de contact / réservation</li>
+          <li>Sécurisation du site</li>
+          <li>Intégration Google Maps & WhatsApp</li>
+          <li>Carte des récupérations des avis clients</li>
+          <li>Nom de domaine + hébergement offerts 1 an</li>
+          <li>Maintenance offerte (3 mois)</li>
+        </ul>
+
+        <!-- image placeholder: left intentionally empty -->
+        <div class="mt-4 rounded-lg overflow-hidden border border-white/6">
+          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/3 dark:to-white/2 flex items-center justify-center">
+            <img src="" alt="placeholder-essentielle" class="object-cover w-full h-full" />
+            <div class="absolute text-xs text-gray-400">Image placeholder — à remplacer</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+          <a href="#devis-form" class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">En savoir</a>
+          <button class="px-4 py-2 rounded-full bg-[color:var(--opt-yellow)] text-[color:var(--opt-bordeaux)] font-semibold" onclick="openDevis('Essentielle')">Choisir</button>
+        </div>
+      </article>
+
+      <!-- Premium -->
+      <article class="relative p-6 rounded-2xl border-2 border-[color:var(--opt-yellow)] shadow-xl bg-gradient-to-b from-white/60 to-white/30 dark:from-black/40 dark:to-black/30 transform hover:-translate-y-1 transition">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-xl font-semibold text-[color:var(--opt-bordeaux)]">OFFRE PREMIUM</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Notre formule la plus équilibrée. Pour attirer plus de clients.</p>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-extrabold text-[color:var(--opt-yellow)]">$999</div>
+            <div class="text-xs text-gray-400">One-shot</div>
+          </div>
+        </div>
+
+        <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+          <li>Tout dans l'Essentielle +</li>
+          <li>Design premium sur mesure</li>
+          <li>Système de réservation simple (sans paiement)</li>
+          <li>Fiches chambres modernes</li>
+          <li>Intégration des avis & témoignages</li>
+          <li>Optimisation Google Business & Google Hotels</li>
+          <li>Sécurité renforcée</li>
+          <li>Nom de domaine + hébergement + boîte mail pro (4 GB) offerts 1 an</li>
+          <li>Maintenance offerte (6 mois)</li>
+          <li>Campagne Facebook Ads (2 mois) : Atteinte de 10.000 Abonnés</li>
+        </ul>
+
+        <!-- modern media placeholder -->
+        <div class="mt-4 grid grid-cols-2 gap-2">
+          <div class="h-24 rounded-lg border border-[color:var(--opt-bordeaux)] overflow-hidden bg-white/5 flex items-center justify-center">
+            <img src="" alt="placeholder-premium-1" class="w-full h-full object-cover" />
+          </div>
+          <div class="h-24 rounded-lg border border-[color:var(--opt-bordeaux)] overflow-hidden bg-white/5 flex items-center justify-center">
+            <img src="" alt="placeholder-premium-2" class="w-full h-full object-cover" />
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+          <a href="#devis-form" class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">En savoir</a>
+          <button class="px-4 py-2 rounded-full bg-[color:var(--opt-bordeaux)] text-white font-semibold" onclick="openDevis('Premium')">Choisir</button>
+        </div>
+      </article>
+
+      <!-- Prestige -->
+      <article class="relative p-6 rounded-2xl glass-card border border-white/8 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 class="text-xl font-semibold text-[color:var(--opt-bordeaux)]">OFFRE PRESTIGE</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Pour les hôtels qui veulent se positionner clairement au-dessus de la concurrence.</p>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-extrabold text-[color:var(--opt-yellow)]">$1999</div>
+            <div class="text-xs text-gray-400">One-shot</div>
+          </div>
+        </div>
+
+        <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
+          <li>Tout dans le Premium +</li>
+          <li>Design haut standing (style hôtel international)</li>
+          <li>Système complet de réservation (avec ou sans paiement en ligne)</li>
+          <li>Animations premium</li>
+          <li>Optimisation SEO avancée</li>
+          <li>Nom de domaine + hébergement + boîte mail pro (10GB) offerts 2 ans</li>
+          <li>Campagne Facebook Ads + Certification (6 mois)</li>
+          <li>Support technique VIP 24h/24, 7j/7</li>
+        </ul>
+
+        <!-- image placeholder -->
+        <div class="mt-4 rounded-lg overflow-hidden border border-white/6">
+          <div class="w-full h-40 bg-gradient-to-br from-white/6 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
+            <img src="" alt="placeholder-prestige" class="object-cover w-full h-full" />
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between">
+          <a href="#devis-form" class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">En savoir</a>
+          <button class="px-4 py-2 rounded-full bg-amber-700 text-white font-semibold" onclick="openDevis('Prestige')">Choisir</button>
+        </div>
+      </article>
+    </section>
+
+    <!-- Gallery: sites réalisés récemment -->
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-[color:var(--opt-bordeaux)]">Sites récents</h2>
+        <a href="#" class="text-sm text-gray-500 dark:text-gray-300"></a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Each card is a modern 'case' with image placeholder and overlay -->
+        <div class="relative rounded-xl overflow-hidden shadow-lg group">
+          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
+            <img src="" alt="recent-site-1" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
+            <div class="text-sm text-white">Hôtel Le Rivage — Kisangani</div>
+          </div>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden shadow-lg group">
+          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
+            <img src="" alt="recent-site-2" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
+            <div class="text-sm text-white">Maison d'hôtes Plaza</div>
+          </div>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden shadow-lg group">
+          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
+            <img src="" alt="recent-site-3" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
+            <div class="text-sm text-white">Résidence Harmonie</div>
+          </div>
+        </div>
+
+        <div class="relative rounded-xl overflow-hidden shadow-lg group">
+          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
+            <img src="" alt="recent-site-4" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
+            <div class="text-sm text-white">Auberge du Voyageur</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additionnelles -->
+    <section class="mb-12 grid md:grid-cols-3 gap-4">
+      <div class="p-4 rounded-xl border bg-white/60 glass-card">
+        <h4 class="font-semibold text-[color:var(--opt-bordeaux)]">Advertising Campaign</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">Publicité ciblée sur voyageurs & visuels professionnels. Rapports et suivi.</p>
+      </div>
+      <div class="p-4 rounded-xl border bg-white/60 glass-card">
+        <h4 class="font-semibold text-[color:var(--opt-bordeaux)]">Shooting photo professionnel</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">Prix : <strong class="text-[color:var(--opt-yellow)]">$120</strong></p>
+      </div>
+      <div class="p-4 rounded-xl border bg-white/60 glass-card">
+        <h4 class="font-semibold text-[color:var(--opt-bordeaux)]">Vidéo courte promo</h4>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">Prix : <strong class="text-[color:var(--opt-yellow)]">$120</strong></p>
+      </div>
+    </section>
+
+    <!-- Devis -->
+    <section id="devis-form" class="p-6 rounded-xl border bg-white/60 glass-card">
+      <h3 class="text-lg font-semibold text-[color:var(--opt-bordeaux)]">Demande de devis</h3>
+      <form id="offres-devis" class="mt-4 grid gap-3">
+        <input id="form-name" type="text" placeholder="Nom complet" class="w-full border rounded px-3 py-2 bg-transparent" required />
+        <input id="form-email" type="email" placeholder="Email" class="w-full border rounded px-3 py-2 bg-transparent" required />
+        <select id="form-service" class="w-full border rounded px-3 py-2 bg-transparent">
+          <option>Site Internet - E-vitrine</option>
+          <option>Offre Essentielle</option>
+          <option>Offre Premium</option>
+          <option>Offre Prestige</option>
+        </select>
+        <textarea id="form-message" placeholder="Message / Détails" class="w-full border rounded px-3 py-2 bg-transparent"></textarea>
+        <div class="flex justify-end gap-3">
+          <button type="reset" class="px-4 py-2 rounded border">Annuler</button>
+          <button type="submit" class="px-4 py-2 rounded bg-[color:var(--opt-bordeaux)] text-white font-semibold">Envoyer la demande</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
+    © Optimum Entreprise — Votre vision, notre mission digitale.
+  </footer>
+
+  <script>
+    // helper pour le bouton Choisir
+    function openDevis(plan){
+      const sel = document.getElementById('form-service');
+      if(sel) sel.value = 'Offre ' + plan;
+      const target = document.getElementById('devis-form');
+      if(target) target.scrollIntoView({behavior:'smooth'});
+      else alert('Vous avez choisi : ' + plan);
+    }
+
+    // simulate form submit
+    document.getElementById('offres-devis').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Merci — votre demande de devis a été envoyée.');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
