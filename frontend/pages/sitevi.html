@@ -30,14 +30,6 @@
     .dark .glass-card {
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
     }
-
-    /* Prevent horizontal overflow on small screens (fix mobile débordement) */
-    html, body { overflow-x: hidden; }
-
-    /* Ensure blobs never cause horizontal scroll on very small widths */
-    @media (max-width: 640px) {
-      .blob { left: -30px !important; right: auto !important; filter: blur(40px); opacity: 0.25; }
-    }
   </style>
 </head>
 <body class="bg-gradient-to-b from-gray-50 to-white text-gray-900 antialiased transition-colors duration-300">
