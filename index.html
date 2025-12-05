@@ -166,6 +166,12 @@
         }
         nav a:hover::after { width: 100%; }
 
+        /* Mobile cursor disabled */
+        @media (max-width: 768px) {
+            .cursor-dot, .cursor-outline { display: none !important; }
+            * { cursor: auto !important; }
+        }
+
         /* --- 5. HERO SECTION (CANVAS) --- */
         .hero {
             position: relative;
@@ -408,6 +414,19 @@
         .t-author { font-weight: 700; color: var(--c-gold); }
         .t-role { font-size: 0.8rem; color: #666; }
 
+        /* Slider responsive */
+        .slider-container {
+            overflow: hidden; white-space: nowrap; padding: 2rem 0;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            .slider-container {
+                padding: 1.5rem 0;
+                mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            }
+        }
+
         /* --- 11. CONTACT --- */
         .contact { background: url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop') center/cover fixed; position: relative; }
         .contact::before { content: ''; position: absolute; inset: 0; background: rgba(5,5,5,0.9); }
@@ -460,18 +479,88 @@
         .f-col a:hover { color: var(--c-white); }
         .f-bottom { text-align: center; font-size: 0.8rem; color: #444; border-top: 1px solid #111; padding-top: 2rem; }
 
+        /* Footer responsive */
+        @media (max-width: 768px) {
+            footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+            .f-logo h3 {
+                font-size: 1.4rem;
+            }
+            .f-col h4 {
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+            }
+        }
+
         /* --- RESPONSIVE --- */
         @media (max-width: 1024px) {
             .portfolio-grid { grid-template-columns: 1fr 1fr; }
             .about-grid { grid-template-columns: 1fr; }
+            .section-padding { padding: 6rem 3%; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
-            .section-title { font-size: 2.5rem; }
-            .hero h1 { font-size: 3rem; }
-            .form-row { grid-template-columns: 1fr; }
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr; }
-            nav { display: none; } /* Mobile simplification */
+            .section-padding { padding: 3.5rem 1.5rem; }
+            .section-title { font-size: 2.2rem; }
+            .section-subtitle { font-size: 0.65rem; letter-spacing: 2px; }
+            .hero { height: auto; min-height: 100vh; padding-top: 5rem; }
+            .hero h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 1rem; }
+            .hero p { font-size: 0.95rem; margin-bottom: 1.5rem; }
+            .btn-group { flex-direction: column; gap: 0.8rem; }
+            .btn { padding: 0.75rem 1.5rem; font-size: 0.65rem; width: 100%; }
+            .about-txt h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+            .about-txt p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; }
+            .about-viz { height: 280px; margin-top: 1.5rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .services-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .card-3d { padding: 1.5rem 1rem; }
+            .card-icon { font-size: 2rem; }
+            .card-3d h3 { font-size: 1.1rem; margin-bottom: 0.8rem; }
+            .card-3d p { font-size: 0.85rem; }
+            .form-row { grid-template-columns: 1fr; gap: 1rem; }
+            .form-group input, .form-group select, .form-group textarea { font-size: 1rem; padding: 0.8rem 0; }
+            .portfolio-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .project-item { height: 280px; }
+            .project-title { font-size: 1.2rem; }
+            .project-cat { font-size: 0.7rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .f-logo h3 { font-size: 1.3rem; }
+            .f-col h4 { margin-bottom: 1rem; font-size: 0.8rem; }
+            .f-col ul { margin-bottom: 1rem; }
+            .f-col li { margin-bottom: 0.5rem; font-size: 0.85rem; }
+            .f-col a { font-size: 0.85rem; }
+            .f-bottom { font-size: 0.7rem; }
+            .why-grid { flex-direction: column; gap: 2rem; }
+            .why-item { min-width: 100%; max-width: 100%; }
+            .why-number { font-size: 2.5rem; }
+            .why-item h4 { font-size: 0.95rem; }
+            .why-item p { font-size: 0.85rem; }
+            .testimonial-card { width: 280px; padding: 1.5rem; margin-right: 1rem; }
+            .t-quote { font-size: 0.9rem; margin-bottom: 1rem; }
+            .t-author { font-size: 0.9rem; }
+            .t-role { font-size: 0.75rem; }
+            .contact-form-wrapper { padding: 2rem 1rem; }
+            .contact-form-wrapper .section-header { margin-bottom: 1.5rem; }
+            .form-group { margin-bottom: 1.5rem; }
+            header { padding: 1rem 1.5rem; }
+            header.scrolled { padding: 0.75rem 1.5rem; }
+            .logo { font-size: 1rem; letter-spacing: 1px; }
+            nav { display: none; }
+        }
+        @media (max-width: 480px) {
+            .section-padding { padding: 2.5rem 1rem; }
+            .hero { min-height: 80vh; padding-top: 4rem; }
+            .hero h1 { font-size: 1.5rem; }
+            .hero p { font-size: 0.85rem; }
+            .btn { padding: 0.65rem 1.2rem; font-size: 0.6rem; }
+            .section-title { font-size: 1.8rem; }
+            .about-viz { height: 200px; }
+            .about-txt h2 { font-size: 1.5rem; }
+            .card-icon { font-size: 1.8rem; }
+            .project-item { height: 200px; }
+            .project-title { font-size: 1rem; }
+            .testimonial-card { width: 100%; max-width: 280px; }
         }
     </style>
 
@@ -633,7 +722,7 @@
                     </div>
                 </div>
                 <div class="project-item reveal-y stagger-2">
-                    <img src="./frontend//images/ac.png" class="project-img" alt="Project 3">
+                    <img src="./frontend/images/ac.png" class="project-img" alt="Project 3">
                     <div class="project-overlay">
                         <span class="project-cat">E-Commerce</span>
                         <h3 class="project-title">Congo LUXE</h3>
@@ -764,9 +853,9 @@
                     </div>
                     <div style="text-align: center;">
                         <button type="submit" class="btn btn-filled" style="width: 100%;">Envoyer la demande</button>
-                        <!--<p style="margin-top: 1rem; color: #aaa; font-size: 0.9rem;">Ou contactez-nous directement :</p>
-                        <a href="https://wa.me/243840665620" target="_blank" rel="noopener noreferrer" class="btn btn-filled" style="width: 100%; background: #22c55e; border-color: #22c55e; margin-top: 0.5rem;">
-                            <span>💬 WhatsApp</span>-->
+                        <p style="margin-top: 1rem; color: #aaa; font-size: 0.9rem;">Ou contactez-nous :</p>
+                        <a href="https://wa.me/243840665620" target="_blank" rel="noopener noreferrer" class="btn btn-filled" style="width: 100%; background: #22c55e; border-color: #22c55e; margin-top: 0.5rem; display: inline-block; text-align: center;">
+                            💬 WhatsApp
                         </a>
                     </div>
                     <div id="form-success">Message envoyé avec succès !</div>
