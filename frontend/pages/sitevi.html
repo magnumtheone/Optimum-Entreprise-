@@ -1,321 +1,382 @@
-
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Offres — Optimum Entreprise</title>
+  <title>Offres Site Vitrine – Optimum Entreprise</title>
+  
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root{
-      --opt-bordeaux: #5d1212;
-      --opt-yellow: #f6c85f;
-      --glass: rgba(255,255,255,0.06);
-    }
-    /* Decorative blob backgrounds */
-    .blob {
-      position: absolute;
-      filter: blur(60px);
-      opacity: 0.35;
-      transform: translate3d(0,0,0);
-      z-index: 0;
-    }
-    /* Glass card fallback for non-supported browsers */
-    .glass-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      backdrop-filter: blur(8px);
-    }
-
-    /* Dark-mode support for elements that need custom colors */
-    .dark .glass-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-b from-gray-50 to-white text-gray-900 antialiased transition-colors duration-300">
-  <!-- Dark mode script toggles 'dark' on <html> for Tailwind dark: utilities -->
   <script>
-    // Initialize theme from localStorage or system preference
-    (function(){
-      const saved = localStorage.getItem('opt-theme');
-      if(saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)){
-        document.documentElement.classList.add('dark');
-        document.body.classList.add('bg-gray-900','text-gray-100');
-      } else {
-        document.documentElement.classList.remove('dark');
-        document.body.classList.remove('bg-gray-900','text-gray-100');
-      }
-    })();
-    function toggleTheme(){
-      const isDark = document.documentElement.classList.toggle('dark');
-      if(isDark){
-        document.body.classList.add('bg-gray-900','text-gray-100');
-        localStorage.setItem('opt-theme','dark');
-      } else {
-        document.body.classList.remove('bg-gray-900','text-gray-100');
-        localStorage.setItem('opt-theme','light');
+    // Configuration Tailwind unifiée avec la page principale (index.html)
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 
+              red: '#5d1212', // Bordeaux
+              gold: '#facc15', // Jaune Or
+              dark: '#0a0a0a' // Noir principal
+            },
+            // Ajout des couleurs spécifiques utilisées dans l'ancienne version pour l'unification
+            'opt-bordeaux': '#5d1212',
+            'opt-yellow': '#facc15'
+          },
+          fontFamily: {
+            display: ['Inter', 'sans-serif'] // Utilisation de la police Inter
+          },
+          boxShadow: { 
+            glow: '0 0 0 3px rgba(250,204,21,.35)' 
+          }
+        }
       }
     }
   </script>
 
-  <!-- Decorative background blobs -->
-  <div aria-hidden="true" class="blob" style="width:420px;height:420px;left:-80px;top:-80px;background:linear-gradient(135deg,#5d1212 0%, #f6c85f 100%);border-radius:50%;"></div>
-  <div aria-hidden="true" class="blob" style="width:320px;height:320px;right:-60px;top:120px;background:linear-gradient(135deg,#f6c85f 0%, #fecaca 100%);border-radius:50%;"></div>
+  <!-- Polices et Icônes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  
+  <!-- Styles Global et Glass Card Unifié -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a; /* brand-dark */
+      color: #e5e7eb; /* gray-200 */
+      line-height: 1.6;
+    }
+    
+    /* Decoration: Ajout des styles des blobs pour le fond */
+    .blob {
+      position: absolute;
+      filter: blur(80px); /* L'effet est plus subtil */
+      opacity: 0.25;
+      transform: translate3d(0,0,0);
+      z-index: 0;
+      pointer-events: none;
+    }
 
-  <header class="relative z-10">
-    <div class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <!-- logo placeholder (the real logo should be kept) -->
-        <div class="w-12 h-12 rounded-md bg-[color:var(--opt-bordeaux)] flex items-center justify-center text-white font-bold">OE</div>
-        <div>
-          <div class="text-lg font-semibold">Optimum Entreprise</div>
-          <div class="text-sm text-gray-500 dark:text-gray-300">Votre vision, notre mission digitale.</div>
-        </div>
-      </div>
+    /* Glass Card Unifié */
+    .glass-card {
+      /* Utilise un fond sombre pour la cohérence */
+      background: rgba(20, 20, 20, 0.7); /* dark mode: gray-900/70 */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .glass-card:hover {
+      border-color: rgba(250, 204, 21, 0.4); /* gold/40 on hover */
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    }
 
-      <div class="flex items-center gap-3">
-        <button onclick="toggleTheme()" aria-label="Toggle dark mode" class="px-3 py-2 rounded-full border border-gray-200 dark:border-gray-700 bg-white/60 dark:bg-white/5 glass-card">
-          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" class="inline-block">
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
-        <a href="#devis-form" class="px-4 py-2 rounded-full bg-[color:var(--opt-bordeaux)] text-white text-sm shadow">Demander un devis</a>
-      </div>
+    /* Style du Header pour l'unification */
+    #header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 50;
+        background-color: transparent;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #header.scrolled {
+        background-color: rgba(10, 10, 10, 0.95); /* brand-dark avec transparence */
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    .text-input {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: border-color 0.3s;
+    }
+    .text-input:focus {
+      border-color: #facc15; /* brand-gold */
+      outline: none;
+      box-shadow: 0 0 0 1px #facc15;
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+
+  <!-- Blocs de fond décoratifs (Blobs) -->
+  <div class="blob w-96 h-96 bg-brand-gold rounded-full top-[-10%] left-[-10%]"></div>
+  <div class="blob w-[30rem] h-[30rem] bg-brand-red rounded-full bottom-[-10%] right-[-10%]"></div>
+
+  <!-- Header unifié avec la page principale -->
+  <header id="header" class="py-4">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="../index.html" class="text-2xl font-bold font-display text-white tracking-widest flex items-center gap-2">
+        <i class="fa-solid fa-gem text-brand-gold"></i>
+        Optimum<span class="text-brand-gold">.</span>
+      </a>
+      <nav>
+        <a href="../index.html#services" class="text-gray-400 hover:text-brand-gold transition duration-200 text-sm">Retour aux Services</a>
+      </nav>
     </div>
   </header>
 
-  <main class="relative z-10 max-w-6xl mx-auto px-6 py-12">
-    <section class="text-center mb-8">
-      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight text-[color:var(--opt-bordeaux)]">Offres pour hôtels — Design & performance</h1>
-      <p class="mt-3 text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Formules claires et packages complets pour transformer vos visiteurs en clients. Images volontairement laissées vides — ajoutez les vôtres.</p>
-    </section>
-
-    <!-- Cards -->
-    <section class="grid gap-6 md:grid-cols-3 mb-12">
-      <!-- Essentielle -->
-      <article class="relative p-6 rounded-2xl glass-card border border-white/10 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-        <div class="flex items-start justify-between">
-          <div>
-            <h3 class="text-xl font-semibold text-[color:var(--opt-bordeaux)]">OFFRE ESSENTIELLE</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Pour une présence professionnelle fiable et crédible.</p>
+  <main class="relative z-10 pt-24 pb-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Hero Section -->
+      <header class="text-center py-16 reveal">
+        <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">Web & Présence</span>
+        <h1 class="text-5xl md:text-6xl font-extrabold mt-2 mb-4 font-display">
+            Des Sites Vitrines qui <span class="text-brand-gold">Convertissent</span>.
+        </h1>
+        <p class="max-w-3xl mx-auto text-lg text-gray-400">
+          Transformez votre vision en une présence en ligne percutante et professionnelle. Choisissez l'offre qui correspond à l'ambition de votre marque.
+        </p>
+      </header>
+    </div>
+    
+    <!-- Section des Plans Tarifaires -->
+    <section class="max-w-7xl mx-auto px-6 py-12">
+      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+        
+        <!-- Plan 1 : ESSENTIELLE -->
+        <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+          <div class="mb-6">
+            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Essentielle</h2>
+            <p class="text-sm text-gray-400 mb-4">Le meilleur départ pour les TPE et indépendants.</p>
+            <p class="text-4xl font-extrabold text-white mb-6">
+              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Dès</span> 499 €
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">1 Page (Landing Page)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Design moderne & Responsive</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Optimisation SEO de base</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Formulaire de contact simple</span>
+              </div>
+              <div class="flex items-start gap-3 text-gray-500 line-through">
+                <i class="fa-solid fa-xmark text-brand-red mt-1"></i>
+                <span class="text-gray-500">Blog ou Gestion de Contenu</span>
+              </div>
+            </div>
           </div>
-          <div class="text-right">
-            <div class="text-2xl font-extrabold text-[color:var(--opt-yellow)]">$499</div>
-            <div class="text-xs text-gray-400">One-shot</div>
-          </div>
+          <button onclick="openDevis('Essentielle')" class="w-full bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 rounded-lg mt-4 transition duration-200">
+            Choisir ce plan
+          </button>
         </div>
 
-        <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-          <li>Page d’accueil moderne</li>
-          <li>Design responsive</li>
-          <li>Galerie photo & description des chambres</li>
-          <li>Formulaire de contact / réservation</li>
-          <li>Sécurisation du site</li>
-          <li>Intégration Google Maps & WhatsApp</li>
-          <li>Carte des récupérations des avis clients</li>
-          <li>Nom de domaine + hébergement offerts 1 an</li>
-          <li>Maintenance offerte (3 mois)</li>
-        </ul>
-
-        <!-- image placeholder: left intentionally empty -->
-        <div class="mt-4 rounded-lg overflow-hidden border border-white/6">
-          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/3 dark:to-white/2 flex items-center justify-center">
-            <img src="" alt="placeholder-essentielle" class="object-cover w-full h-full" />
-            <div class="absolute text-xs text-gray-400">Image placeholder — à remplacer</div>
+        <!-- Plan 2 : PREMIUM (Mis en avant) -->
+        <div class="glass-card p-6 rounded-xl flex flex-col justify-between border-2 border-brand-gold shadow-2xl shadow-brand-gold/10">
+          <div class="mb-6">
+            <div class="text-center mb-4">
+              <span class="inline-block bg-brand-gold text-brand-dark px-3 py-1 text-xs font-bold rounded-full uppercase">Le plus populaire</span>
+            </div>
+            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Premium</h2>
+            <p class="text-sm text-gray-400 mb-4">L'offre complète pour PME et professionnels ambitieux.</p>
+            <p class="text-5xl font-extrabold text-white mb-6">
+              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Dès</span> 999 €
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Jusqu'à 5 pages professionnelles</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Système de gestion de contenu (CMS)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Optimisation des performances (Vitesse)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Accès au Blog / Actualités</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">1h de formation à la prise en main</span>
+              </div>
+            </div>
           </div>
+          <button onclick="openDevis('Premium')" class="w-full bg-brand-gold hover:bg-brand-gold/80 text-brand-dark font-bold py-3 rounded-lg mt-4 transition duration-200 shadow-lg shadow-brand-gold/20">
+            Choisir ce plan
+          </button>
         </div>
 
-        <div class="mt-6 flex items-center justify-between">
-          <a href="#devis-form" class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">En savoir</a>
-          <button class="px-4 py-2 rounded-full bg-[color:var(--opt-yellow)] text-[color:var(--opt-bordeaux)] font-semibold" onclick="openDevis('Essentielle')">Choisir</button>
+        <!-- Plan 3 : PRESTIGE -->
+        <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+          <div class="mb-6">
+            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Prestige</h2>
+            <p class="text-sm text-gray-400 mb-4">Le site sur-mesure pour les structures exigeantes.</p>
+            <p class="text-4xl font-extrabold text-white mb-6">
+              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Dès</span> 1999 €
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Pages illimitées</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Fonctionnalités spécifiques (multi-langue, portail)</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Design UX/UI personnalisé</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Intégration CRM / outils tiers</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Audit et stratégie SEO avancée</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="openDevis('Prestige')" class="w-full bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 rounded-lg mt-4 transition duration-200">
+            Choisir ce plan
+          </button>
         </div>
-      </article>
-
-      <!-- Premium -->
-      <article class="relative p-6 rounded-2xl border-2 border-[color:var(--opt-yellow)] shadow-xl bg-gradient-to-b from-white/60 to-white/30 dark:from-black/40 dark:to-black/30 transform hover:-translate-y-1 transition">
-        <div class="flex items-start justify-between">
-          <div>
-            <h3 class="text-xl font-semibold text-[color:var(--opt-bordeaux)]">OFFRE PREMIUM</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Notre formule la plus équilibrée. Pour attirer plus de clients.</p>
+        
+        <!-- Plan 4 : SUR-MESURE (Nouveau style pour plus de cohérence) -->
+        <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+          <div class="mb-6">
+            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Sur-Mesure</h2>
+            <p class="text-sm text-gray-400 mb-4">Pour une solution unique sans les contraintes d'une offre standard.</p>
+            <p class="text-4xl font-extrabold text-white mb-6">
+              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Prix sur</span> Devis
+            </p>
+            <div class="space-y-3">
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-star text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Idéal pour les projets complexes.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-star text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Applications Web personnalisées.</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <i class="fa-solid fa-star text-brand-gold mt-1"></i>
+                <span class="text-gray-300">Soutien technique dédié.</span>
+              </div>
+            </div>
           </div>
-          <div class="text-right">
-            <div class="text-2xl font-extrabold text-[color:var(--opt-yellow)]">$999</div>
-            <div class="text-xs text-gray-400">One-shot</div>
-          </div>
-        </div>
-
-        <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-          <li>Tout dans l'Essentielle +</li>
-          <li>Design premium sur mesure</li>
-          <li>Système de réservation simple (sans paiement)</li>
-          <li>Fiches chambres modernes</li>
-          <li>Intégration des avis & témoignages</li>
-          <li>Optimisation Google Business & Google Hotels</li>
-          <li>Sécurité renforcée</li>
-          <li>Nom de domaine + hébergement + boîte mail pro (4 GB) offerts 1 an</li>
-          <li>Maintenance offerte (6 mois)</li>
-          <li>Campagne Facebook Ads (2 mois) : Atteinte de 10.000 Abonnés</li>
-        </ul>
-
-        <!-- modern media placeholder -->
-        <div class="mt-4 grid grid-cols-2 gap-2">
-          <div class="h-24 rounded-lg border border-[color:var(--opt-bordeaux)] overflow-hidden bg-white/5 flex items-center justify-center">
-            <img src="" alt="placeholder-premium-1" class="w-full h-full object-cover" />
-          </div>
-          <div class="h-24 rounded-lg border border-[color:var(--opt-bordeaux)] overflow-hidden bg-white/5 flex items-center justify-center">
-            <img src="" alt="placeholder-premium-2" class="w-full h-full object-cover" />
-          </div>
-        </div>
-
-        <div class="mt-6 flex items-center justify-between">
-          <a href="#devis-form" class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">En savoir</a>
-          <button class="px-4 py-2 rounded-full bg-[color:var(--opt-bordeaux)] text-white font-semibold" onclick="openDevis('Premium')">Choisir</button>
-        </div>
-      </article>
-
-      <!-- Prestige -->
-      <article class="relative p-6 rounded-2xl glass-card border border-white/8 shadow-md hover:shadow-xl transition transform hover:-translate-y-1">
-        <div class="flex items-start justify-between">
-          <div>
-            <h3 class="text-xl font-semibold text-[color:var(--opt-bordeaux)]">OFFRE PRESTIGE</h3>
-            <p class="text-sm text-gray-500 dark:text-gray-300 mt-1">Pour les hôtels qui veulent se positionner clairement au-dessus de la concurrence.</p>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-extrabold text-[color:var(--opt-yellow)]">$1999</div>
-            <div class="text-xs text-gray-400">One-shot</div>
-          </div>
-        </div>
-
-        <ul class="mt-4 space-y-2 text-sm text-gray-700 dark:text-gray-200">
-          <li>Tout dans le Premium +</li>
-          <li>Design haut standing (style hôtel international)</li>
-          <li>Système complet de réservation (avec ou sans paiement en ligne)</li>
-          <li>Animations premium</li>
-          <li>Optimisation SEO avancée</li>
-          <li>Nom de domaine + hébergement + boîte mail pro (10GB) offerts 2 ans</li>
-          <li>Campagne Facebook Ads + Certification (6 mois)</li>
-          <li>Support technique VIP 24h/24, 7j/7</li>
-        </ul>
-
-        <!-- image placeholder -->
-        <div class="mt-4 rounded-lg overflow-hidden border border-white/6">
-          <div class="w-full h-40 bg-gradient-to-br from-white/6 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
-            <img src="" alt="placeholder-prestige" class="object-cover w-full h-full" />
-          </div>
-        </div>
-
-        <div class="mt-6 flex items-center justify-between">
-          <a href="#devis-form" class="text-sm px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700">En savoir</a>
-          <button class="px-4 py-2 rounded-full bg-amber-700 text-white font-semibold" onclick="openDevis('Prestige')">Choisir</button>
-        </div>
-      </article>
-    </section>
-
-    <!-- Gallery: sites réalisés récemment -->
-    <section class="mb-12">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-bold text-[color:var(--opt-bordeaux)]">Sites récents</h2>
-        <a href="#" class="text-sm text-gray-500 dark:text-gray-300"></a>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Each card is a modern 'case' with image placeholder and overlay -->
-        <div class="relative rounded-xl overflow-hidden shadow-lg group">
-          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
-            <img src="" alt="recent-site-1" class="w-full h-full object-cover" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
-            <div class="text-sm text-white">Hôtel Le Rivage — Kisangani</div>
-          </div>
-        </div>
-
-        <div class="relative rounded-xl overflow-hidden shadow-lg group">
-          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
-            <img src="" alt="recent-site-2" class="w-full h-full object-cover" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
-            <div class="text-sm text-white">Maison d'hôtes Plaza</div>
-          </div>
-        </div>
-
-        <div class="relative rounded-xl overflow-hidden shadow-lg group">
-          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
-            <img src="" alt="recent-site-3" class="w-full h-full object-cover" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
-            <div class="text-sm text-white">Résidence Harmonie</div>
-          </div>
-        </div>
-
-        <div class="relative rounded-xl overflow-hidden shadow-lg group">
-          <div class="w-full h-40 bg-gradient-to-br from-white/5 to-white/3 dark:from-white/4 dark:to-white/2 flex items-center justify-center">
-            <img src="" alt="recent-site-4" class="w-full h-full object-cover" />
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition flex items-end p-3">
-            <div class="text-sm text-white">Auberge du Voyageur</div>
-          </div>
+          <button onclick="openDevis('Sur-Mesure')" class="w-full bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 rounded-lg mt-4 transition duration-200">
+            Demander un devis
+          </button>
         </div>
       </div>
     </section>
 
-    <!-- Additionnelles -->
-    <section class="mb-12 grid md:grid-cols-3 gap-4">
-      <div class="p-4 rounded-xl border bg-white/60 glass-card">
-        <h4 class="font-semibold text-[color:var(--opt-bordeaux)]">Advertising Campaign</h4>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">Publicité ciblée sur voyageurs & visuels professionnels. Rapports et suivi.</p>
-      </div>
-      <div class="p-4 rounded-xl border bg-white/60 glass-card">
-        <h4 class="font-semibold text-[color:var(--opt-bordeaux)]">Shooting photo professionnel</h4>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">Prix : <strong class="text-[color:var(--opt-yellow)]">$120</strong></p>
-      </div>
-      <div class="p-4 rounded-xl border bg-white/60 glass-card">
-        <h4 class="font-semibold text-[color:var(--opt-bordeaux)]">Vidéo courte promo</h4>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">Prix : <strong class="text-[color:var(--opt-yellow)]">$120</strong></p>
-      </div>
-    </section>
-
-    <!-- Devis -->
-    <section id="devis-form" class="p-6 rounded-xl border bg-white/60 glass-card">
-      <h3 class="text-lg font-semibold text-[color:var(--opt-bordeaux)]">Demande de devis</h3>
-      <form id="offres-devis" class="mt-4 grid gap-3">
-        <input id="form-name" type="text" placeholder="Nom complet" class="w-full border rounded px-3 py-2 bg-transparent" required />
-        <input id="form-email" type="email" placeholder="Email" class="w-full border rounded px-3 py-2 bg-transparent" required />
-        <select id="form-service" class="w-full border rounded px-3 py-2 bg-transparent">
-          <option>Site Internet - E-vitrine</option>
-          <option>Offre Essentielle</option>
-          <option>Offre Premium</option>
-          <option>Offre Prestige</option>
+    <!-- Section du Formulaire de Devis (Unifié) -->
+    <section id="devis-form" class="max-w-3xl mx-auto px-6 py-16">
+      <h2 class="text-3xl font-bold text-center mb-8 font-display">
+        Demandez votre Devis Personnalisé
+      </h2>
+      <form class="glass-card p-8 rounded-xl space-y-4" onsubmit="handleFormSubmit(event)">
+        
+        <input type="text" id="form-name" placeholder="Votre Nom / Nom de l'entreprise" required class="text-input w-full rounded p-3" />
+        <input type="email" id="form-email" placeholder="Votre Email" required class="text-input w-full rounded p-3" />
+        
+        <!-- Champ de l'Offre Pré-sélectionnée -->
+        <select id="form-service" class="text-input w-full rounded p-3">
+          <option value="" disabled selected>Choisissez l'offre qui vous intéresse...</option>
+          <option value="Offre Essentielle">Offre Essentielle</option>
+          <option value="Offre Premium">Offre Premium</option>
+          <option value="Offre Prestige">Offre Prestige</option>
+          <option value="Sur-Mesure">Projet Sur-Mesure</option>
         </select>
-        <textarea id="form-message" placeholder="Message / Détails" class="w-full border rounded px-3 py-2 bg-transparent"></textarea>
-        <div class="flex justify-end gap-3">
-          <button type="reset" class="px-4 py-2 rounded border">Annuler</button>
-          <button type="submit" class="px-4 py-2 rounded bg-[color:var(--opt-bordeaux)] text-white font-semibold">Envoyer la demande</button>
+        
+        <textarea id="form-message" placeholder="Décrivez votre projet et vos attentes (détails, objectifs, budget)" required class="text-input w-full rounded p-3 h-32"></textarea>
+        
+        <div class="flex justify-end gap-3 pt-4">
+          <button type="reset" class="px-6 py-2 rounded-lg border border-gray-700 text-gray-400 hover:text-white hover:border-white/50 transition duration-200">Annuler</button>
+          
+          <!-- CTA principale en GOLD -->
+          <button type="submit" class="px-6 py-2 rounded-lg bg-brand-gold text-brand-dark font-bold hover:bg-brand-gold/90 transition duration-200 shadow-md">
+            Envoyer la demande
+          </button>
+        </div>
+        <div id="form-toast" class="hidden mt-4 p-3 bg-green-900/50 text-green-300 border border-green-700 rounded-lg text-sm">
+            Message envoyé ! Nous vous recontacterons très vite.
         </div>
       </form>
     </section>
 
   </main>
 
-  <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">
-    © Optimum Entreprise — Votre vision, notre mission digitale.
+  <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-900">
+    © <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.
   </footer>
 
   <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
     // helper pour le bouton Choisir
     function openDevis(plan){
       const sel = document.getElementById('form-service');
       if(sel) sel.value = 'Offre ' + plan;
+      
+      // Si c'est l'option "Sur-Mesure" on sélectionne l'option sans le préfixe "Offre"
+      if(plan === 'Sur-Mesure') {
+          sel.value = 'Sur-Mesure';
+      }
+
       const target = document.getElementById('devis-form');
       if(target) target.scrollIntoView({behavior:'smooth'});
-      else alert('Vous avez choisi : ' + plan);
     }
 
-    // simulate form submit
-    document.getElementById('offres-devis').addEventListener('submit', function(e){
+    // Gestion de l'envoi du formulaire (Simulation)
+    function handleFormSubmit(e) {
       e.preventDefault();
-      alert('Merci — votre demande de devis a été envoyée.');
-      this.reset();
+      const form = e.target;
+      const btn = form.querySelector('button[type="submit"]');
+      const toast = document.getElementById('form-toast');
+      const originalText = btn.innerText;
+      
+      // Animation du bouton
+      btn.innerText = "Envoi...";
+      btn.disabled = true;
+
+      // Simulation de l'envoi (vous remplacerez ceci par votre vraie logique de soumission)
+      setTimeout(() => {
+          // Affichage du message de succès
+          toast.classList.remove('hidden');
+          toast.classList.add('animate-fadeIn');
+          
+          // Réinitialisation du formulaire et du bouton
+          form.reset();
+          btn.innerText = originalText;
+          btn.disabled = false;
+          
+          // Masquage du toast après 4 secondes
+          setTimeout(() => {
+              toast.classList.add('hidden');
+              toast.classList.remove('animate-fadeIn');
+          }, 4000);
+      }, 1500);
+    }
+    
+    // Logique du Header au Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if(window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
     });
+
   </script>
 </body>
 </html>

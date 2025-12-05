@@ -171,6 +171,17 @@
             z-index: 0;
             filter: blur(40px);
         }
+
+        /* Styles spécifiques pour l'animation du menu déroulant (inclus dans la réponse précédente) */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+        
+        /* ... (Keep existing styles) ... */
     </style>
 </head>
 <body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
@@ -304,18 +315,39 @@
                 <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Des solutions complètes pour chaque étape de votre croissance numérique.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="glass-card p-8 rounded-2xl reveal">
-                    <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl">
-                        <i class="fa-solid fa-globe"></i>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 : Développement Web (AVEC MENU INTERACTIF) -->
+                <div class="glass-card p-8 rounded-2xl reveal relative z-40" id="web-dev-card">
+                    <div class="cursor-pointer group" onclick="toggleWebMenu(event)">
+                        <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl pointer-events-none">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 font-display flex justify-between items-center select-none">
+                            Développement Web
+                            <i class="fa-solid fa-chevron-down text-xs text-brand-gold opacity-50 group-hover:opacity-100 transition-all duration-300" id="web-menu-arrow"></i>
+                        </h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4 pointer-events-none">Sites vitrines, e-commerce et applications web sur-mesure. Rapides, sécurisés et optimisés.</p>
+                        <ul class="text-xs text-gray-500 space-y-2 pointer-events-none">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Responsive Design</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> UX/UI Moderne</li>
+                        </ul>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 font-display">Développement Web</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-4">Sites vitrines, e-commerce et applications web sur-mesure. Rapides, sécurisés et optimisés.</p>
-                    <ul class="text-xs text-gray-500 space-y-2">
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Responsive Design</li>
-                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> UX/UI Moderne</li>
-                    </ul>
+
+                    <!-- Dropdown Menu (Menu Déroulant) -->
+                    <div id="web-menu" class="hidden absolute left-0 top-full mt-2 w-full glass-panel rounded-xl p-2 z-50 shadow-[0_10px_40px_rgba(0,0,0,0.7)] border border-brand-gold/20 transform transition-all duration-200 origin-top scale-95 opacity-0">
+                        <a href="./frontend/pages/sitevi.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-brand-gold rounded-lg transition-colors group">
+                            <div class="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center"><i class="fa-solid fa-laptop text-brand-red group-hover:text-brand-gold transition-colors"></i></div>
+                            <span>Site Vitrine (Présentation)</span>
+                        </a>
+                        <a href="pages/e-commerce.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-brand-gold rounded-lg transition-colors group">
+                            <div class="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center"><i class="fa-solid fa-cart-shopping text-brand-red group-hover:text-brand-gold transition-colors"></i></div>
+                            <span>E-commerce (Boutique en ligne)</span>
+                        </a>
+                        <a href="pages/app-web.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-brand-gold rounded-lg transition-colors group">
+                            <div class="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center"><i class="fa-solid fa-code text-brand-red group-hover:text-brand-gold transition-colors"></i></div>
+                            <span>Application Web (Sur-mesure)</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Card 2 -->
@@ -544,7 +576,7 @@
                 <div class="flex items-center gap-3">
                     <div class="relative">
                         <div class="w-10 h-10 rounded-full bg-black border border-brand-gold p-0.5 overflow-hidden">
-                            <img src="../images/off.png" class="w-full h-full object-contain">
+                            <img src="./frontend/images/offbg.png" class="w-full h-full object-contain">
                         </div>
                         <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-black"></div>
                     </div>
@@ -898,8 +930,54 @@
             }, 1500);
         });
 
+        // --- 6. WEB DEV MENU LOGIC (Ajouter ce bloc) ---
+        function toggleWebMenu(e) {
+            e.stopPropagation(); // Empêche l'événement de se propager à la fenêtre (qui ferme le menu)
+            const menu = document.getElementById('web-menu');
+            const arrow = document.getElementById('web-menu-arrow');
+            
+            if (menu.classList.contains('hidden')) {
+                // Ouvrir le menu
+                menu.classList.remove('hidden');
+                // Nécessaire pour que l'animation CSS se déclenche
+                setTimeout(() => {
+                    menu.classList.remove('scale-95', 'opacity-0');
+                    menu.classList.add('scale-100', 'opacity-100');
+                }, 10);
+                arrow.style.transform = 'rotate(180deg)';
+                arrow.style.opacity = '1';
+            } else {
+                // Fermer le menu
+                menu.classList.remove('scale-100', 'opacity-100');
+                menu.classList.add('scale-95', 'opacity-0');
+                arrow.style.transform = 'rotate(0deg)';
+                // Masquer complètement après la fin de l'animation
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 200);
+            }
+        }
+
+        // Fermer le menu lorsque l'utilisateur clique n'importe où ailleurs sur la page
+        document.addEventListener('click', (e) => {
+            const card = document.getElementById('web-dev-card');
+            const menu = document.getElementById('web-menu');
+            const arrow = document.getElementById('web-menu-arrow');
+            
+            // Si le clic n'est pas dans la carte et que le menu est ouvert
+            if (card && !card.contains(e.target) && menu && !menu.classList.contains('hidden')) {
+                menu.classList.remove('scale-100', 'opacity-100');
+                menu.classList.add('scale-95', 'opacity-0');
+                if(arrow) arrow.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 200);
+            }
+        });
+
         // Footer Year
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
+
 </body>
 </html>

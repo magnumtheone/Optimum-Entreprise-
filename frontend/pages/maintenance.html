@@ -1,213 +1,417 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr" class="scroll-smooth dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Formation Maintenance & Sécurité IT – Optimum Entreprise</title>
 
-  <!-- Tailwind + palette -->
+  <!-- Tailwind CDN + config palette unifiée -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          colors: { brand: { red: '#5d1212', yellow: '#facc15' } },
-          boxShadow: { glow: '0 0 0 3px rgba(250,204,21,.35)' }
+          colors: {
+            brand: { 
+              red: '#5d1212', // Bordeaux
+              gold: '#facc15', // Jaune Or (Utilisation principale pour CTA)
+              dark: '#0a0a0a' // Noir principal
+            },
+          },
+          fontFamily: {
+            display: ['Inter', 'sans-serif'] // Utilisation de la police Inter
+          },
+          boxShadow: {
+            glow: '0 0 0 3px rgba(250,204,21,.35)'
+          }
         }
       }
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Styles Global et Glass Card Unifié -->
   <style>
-    body{font-family:'Inter',sans-serif}
-    .message-box{position:fixed;top:20px;right:20px;background:#22c55e;color:#fff;padding:12px 16px;border-radius:12px;z-index:1000;display:none;box-shadow:0 10px 30px -10px rgba(0,0,0,.3)}
-    .lds-dual-ring{display:inline-block;width:20px;height:20px}
-    .lds-dual-ring:after{content:" ";display:block;width:16px;height:16px;margin:2px;border-radius:50%;border:3px solid #fff;border-color:#fff transparent #fff transparent;animation:lds 1.2s linear infinite}
-    @keyframes lds{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a; /* brand-dark */
+      color: #e5e7eb; /* gray-200 */
+      line-height: 1.6;
+      /* Empêche le défilement horizontal */
+      overflow-x: hidden;
+    }
+    
+    /* Decoration: Ajout des styles des blobs pour le fond */
+    .blob {
+      position: absolute;
+      filter: blur(80px); /* L'effet est plus subtil */
+      opacity: 0.25;
+      transform: translate3d(0,0,0);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Glass Card Unifié */
+    .glass-card {
+      background: rgba(20, 20, 20, 0.7); /* dark mode: gray-900/70 */
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+    
+    .glass-card-light {
+      background: rgba(40, 40, 40, 0.8); /* Pour les éléments secondaires */
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    
+    /* Style du Header pour l'unification */
+    #header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 50;
+        background-color: transparent;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #header.scrolled {
+        background-color: rgba(10, 10, 10, 0.95); /* brand-dark avec transparence */
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Style des inputs unifié */
+    .text-input {
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: border-color 0.3s;
+    }
+    .text-input:focus {
+      border-color: #facc15; /* brand-gold */
+      outline: none;
+      box-shadow: 0 0 0 1px #facc15;
+    }
+
+    /* Message de succès/erreur flottant */
+    .message-box{
+      position:fixed;
+      top:20px;
+      right:20px;
+      background:#22c55e;
+      color:#fff;
+      padding:12px 16px;
+      border-radius:8px;
+      z-index:100;
+      box-shadow:0 4px 12px rgba(0,0,0,.1);
+      display:none; /* Caché par défaut */
+    }
+
+    /* Style spécifique pour le select pour le rendre cohérent */
+    .select-input {
+        appearance: none; /* Supprimer le style par défaut sur certains navigateurs */
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%239ca3af'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.7rem center;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem; /* Espace pour l'icône */
+    }
   </style>
 </head>
-<body class="bg-gradient-to-b from-white to-amber-50/40 text-gray-800 dark:from-[#0b0f14] dark:to-[#0b0f14] dark:text-gray-100">
 
-  <!-- Header local -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-white/75 dark:bg-[#0b0f14]/80 border-b border-brand-red/10">
-    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-3 group">
-        <img src="../images/off.png" class="h-10 w-10 rounded-full ring-2 ring-brand-yellow bg-white" alt="Logo Optimum"/>
-        <span class="font-extrabold text-brand-red group-hover:underline decoration-brand-yellow/70">Optimum Entreprise</span>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+
+  <!-- Message de succès flottant -->
+  <div id="form-message" class="message-box"></div>
+
+  <!-- Blocs de fond décoratifs (Blobs) -->
+  <div class="blob w-96 h-96 bg-brand-gold rounded-full top-[-10%] left-[-10%]"></div>
+  <div class="blob w-[30rem] h-[30rem] bg-brand-red rounded-full bottom-[-10%] right-[-10%]"></div>
+
+  <!-- Header unifié -->
+  <header id="header" class="py-4">
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <a href="../index.html" class="text-2xl font-bold font-display text-white tracking-widest flex items-center gap-2">
+        <!-- Remplacement de l'icône Font Awesome par l'image du logo -->
+        <img src="../images/off.png" alt="Logo Optimum" class="h-6 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/24x24/5d1212/ffffff?text=O';" />
+        Optimum<span class="text-brand-gold">.</span>
       </a>
-      <div class="flex items-center gap-2">
-        <a href="#inscription-form" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-red text-white font-semibold hover:bg-[#4b0e0e] transition">
-          <i class="fa-solid fa-shield-halved"></i> S'inscrire
-        </a>
-        <button id="dark-toggle" class="w-10 h-10 rounded-full border border-white/20 text-brand-red dark:text-yellow-300 hover:shadow-glow" aria-label="Basculer le thème">
-          <i class="fa-solid fa-moon"></i>
-        </button>
-      </div>
+      <nav>
+        <a href="../index.html#services" class="text-gray-400 hover:text-brand-gold transition duration-200 text-sm">Retour aux Services</a>
+      </nav>
     </div>
   </header>
-
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 opacity-20 bg-[radial-gradient(60%_50%_at_50%_0%,rgba(250,204,21,.35),transparent_70%)]"></div>
-    <div class="max-w-6xl mx-auto px-6 pt-10 pb-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-brand-red">Formation Maintenance & Sécurité IT</h1>
-      <p class="mt-3 text-lg md:text-xl text-gray-700 dark:text-gray-300">Protégez, entretenez et sécurisez vos systèmes informatiques professionnels.</p>
-      <div class="mt-6 inline-flex items-center gap-3 px-4 py-2 rounded-full bg-yellow-100 text-brand-red ring-1 ring-yellow-300 dark:bg-yellow-500/15 dark:ring-yellow-400/40">
-        <i class="fa-solid fa-clock"></i> 3 semaines • Présentiel ou en ligne • Certificat
-      </div>
+  
+  <main class="relative z-10 pt-24 pb-16 overflow-x-hidden"> <!-- Ajout de overflow-x-hidden pour la sécurité -->
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Hero Section -->
+      <header class="text-center py-16">
+        <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">Formation & Certification</span>
+        <h1 class="text-5xl md:text-6xl font-extrabold mt-2 mb-4 font-display">
+            Maintenance, <span class="text-brand-gold">Réseaux</span> & Sécurité
+        </h1>
+        <p class="max-w-3xl mx-auto text-lg text-gray-400">
+          Devenez un technicien informatique complet. Apprenez le dépannage matériel/logiciel, la gestion de réseaux, et les bases de la cybersécurité.
+        </p>
+      </header>
     </div>
-  </section>
 
-  <!-- Main grid -->
-  <main class="max-w-6xl mx-auto px-6 grid lg:grid-cols-3 gap-8 pb-16">
-    <!-- Colonne contenu -->
-    <article class="lg:col-span-2">
-      <div class="bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10 overflow-hidden">
-        <img src="../images/consult.jpg" alt="Maintenance IT" class="w-full h-64 md:h-80 object-cover"/>
-        <div class="p-6 md:p-8">
-          <h2 class="text-2xl md:text-3xl font-bold text-brand-red mb-3">Ce que vous allez apprendre</h2>
-          <ul class="space-y-3 text-[1.05rem] text-gray-700 dark:text-gray-200">
-            <li class="flex gap-3"><i class="fa-solid fa-screwdriver-wrench text-brand-yellow mt-1"></i><span><strong>Diagnostic & dépannage matériel</strong> (HDD/SSD, cartes mères, RAM) sur desktop & laptop.</span></li>
-            <li class="flex gap-3"><i class="fa-solid fa-rotate text-brand-yellow mt-1"></i><span><strong>Réinstallation & optimisation logicielle</strong> (Windows/macOS), anti-malwares, tuning performances.</span></li>
-            <li class="flex gap-3"><i class="fa-solid fa-database text-brand-yellow mt-1"></i><span><strong>Sauvegarde & restauration</strong> : plans automatisés, reprise après sinistre.</span></li>
-            <li class="flex gap-3"><i class="fa-solid fa-network-wired text-brand-yellow mt-1"></i><span><strong>Sécurisation réseau</strong> : pare-feu, routeurs, Wi-Fi d’entreprise.</span></li>
-            <li class="flex gap-3"><i class="fa-solid fa-user-shield text-brand-yellow mt-1"></i><span><strong>Cybersécurité</strong> : politiques internes, sensibilisation phishing/ransomware, surveillance proactive.</span></li>
-          </ul>
+    <!-- Section des Modules et Informations Pratiques -->
+    <!-- Suppression de l'espacement excessif sur mobile (gap-10 -> gap-6) -->
+    <section class="max-w-7xl mx-auto px-6 py-12 grid lg:grid-cols-3 gap-6 lg:gap-10">
 
-          <h3 class="mt-8 text-2xl font-bold text-brand-red">Pour qui ?</h3>
-          <p class="mt-2 text-gray-700 dark:text-gray-300">Entreprises, responsables IT, étudiants, et toute personne souhaitant sécuriser son environnement numérique.</p>
+        <!-- Colonne 1: Liste des Modules de Formation (2/3 de largeur) -->
+        <div class="lg:col-span-2 glass-card p-4 sm:p-8 rounded-xl"> <!-- Padding ajusté -->
+            <h2 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-3">
+                Programme Détaillé (3 Semaines)
+            </h2>
+            
+            <div class="space-y-6">
+                
+                <!-- Module 1 -->
+                <div class="p-4 rounded-lg glass-card-light transition-all duration-300">
+                    <div class="flex items-start gap-3"> <!-- items-start pour éviter le débordement si le texte est long -->
+                        <i class="fa-solid fa-screwdriver-wrench text-brand-gold text-xl mt-1"></i>
+                        <h3 class="text-xl font-semibold text-white leading-tight">Semaine 1 : Maintenance Matériel & Logiciel</h3>
+                    </div>
+                    <!-- ml-8 risque de créer un débordement. On passe à pl-6 ou un ml-4 -->
+                    <ul class="list-none mt-3 pl-6 text-gray-400 space-y-2 text-sm">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Diagnostic et réparation des pannes hardware.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Installation, configuration et optimisation des OS (Windows, Linux).</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Gestion des pilotes et des périphériques.</li>
+                    </ul>
+                </div>
 
-          <h3 class="mt-8 text-2xl font-bold text-brand-red">Modalités</h3>
-          <div class="mt-4 grid sm:grid-cols-3 gap-4">
-            <div class="p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5">
-              <div class="font-extrabold text-brand-red">Durée</div>
-              <div class="text-sm">3 semaines (présentiel / en ligne)</div>
+                <!-- Module 2 -->
+                <div class="p-4 rounded-lg glass-card-light transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-network-wired text-brand-gold text-xl mt-1"></i>
+                        <h3 class="text-xl font-semibold text-white leading-tight">Semaine 2 : Réseaux Informatiques Fondamentaux</h3>
+                    </div>
+                    <ul class="list-none mt-3 pl-6 text-gray-400 space-y-2 text-sm">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Modèle OSI et protocoles (TCP/IP, DHCP, DNS).</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Configuration de routeurs, switches et points d'accès.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Câblage structuré et dépannage réseau.</li>
+                    </ul>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="p-4 rounded-lg glass-card-light transition-all duration-300">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-shield-halved text-brand-gold text-xl mt-1"></i>
+                        <h3 class="text-xl font-semibold text-white leading-tight">Semaine 3 : Sécurité IT & Gestion des Risques</h3>
+                    </div>
+                    <ul class="list-none mt-3 pl-6 text-gray-400 space-y-2 text-sm">
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Mise en place de pare-feu (firewall) et d'antivirus.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Principes de SecOps : mise à jour, patching et bonnes pratiques.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-circle-check text-brand-red mt-1"></i> Stratégies de sauvegarde (Backup) et Plan de Reprise d'Activité (PRA).</li>
+                    </ul>
+                </div>
+
             </div>
-            <div class="p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5">
-              <div class="font-extrabold text-brand-red">Certificat</div>
-              <div class="text-sm">Délivré en fin de parcours</div>
-            </div>
-            <div class="p-4 rounded-2xl border border-brand-red/10 bg-yellow-50/60 dark:bg-white/5">
-              <div class="font-extrabold text-brand-red">Support</div>
-              <div class="text-sm">Pédagogique inclus</div>
-            </div>
-          </div>
-
-          <div id="inscription" class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a id="cta-whatsapp" href="https://wa.me/243840665620" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 bg-brand-yellow text-brand-red font-extrabold text-lg py-3 px-5 rounded-full shadow hover:bg-[#ffd84d] transition">
-              <i class="fa-brands fa-whatsapp"></i> S'inscrire via WhatsApp
-            </a>
-            <a href="index.html" class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-gray-100 font-semibold text-lg py-3 px-5 rounded-full shadow hover:bg-gray-300 dark:hover:bg-white/15 transition">
-              <i class="fa-solid fa-arrow-left"></i> Retour à l'accueil
-            </a>
-          </div>
         </div>
-      </div>
 
-      <!-- Chat assistant -->
-      <section class="mt-8 p-6 md:p-8 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
-        <h4 class="text-xl font-extrabold text-brand-red mb-4">Une question ? Demandez à notre assistant IA !</h4>
-        <div class="flex flex-col gap-4">
-          <div id="chat-messages" class="h-64 overflow-y-auto p-4 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-200/60 dark:border-white/10"></div>
-          <div class="flex flex-wrap gap-2">
-            <button class="quick-question-btn px-4 py-2 bg-gray-200 dark:bg-white/10 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-white/15 transition">Quelle est la durée ?</button>
-            <button class="quick-question-btn px-4 py-2 bg-gray-200 dark:bg-white/10 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-white/15 transition">Quel est le programme ?</button>
-            <button class="quick-question-btn px-4 py-2 bg-gray-200 dark:bg-white/10 rounded-full text-sm font-medium hover:bg-gray-300 dark:hover:bg-white/15 transition">Prendre un rendez-vous</button>
-          </div>
-          <div class="flex">
-            <input id="user-input" type="text" placeholder="Posez votre question..." class="flex-grow p-3 rounded-l-xl border border-gray-300 dark:border-white/10 bg-white dark:bg-transparent focus:outline-none focus:ring-2 focus:ring-brand-yellow"/>
-            <button id="send-button" class="bg-brand-red text-white px-5 rounded-r-xl font-semibold hover:bg-[#4b0e0e] transition flex items-center gap-3">
-              <span id="button-text">Envoyer</span>
-              <div id="loading-spinner" class="lds-dual-ring hidden"></div>
-            </button>
-          </div>
+        <!-- Colonne 2: Informations Pratiques (1/3 de largeur) -->
+        <div class="lg:col-span-1 glass-card p-6 rounded-xl flex flex-col h-full">
+            <h2 class="text-2xl font-bold text-brand-gold mb-4 text-center border-b border-gray-800 pb-3">
+                Informations Clés & Inscription
+            </h2>
+            
+            <div class="space-y-4 flex-grow">
+                
+                <!-- Durée -->
+                <div class="flex items-start gap-4 p-3 rounded-lg glass-card-light">
+                    <i class="fa-regular fa-clock text-brand-red text-2xl mt-1 flex-shrink-0"></i> <!-- flex-shrink-0 ajouté -->
+                    <div>
+                        <p class="font-semibold text-white">Durée Totale</p>
+                        <p class="text-sm text-gray-400">3 semaines intensives. Chaque semaine se concentre sur un module spécifique pour garantir la maîtrise.</p>
+                    </div>
+                </div>
+
+                <!-- Certification -->
+                <div class="flex items-start gap-4 p-3 rounded-lg glass-card-light">
+                    <i class="fa-solid fa-award text-brand-red text-2xl mt-1 flex-shrink-0"></i>
+                    <div>
+                        <p class="font-semibold text-white">Certification & Support</p>
+                        <p class="text-sm text-gray-400">Certificat d'achèvement Optimum + accès aux supports de cours à vie.</p>
+                    </div>
+                </div>
+
+                <!-- Lieu/Modalité -->
+                <div class="flex items-start gap-4 p-3 rounded-lg glass-card-light">
+                    <i class="fa-solid fa-location-dot text-brand-red text-2xl mt-1 flex-shrink-0"></i>
+                    <div>
+                        <p class="font-semibold text-white">Modalités</p>
+                        <p class="text-sm text-gray-400">Disponible en présentiel (à Kisangani) ou 100% en ligne (via visioconférence).</p>
+                    </div>
+                </div>
+
+                <!-- Prochaine Session -->
+                <div class="flex items-start gap-4 p-3 rounded-lg glass-card-light">
+                    <i class="fa-solid fa-calendar-check text-brand-red text-2xl mt-1 flex-shrink-0"></i>
+                    <div>
+                        <p class="font-semibold text-white">Prochaine Session</p>
+                        <p class="text-sm text-gray-400">Les dates sont fixées après constitution d'un groupe. Contactez-nous pour connaître la date de démarrage la plus proche.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lien de contact simple -->
+            <div class="mt-6 text-center">
+                <p class="text-sm font-semibold text-gray-300 mb-3">Prêt à devenir Technicien IT Certifié ?</p>
+                <a href="#section-contact" class="inline-flex items-center gap-2 bg-brand-gold hover:bg-brand-gold/80 text-brand-dark font-bold py-2.5 px-6 rounded-lg text-sm transition duration-300 w-full justify-center shadow-md shadow-brand-gold/20 scroll-smooth">
+                    <i class="fa-solid fa-clipboard-list text-lg"></i>
+                    Accéder au Formulaire d'Inscription
+                </a>
+            </div>
         </div>
-      </section>
-    </article>
 
-    <!-- Colonne droite -->
-    <aside class="space-y-6">
-      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
-        <h3 class="text-lg font-extrabold text-brand-red">Programme indicatif</h3>
-        <ol class="mt-3 space-y-3 text-sm text-gray-700 dark:text-gray-300">
-          <li><span class="font-bold text-brand-red">S1</span> — Matériel, diagnostics, OS</li>
-          <li><span class="font-bold text-brand-red">S2</span> — Réseaux, pare-feu, durcissement</li>
-          <li><span class="font-bold text-brand-red">S3</span> — SecOps, sauvegardes, PRA</li>
-        </ol>
-      </div>
-      <div class="p-6 bg-white dark:bg-white/5 rounded-3xl shadow-xl border border-brand-red/10">
-        <h3 class="text-lg font-extrabold text-brand-red">Pourquoi nous ?</h3>
-        <ul class="mt-3 space-y-2 text-sm">
-          <li class="flex gap-2"><i class="fa-solid fa-user-shield text-brand-yellow mt-1"></i> Cas réels d’entreprise</li>
-          <li class="flex gap-2"><i class="fa-solid fa-screwdriver-wrench text-brand-yellow mt-1"></i> Ateliers pratiques</li>
-          <li class="flex gap-2"><i class="fa-solid fa-certificate text-brand-yellow mt-1"></i> Certificat + support</li>
-        </ul>
-      </div>
-    </aside>
+    </section>
+
+    <!-- Nouvelle Section Formulaire de Contact -->
+    <section id="section-contact" class="max-w-4xl mx-auto px-6 py-12">
+        <div class="glass-card p-6 sm:p-8 rounded-xl"> <!-- Padding ajusté pour mobile -->
+            <h2 class="text-3xl font-bold text-center text-white mb-8 border-b border-gray-800 pb-4">
+                <span class="text-brand-gold">Contact</span> & Demande d'Informations
+            </h2>
+            
+            <form id="contact-form" class="space-y-4">
+                
+                <!-- Champ Service (pré-sélectionné) -->
+                <div>
+                    <label for="service" class="block text-sm font-medium text-gray-400 mb-1">Formation choisie</label>
+                    <div class="relative">
+                        <select id="service" name="service" required class="select-input w-full text-input rounded-lg p-3 pr-10 bg-gray-900/50 border-gray-700/50 cursor-not-allowed">
+                            <option value="Maintenance, Réseaux & Sécurité (3 Semaines)" selected>Maintenance, Réseaux & Sécurité (3 Semaines)</option>
+                            <option value="Programmation Web/Mobile">Programmation Web/Mobile</option>
+                            <option value="Autre Demande (Devis)">Autre Demande (Devis Site Web, App, etc.)</option>
+                        </select>
+                        <i class="fa-solid fa-graduation-cap absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"></i> <!-- Ajout de pointer-events-none pour ne pas bloquer le select -->
+                    </div>
+                </div>
+
+                <!-- Nom et Email -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="nom" class="block text-sm font-medium text-gray-400 mb-1">Nom Complet</label>
+                        <input type="text" id="nom" name="nom" required placeholder="Votre nom" class="text-input w-full rounded-lg p-3">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-400 mb-1">Adresse Email</label>
+                        <input type="email" id="email" name="email" required placeholder="example@mail.com" class="text-input w-full rounded-lg p-3">
+                    </div>
+                </div>
+
+                <!-- Téléphone -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-400 mb-1">Téléphone (WhatsApp souhaité)</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+243 8x xxx xx xx" class="text-input w-full rounded-lg p-3">
+                </div>
+
+                <!-- Message -->
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-400 mb-1">Votre Question / Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Indiquez ici vos disponibilités, si vous souhaitez le présentiel ou le tarif." class="text-input w-full rounded-lg p-3"></textarea>
+                </div>
+                
+                <!-- RGPD/Consentement -->
+                <div class="flex items-start">
+                    <input type="checkbox" id="rgpd" name="rgpd" required class="mt-1 rounded text-brand-gold focus:ring-brand-gold bg-gray-800 border-gray-700">
+                    <label for="rgpd" class="ml-2 text-sm text-gray-400">J'accepte d'être recontacté par Optimum concernant ma demande de formation.</label>
+                </div>
+
+                <!-- Bouton d'envoi -->
+                <div class="pt-4 flex justify-end">
+                    <button type="submit" id="submit-btn" class="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-lg shadow-brand-red/30 disabled:opacity-50">
+                        Envoyer ma demande
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
   </main>
 
-  <!-- Toast -->
-  <div id="message-box" class="message-box"></div>
+  <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-900">
+    © <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.
+  </footer>
 
-  <!-- Scripts -->
   <script>
-    // Dark mode persistant
-    (function(){
-      const KEY='prefers-dark', root=document.documentElement;
-      if(localStorage.getItem(KEY)==='true'){ root.classList.add('dark'); }
-      document.getElementById('dark-toggle')?.addEventListener('click',()=>{
-        root.classList.toggle('dark');
-        localStorage.setItem(KEY, root.classList.contains('dark'));
-      });
-    })();
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-    // CTA WhatsApp prérempli
-    (function(){
-      const btn=document.getElementById('cta-whatsapp');
-      const txt=encodeURIComponent("Bonjour 👋, je souhaite m'inscrire à la Formation Maintenance & Sécurité IT (3 semaines).");
-      btn?.setAttribute('href', `https://wa.me/243840665620?text=${txt}`);
-    })();
+    // Logique du Header au Scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if(window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
 
-    // Chat (simulation côté client)
-    const chatMessages=document.getElementById('chat-messages');
-    const userInput=document.getElementById('user-input');
-    const sendButton=document.getElementById('send-button');
-    const loadingSpinner=document.getElementById('loading-spinner');
-    const buttonText=document.getElementById('button-text');
+    // ------------------------------------
+    // LOGIQUE DE GESTION DU FORMULAIRE
+    // ------------------------------------
 
-    function pushMsg(text, side='left', accent=false){
-      const wrap=document.createElement('div');
-      wrap.className=`flex ${side==='right'?'justify-end':''} mb-2`;
-      wrap.innerHTML=`<div class="${accent?'bg-yellow-100 text-brand-red':'bg-gray-100 dark:bg-white/10'} p-3 rounded-xl max-w-xs shadow-sm">${text}</div>`;
-      chatMessages.appendChild(wrap); chatMessages.scrollTop=chatMessages.scrollHeight;
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const toast = document.getElementById('form-message');
+
+    // Récupérer les valeurs du formulaire
+    function getFormData() {
+        return {
+            service: document.getElementById('service').value,
+            nom: document.getElementById('nom').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            phone: document.getElementById('phone').value.trim(),
+            message: document.getElementById('message').value.trim(),
+        };
     }
-    document.querySelectorAll('.quick-question-btn').forEach(b=>b.addEventListener('click',()=>{ userInput.value=b.textContent; sendMessage(); }));
 
-    async function sendMessage(){
-      const msg=userInput.value.trim(); if(!msg) return;
-      pushMsg(msg,'right',true); userInput.value='';
-      sendButton.disabled=true; buttonText.classList.add('hidden'); loadingSpinner.classList.remove('hidden');
-      try{
-        const lower=msg.toLowerCase();
-        let reply="Je n'ai pas bien compris. Pouvez-vous reformuler ?";
-        if(lower.includes('durée')) reply="La formation dure 3 semaines (présentiel ou en ligne) et inclut un certificat + support.";
-        else if(lower.includes('programme')) reply="S1: matériel & OS • S2: réseaux & sécurité • S3: SecOps, sauvegardes & PRA.";
-        else if(lower.includes('rendez')||lower.includes('inscri')) reply=`Parfait ! Inscription / rendez-vous via WhatsApp : <a class="underline font-semibold" target="_blank" href="https://wa.me/243840665620">cliquez ici</a>.`;
-        else if(lower.includes('prix')||lower.includes('tarif')) reply="Écrivez-nous sur WhatsApp pour les tarifs actualisés et promotions.";
-        pushMsg(reply);
-      }catch(e){
-        pushMsg("Un souci technique est survenu. Contactez-nous sur WhatsApp.");
-      }finally{
-        sendButton.disabled=false; buttonText.classList.remove('hidden'); loadingSpinner.classList.add('hidden');
-      }
+    // Construire le message WhatsApp
+    function buildWhatsappText(data) {
+        return encodeURIComponent(
+            `Bonjour Optimum 👋\nJe souhaite des informations sur la formation : ${data.service}.\n\nNom: ${data.nom}\nEmail: ${data.email}\nTéléphone: ${data.phone}\n\nMessage:\n${data.message || '(Aucun message supplémentaire)'}`
+        );
     }
-    sendButton.addEventListener('click',sendMessage);
-    userInput.addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ e.preventDefault(); sendMessage(); }});
 
-    // Message d'accueil
-    pushMsg("Bonjour ! Posez vos questions sur la formation Maintenance & Sécurité IT ou demandez un rendez-vous.");
+    // Soumission du formulaire
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Envoi en cours...';
+
+        const data = getFormData();
+        const whatsappMsg = buildWhatsappText(data);
+        const whatsappUrl = `https://wa.me/243840665620?text=${whatsappMsg}`;
+
+        // Ouvrir WhatsApp
+        window.open(whatsappUrl, '_blank');
+
+        // Simuler le succès et réinitialiser
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            // On s'assure que le texte du bouton est le bon
+            submitBtn.innerHTML = 'Envoyer ma demande <i class="fa-solid fa-paper-plane"></i>';
+            
+            toast.textContent = 'Demande envoyée ! Veuillez confirmer sur WhatsApp.';
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 4000);
+            
+            form.reset();
+            document.getElementById('service').value = "Maintenance, Réseaux & Sécurité (3 Semaines)"; // S'assurer que la valeur par défaut est rétablie
+        }, 1500);
+    });
+
   </script>
 </body>
 </html>
