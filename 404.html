@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page non trouvée | Optimum Entreprise</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Oups ! La page que vous recherchez n'existe pas. Retournez à l'accueil d'Optimum Entreprise.">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./frontend/images/off.png">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#5d1212',
+                            redLight: '#8a1c1c',
+                            gold: '#facc15',
+                            goldDim: '#ca8a04',
+                            dark: '#050505',
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f0f; }
+        ::-webkit-scrollbar-thumb { background: #5d1212; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #facc15; }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+
+        /* Glow Effects */
+        .glow-point {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(93,18,18,0.5) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(60px);
+        }
+
+        /* 404 Text Glitch Effect */
+        .glitch {
+            position: relative;
+            animation: glitch 2s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: '404';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            color: #facc15;
+            animation: glitch-1 0.5s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            transform: translate(-2px, -2px);
+        }
+
+        .glitch::after {
+            color: #5d1212;
+            animation: glitch-2 0.5s infinite;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            transform: translate(2px, 2px);
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(3px, -3px); }
+            40% { transform: translate(3px, 3px); }
+            60% { transform: translate(-3px, -3px); }
+            80% { transform: translate(-3px, 3px); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-dark font-sans min-h-screen flex flex-col">
+
+    <!-- Background Effects -->
+    <div class="glow-point fixed top-1/4 left-1/4"></div>
+    <div class="glow-point fixed bottom-1/4 right-1/4 bg-brand-gold/20"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 py-4">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+                <!-- Logo -->
+                <a href="./index.html" class="flex items-center gap-3 group" aria-label="Retour à l'accueil">
+                    <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+                        <img src="./frontend/images/off.png" alt="Logo Optimum" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <span class="font-display text-xl font-bold tracking-wider">
+                        <span class="text-brand-gold">O</span>PTIMUM
+                    </span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="./index.html#services" class="text-sm text-gray-400 hover:text-brand-gold transition-colors">Services</a>
+                    <a href="./index.html#projets" class="text-sm text-gray-400 hover:text-brand-gold transition-colors">Projets</a>
+                    <a href="./frontend/pages/contact.html" class="text-sm text-brand-gold font-semibold">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center px-6 relative z-10">
+        <div class="text-center max-w-2xl mx-auto">
+            
+            <!-- 404 Number -->
+            <div class="mb-8">
+                <h1 class="font-display text-[10rem] md:text-[14rem] font-bold leading-none glitch text-white/90">
+                    404
+                </h1>
+            </div>
+
+            <!-- Icon -->
+            <div class="mb-8 animate-float">
+                <div class="w-24 h-24 mx-auto rounded-full bg-brand-red/20 border border-brand-red/40 flex items-center justify-center">
+                    <i class="fa-solid fa-compass text-5xl text-brand-gold"></i>
+                </div>
+            </div>
+
+            <!-- Message -->
+            <h2 class="font-display text-2xl md:text-3xl font-bold mb-4">
+                Page <span class="text-brand-gold">introuvable</span>
+            </h2>
+            <p class="text-gray-400 mb-8 max-w-md mx-auto">
+                Oups ! La page que vous recherchez semble s'être perdue dans le cyberespace. 
+                Pas de panique, retournez à l'accueil.
+            </p>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="./index.html" 
+                   class="inline-flex items-center justify-center gap-3 bg-brand-gold hover:bg-yellow-400 text-brand-dark font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-brand-gold/30"
+                   aria-label="Retour à l'accueil">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Retour à l'accueil</span>
+                </a>
+                <a href="./frontend/pages/contact.html" 
+                   class="inline-flex items-center justify-center gap-3 border-2 border-brand-red text-white hover:bg-brand-red font-bold py-4 px-8 rounded-xl transition-all duration-300"
+                   aria-label="Contactez-nous">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Contactez-nous</span>
+                </a>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="mt-12 pt-8 border-t border-white/10">
+                <p class="text-gray-500 text-sm mb-4">Liens utiles :</p>
+                <div class="flex flex-wrap justify-center gap-4 text-sm">
+                    <a href="./index.html#services" class="text-gray-400 hover:text-brand-gold transition-colors">Services</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="./index.html#projets" class="text-gray-400 hover:text-brand-gold transition-colors">Projets</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="./index.html#formations" class="text-gray-400 hover:text-brand-gold transition-colors">Formations</a>
+                    <span class="text-gray-600">•</span>
+                    <a href="./frontend/pages/contact.html" class="text-gray-400 hover:text-brand-gold transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center text-xs text-gray-600 relative z-10">
+        &copy; <span id="year"></span> Optimum Entreprise. Tous droits réservés.
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

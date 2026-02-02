@@ -192,13 +192,13 @@
     <div class="glow-point bottom-0 right-0 bg-brand-gold/10"></div>
 
     <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4" aria-label="Navigation principale">
         <div class="max-w-7xl mx-auto px-6">
             <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
+                <a href="#" class="flex items-center gap-3 group" aria-label="Accueil Optimum Entreprise">
                     <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
-                        <img src="./frontend/images/offbg.png" alt="Optimum" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500">
+                        <img src="./frontend/images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500" loading="lazy">
                     </div>
                     <span class="font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-gold transition-colors">OPTIMUM ENTREPRISE</span>
                 </a>
@@ -223,21 +223,21 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors">
-                    <i class="fa-solid fa-bars text-xl"></i>
+                <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu de navigation" aria-expanded="false" aria-controls="mobile-menu">
+                    <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
-            <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white">
-                <i class="fa-solid fa-xmark text-3xl"></i>
+            <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu de navigation">
+                <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
             </button>
             <a href="#services" class="hover:text-brand-gold mobile-link">Services</a>
             <a href="#projets" class="hover:text-brand-gold mobile-link">Projets</a>
             <a href="#formations" class="hover:text-brand-gold mobile-link">Formations</a>
-            <a href="contacts.html" class="text-brand-gold mobile-link">Contact</a>
+            <a href="./frontend/pages/contact.html" class="text-brand-gold mobile-link">Contact</a>
         </div>
     </nav>
 
@@ -290,7 +290,7 @@
                 <!-- Abstract 3D-like Shape using CSS -->
                 <div class="relative w-full max-w-md aspect-square animate-float">
                     <div class="absolute inset-0 bg-gradient-to-tr from-brand-red to-brand-gold rounded-full opacity-20 blur-[80px]"></div>
-                    <img src="./frontend/images/offbg.png" alt="Hero Tech" class="relative z-10 w-full h-full object-contain drop-shadow-2xl opacity-90">
+                    <img src="./frontend/images/offbg.png" alt="Hero visuel tech Optimum" class="relative z-10 w-full h-full object-contain drop-shadow-2xl opacity-90" loading="lazy">
                     
                     <!-- Floating Cards -->
                     <div class="absolute top-10 -right-4 glass-panel p-4 rounded-xl animate-float" style="animation-delay: 1s;">
@@ -420,14 +420,14 @@
                 
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
-                        <img src="./frontend/images/ac.png" alt="E-commerce" class="w-16 h-16 rounded-lg object-cover group-hover:scale-105 transition-transform">
+                        <img src="./frontend/images/ac.png" alt="Projet E-commerce B2C" class="w-16 h-16 rounded-lg object-cover group-hover:scale-105 transition-transform" loading="lazy">
                         <div>
                             <h4 class="font-bold text-lg group-hover:text-brand-gold transition-colors">Plateforme E-commerce B2C</h4>
                             <p class="text-xs text-gray-500">Web • Paiement • UX</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
-                        <img src="./frontend/images/serv.png" alt="App Service" class="w-16 h-16 rounded-lg object-cover group-hover:scale-105 transition-transform">
+                        <img src="./frontend/images/serv.png" alt="Application mobile de services" class="w-16 h-16 rounded-lg object-cover group-hover:scale-105 transition-transform" loading="lazy">
                         <div>
                             <h4 class="font-bold text-lg group-hover:text-brand-gold transition-colors">App Mobile Services</h4>
                             <p class="text-xs text-gray-500">Mobile • Geo • Push</p>
@@ -435,13 +435,13 @@
                     </div>
                 </div>
 
-                <a href="#projets-full" class="inline-block mt-8 px-6 py-3 border border-brand-gold text-brand-gold rounded-full hover:bg-brand-gold hover:text-black transition-all font-bold text-sm">
+                <a href="#projets" class="inline-block mt-8 px-6 py-3 border border-brand-gold text-brand-gold rounded-full hover:bg-brand-gold hover:text-black transition-all font-bold text-sm" aria-label="Voir tous nos projets">
                     Voir tous les projets
                 </a>
             </div>
             
             <div class="relative h-[400px] rounded-2xl overflow-hidden glass-panel reveal delay-200 group">
-                <img src="./frontend/images/crea.jpg" alt="Showcase" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700">
+                <img src="./frontend/images/crea.jpg" alt="Étude de cas transformation digitale" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <div class="text-brand-gold font-bold mb-2">Étude de Cas</div>
@@ -537,7 +537,7 @@
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="./frontend/images/off.png" alt="Logo" class="w-8 h-8 object-contain bg-white rounded-full">
+                    <img src="./frontend/images/off.png" alt="Logo Optimum Entreprise" class="w-8 h-8 object-contain bg-white rounded-full" loading="lazy">
                     <span class="font-display font-bold text-lg">OPTIMUM ENTREPRISE</span>
                 </div>
                 <p class="text-gray-500 text-sm max-w-xs">
@@ -551,7 +551,7 @@
                     <li><a href="#accueil" class="hover:text-brand-gold transition-colors">Accueil</a></li>
                     <li><a href="#services" class="hover:text-brand-gold transition-colors">Services</a></li>
                     <li><a href="#projets" class="hover:text-brand-gold transition-colors">Projets</a></li>
-                    <li><a href="contacts.html" class="hover:text-brand-gold transition-colors">Contact</a></li>
+                    <li><a href="./frontend/pages/contact.html" class="hover:text-brand-gold transition-colors">Contact</a></li>
                 </ul>
             </div>
             <div>
@@ -577,7 +577,7 @@
                 <div class="flex items-center gap-3">
                     <div class="relative">
                         <div class="w-10 h-10 rounded-full bg-black border border-brand-gold p-0.5 overflow-hidden">
-                            <img src="./frontend/images/offbg.png" class="w-full h-full object-contain">
+                            <img src="./frontend/images/offbg.png" alt="Optimum Swift IA" class="w-full h-full object-contain" loading="lazy">
                         </div>
                         <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-black"></div>
                     </div>
@@ -618,9 +618,9 @@
         </div>
 
         <!-- Toggle Button -->
-        <button id="chat-toggle" class="w-14 h-14 bg-brand-gold rounded-full shadow-[0_0_20px_rgba(250,204,21,0.4)] flex items-center justify-center text-brand-dark text-2xl hover:scale-110 transition-transform duration-300 group z-50 relative">
-            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse border-2 border-black"></span>
-            <i class="fa-solid fa-robot group-hover:rotate-12 transition-transform"></i>
+        <button id="chat-toggle" class="w-14 h-14 bg-brand-gold rounded-full shadow-[0_0_20px_rgba(250,204,21,0.4)] flex items-center justify-center text-brand-dark text-2xl hover:scale-110 transition-transform duration-300 group z-50 relative" aria-label="Ouvrir le chat Optimum Swift" aria-expanded="false" aria-controls="chat-box">
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse border-2 border-black" aria-hidden="true"></span>
+            <i class="fa-solid fa-robot group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
         </button>
     </div>
 

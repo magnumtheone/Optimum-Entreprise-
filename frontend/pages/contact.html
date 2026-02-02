@@ -1,653 +1,612 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact – Optimum Entreprise</title>
     
-    <!-- Fonts Premium (Identiques à l'index) -->
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Contactez Optimum Entreprise à Kisangani, RDC. Devis gratuit pour vos projets web, mobile, SEO et formations. Réponse garantie sous 24h.">
+    <meta name="keywords" content="contact optimum entreprise, agence web kisangani, devis site internet RDC, développement web congo">
+    <meta name="author" content="Optimum Entreprise">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Contact – Optimum Entreprise">
+    <meta property="og:description" content="Contactez-nous pour transformer votre vision en réalité digitale. Réponse garantie sous 24h.">
+    <meta property="og:image" content="../images/off.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../images/off.png">
+
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#5d1212',
+                            redLight: '#8a1c1c',
+                            gold: '#facc15',
+                            goldDim: '#ca8a04',
+                            dark: '#050505',
+                            glass: 'rgba(255, 255, 255, 0.03)',
+                            glassBorder: 'rgba(255, 255, 255, 0.08)'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        /* --- 1. CONFIGURATION & VARIABLES (BASE INDEX) --- */
-        :root {
-            --c-bordeaux: #5d1212;
-            --c-bordeaux-dark: #2a0505;
-            --c-gold: #D4AF37;
-            --c-gold-glow: #f3e5ab;
-            --c-black: #050505;
-            --c-dark-grey: #0f0f0f;
-            --c-white: #ffffff;
-            --c-glass: rgba(255, 255, 255, 0.03);
-            --c-glass-border: rgba(212, 175, 55, 0.15);
-            
-            --f-display: 'Cinzel', serif;
-            --f-body: 'Space Grotesk', sans-serif;
-            
-            --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            cursor: none; /* Custom cursor */
-        }
-
-        html { scroll-behavior: smooth; font-size: 16px; }
-
         body {
-            background-color: var(--c-black);
-            color: var(--c-white);
-            font-family: var(--f-body);
+            background-color: #050505;
+            color: #ffffff;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* --- 2. CUSTOM CURSOR --- */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
-            border-radius: 50%; z-index: 9999; pointer-events: none;
-        }
-        .cursor-dot { width: 8px; height: 8px; background-color: var(--c-gold); }
-        .cursor-outline {
-            width: 40px; height: 40px; border: 1px solid var(--c-gold);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
-        }
-        body:hover .cursor-outline { background-color: rgba(212, 175, 55, 0.1); }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f0f0f; }
+        ::-webkit-scrollbar-thumb { background: #5d1212; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #facc15; }
 
-        /* --- 3. UTILITIES & HEADER --- */
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 2; }
-        .text-gold { color: var(--c-gold); }
-        .text-bordeaux { color: var(--c-bordeaux); }
-
-        header {
-            position: fixed; top: 0; left: 0; width: 100%; padding: 2rem 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; transition: 0.4s ease; mix-blend-mode: difference;
-        }
-        header.scrolled {
-            padding: 1rem 5%; background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--c-glass-border); mix-blend-mode: normal;
-        }
-        .logo { font-family: var(--f-display); font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; color: var(--c-white); text-decoration: none;}
-        
-        nav ul { display: flex; gap: 3rem; list-style: none; }
-        nav a {
-            text-decoration: none; color: var(--c-white); text-transform: uppercase;
-            font-size: 0.8rem; letter-spacing: 2px; position: relative;
-        }
-        nav a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 1px;
-            background: var(--c-gold); transition: 0.4s var(--ease-out-expo);
-        }
-        nav a:hover::after { width: 100%; }
-
-        /* --- 4. HERO SECTION (Petite version) --- */
-        .page-header {
-            position: relative;
-            padding-top: 180px;
-            padding-bottom: 80px;
-            text-align: center;
-            overflow: hidden;
-        }
-        .page-header h1 {
-            font-family: var(--f-display); font-size: clamp(2.5rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-        }
-        .page-header p {
-            color: #ccc; max-width: 600px; margin: 0 auto; font-size: 1.1rem;
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
         }
         
-        #hero-canvas {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none;
-        }
-
-        /* --- 5. LAYOUT GRID --- */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            padding-bottom: 5rem;
-        }
-
-        /* --- 6. LEFT COLUMN (INFO) --- */
-        .info-card {
-            background: var(--c-glass);
-            border: 1px solid var(--c-glass-border);
-            padding: 2rem;
-            border-radius: 4px;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(10px);
-        }
-        .info-card h3 {
-            font-family: var(--f-display); color: var(--c-gold);
-            margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 0.5rem;
+        .glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .contact-list li {
-            list-style: none; margin-bottom: 1rem; display: flex; align-items: flex-start; gap: 1rem; color: #ccc; font-size: 0.95rem;
-        }
-        .contact-list i { color: var(--c-bordeaux); margin-top: 5px; }
-
-        .quick-channels {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
-        }
-        .channel-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid transparent;
-            padding: 1rem; text-align: center;
-            border-radius: 4px; text-decoration: none; color: white;
-            transition: 0.3s; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-        }
-        .channel-btn:hover {
-            border-color: var(--c-gold); background: rgba(212, 175, 55, 0.05);
-        }
-        .channel-btn i { font-size: 1.5rem; color: var(--c-gold); }
-        .channel-btn span { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Map styling for dark mode */
-        .map-container {
-            border-radius: 4px; overflow: hidden; border: 1px solid var(--c-glass-border);
-            height: 260px; position: relative;
-        }
-        .map-container iframe {
-            width: 100%; height: 100%; border: 0;
-            filter: grayscale(100%) invert(92%) contrast(83%); /* Dark mode map hack */
+        .glass-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(250, 204, 21, 0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(250, 204, 21, 0.1);
         }
 
-        /* --- 7. RIGHT COLUMN (FORM) --- */
-        .form-wrapper {
-            background: rgba(10,10,10,0.6);
-            border: 1px solid var(--c-glass-border);
-            padding: 3rem; border-radius: 4px;
+        /* Glow Effects */
+        .glow-point {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(93,18,18,0.4) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(40px);
         }
 
-        /* PILLS STYLE */
-        .pills-container { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
-        .pill {
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #aaa;
-            padding: 0.6rem 1.2rem;
-            font-family: var(--f-body);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            cursor: none; /* Pointer handled by JS cursor */
+        /* Form Inputs */
+        .form-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-        .pill:hover { border-color: var(--c-gold); color: white; }
-        .pill.active {
-            background: var(--c-bordeaux);
-            border-color: var(--c-bordeaux);
+        .form-input:focus {
+            border-color: #facc15;
+            box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.2);
+            outline: none;
+        }
+
+        /* Service Pills */
+        .service-pill {
+            transition: all 0.3s ease;
+        }
+        .service-pill:hover {
+            border-color: #facc15;
+            color: white;
+        }
+        .service-pill.active {
+            background: #5d1212;
+            border-color: #5d1212;
             color: white;
             box-shadow: 0 0 15px rgba(93, 18, 18, 0.4);
         }
 
-        /* INPUTS STYLE */
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1.5rem; position: relative; }
-        
-        .form-group label {
-            display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c-gold); margin-bottom: 0.5rem;
+        /* Map Dark Mode */
+        .map-container iframe {
+            filter: grayscale(100%) invert(92%) contrast(83%);
         }
-        .form-input, .form-select, .form-textarea {
-            width: 100%; background: transparent;
-            border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
-            padding: 0.8rem 0; color: white; font-family: var(--f-body);
-            transition: 0.3s; border-radius: 0;
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none; border-bottom-color: var(--c-gold); background: rgba(255,255,255,0.02);
-        }
-        .form-select option { background: var(--c-dark-grey); color: white; }
 
-        .error-msg { color: #ff4444; font-size: 0.8rem; margin-top: 0.5rem; display: none; }
-        .checkbox-group { display: flex; gap: 0.8rem; align-items: center; font-size: 0.9rem; color: #aaa; margin-bottom: 2rem; }
-        
-        /* BUTTONS */
-        .actions { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-        .btn {
-            flex: 1; padding: 1rem 2rem;
-            border: 1px solid var(--c-gold);
-            background: transparent; color: var(--c-white);
-            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
-            position: relative; overflow: hidden; transition: all 0.4s ease;
-            text-align: center; text-decoration: none; display: inline-flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 0%; height: 100%;
-            background: var(--c-gold); z-index: -1; transition: all 0.4s var(--ease-out-expo);
-        }
-        .btn:hover::before { width: 100%; }
-        .btn:hover { color: var(--c-black); }
-
-        .btn-filled { background: var(--c-bordeaux); border-color: var(--c-bordeaux); }
-        .btn-filled:hover { color: var(--c-white); background: var(--c-bordeaux-dark); }
-        
-        .btn-whatsapp { border-color: #25D366; color: #25D366; }
-        .btn-whatsapp::before { background: #25D366; }
-
-        /* TOAST */
+        /* Toast */
         .toast {
-            position: fixed; top: 100px; right: 20px;
-            background: rgba(34, 197, 94, 0.9); color: white;
-            padding: 1rem 1.5rem; border-radius: 4px;
-            backdrop-filter: blur(5px); z-index: 1000;
-            display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.2);
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
         }
-
-        /* FOOTER (Same as Index) */
-        footer { border-top: 1px solid var(--c-glass-border); padding: 5rem 5% 2rem; background: #020202; margin-top: 4rem;}
-        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
-        .f-logo h3 { font-family: var(--f-display); font-size: 1.8rem; margin-bottom: 1rem; }
-        .f-col h4 { color: var(--c-gold); margin-bottom: 1.5rem; font-size: 0.9rem; letter-spacing: 1px; }
-        .f-col ul { list-style: none; }
-        .f-col li { margin-bottom: 0.8rem; }
-        .f-col a { color: #888; text-decoration: none; transition: 0.3s; font-size: 0.9rem; }
-        .f-col a:hover { color: var(--c-white); }
-        .f-bottom { text-align: center; font-size: 0.8rem; color: #444; border-top: 1px solid #111; padding-top: 2rem; }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .contact-layout { grid-template-columns: 1fr; }
-            .form-grid { grid-template-columns: 1fr; }
-            .page-header h1 { font-size: 2.5rem; }
-            nav { display: none; }
+        .toast.show {
+            transform: translateX(0);
         }
     </style>
 </head>
-<body>
-    
-    <!-- CUSTOM CURSOR -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
+<body class="antialiased selection:bg-brand-gold selection:text-brand-dark font-sans">
 
-    <!-- HEADER -->
-    <header id="header">
-        <a href="index.html" class="logo">OPTIMUM Entreprise</a>
-        <nav>
-            <ul>
-                <li><a href="index.html#about">L'Agence</a></li>
-                <li><a href="index.html#services">Expertise</a></li>
-                <li><a href="index.html#portfolio">Projets</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
-        </nav>
-        <!-- Mobile Menu trigger could go here -->
+    <!-- Background Effects -->
+    <div class="glow-point fixed top-0 left-0"></div>
+    <div class="glow-point fixed bottom-0 right-0 bg-brand-gold/10"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+                <!-- Logo -->
+                <a href="../../index.html" class="flex items-center gap-3 group" aria-label="Retour à l'accueil">
+                    <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+                        <img src="../images/off.png" alt="Logo Optimum" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <span class="font-display text-xl font-bold tracking-wider">
+                        <span class="text-brand-gold">O</span>PTIMUM
+                    </span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="../../index.html#services" class="text-sm text-gray-400 hover:text-brand-gold transition-colors" aria-label="Voir nos services">Services</a>
+                    <a href="../../index.html#projets" class="text-sm text-gray-400 hover:text-brand-gold transition-colors" aria-label="Voir nos projets">Projets</a>
+                    <a href="../../index.html#formations" class="text-sm text-gray-400 hover:text-brand-gold transition-colors" aria-label="Voir nos formations">Formations</a>
+                    <span class="text-sm text-brand-gold font-semibold">Contact</span>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Ouvrir le menu mobile">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+            <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
+                <i class="fa-solid fa-xmark text-3xl"></i>
+            </button>
+            <a href="../../index.html#services" class="hover:text-brand-gold mobile-link">Services</a>
+            <a href="../../index.html#projets" class="hover:text-brand-gold mobile-link">Projets</a>
+            <a href="../../index.html#formations" class="hover:text-brand-gold mobile-link">Formations</a>
+            <span class="text-brand-gold">Contact</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-16 text-center overflow-hidden">
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <h1 class="font-display text-4xl md:text-6xl font-bold mb-4">
+                Contactez <span class="text-brand-red">Optimum</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                Un point d'entrée unique pour transformer votre vision en réalité digitale. Réponse garantie sous 24h ouvrées.
+            </p>
+        </div>
     </header>
 
-    <!-- HEADER SECTION -->
-    <section class="page-header">
-        <canvas id="hero-canvas"></canvas>
-        <div class="container">
-            <h1>Contactez <span class="text-bordeaux">Optimum</span></h1>
-            <p>Un point d’entrée unique pour transformer votre vision en réalité digitale. Réponse garantie sous 24h ouvrées.</p>
-        </div>
-    </section>
-
-    <!-- MAIN CONTACT CONTENT -->
-    <div class="container">
-        <div class="contact-layout">
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 pb-20">
+        <div class="grid lg:grid-cols-3 gap-8">
             
-            <!-- LEFT COLUMN: INFO & MAP -->
-            <aside>
+            <!-- Left Column: Quick Info -->
+            <aside class="space-y-6">
+                
                 <!-- Quick Channels -->
-                <div class="info-card">
-                    <h3>Canaux Rapides</h3>
-                    <div class="quick-channels">
-                        <a href="https://wa.me/243840665620" target="_blank" class="channel-btn">
-                            <i class="fa-brands fa-whatsapp"></i> <span>WhatsApp</span>
+                <div class="glass-card p-6 rounded-2xl">
+                    <h3 class="font-display text-brand-gold text-lg font-bold mb-4 pb-2 border-b border-white/10">
+                        Canaux Rapides
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3">
+                        <a href="https://wa.me/243840665620" target="_blank" rel="noopener noreferrer" 
+                           class="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 border border-transparent hover:border-green-500 hover:bg-green-500/10 transition-all"
+                           aria-label="Nous contacter via WhatsApp">
+                            <i class="fa-brands fa-whatsapp text-2xl text-green-500"></i>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">WhatsApp</span>
                         </a>
-                        <a href="mailto:optimumentreprise1@gmail.com" class="channel-btn">
-                            <i class="fa-solid fa-envelope"></i> <span>Email</span>
+                        <a href="mailto:optimumentreprise1@gmail.com" 
+                           class="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 border border-transparent hover:border-brand-gold hover:bg-brand-gold/10 transition-all"
+                           aria-label="Nous envoyer un email">
+                            <i class="fa-solid fa-envelope text-2xl text-brand-gold"></i>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Email</span>
                         </a>
-                        <a href="tel:+243840665620" class="channel-btn">
-                            <i class="fa-solid fa-phone"></i> <span>Appeler</span>
+                        <a href="tel:+243840665620" 
+                           class="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 border border-transparent hover:border-brand-red hover:bg-brand-red/10 transition-all"
+                           aria-label="Nous appeler">
+                            <i class="fa-solid fa-phone text-2xl text-brand-red"></i>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Appeler</span>
                         </a>
-                        <a href="https://maps.google.com/?q=7+Avenue+KIWELE,+N27,+Makiso,+Kisangani" target="_blank" class="channel-btn">
-                            <i class="fa-solid fa-location-dot"></i> <span>Maps</span>
+                        <a href="https://maps.google.com/?q=7+Avenue+KIWELE,+N27,+Makiso,+Kisangani" target="_blank" rel="noopener noreferrer"
+                           class="flex flex-col items-center gap-2 p-4 rounded-xl bg-white/5 border border-transparent hover:border-blue-500 hover:bg-blue-500/10 transition-all"
+                           aria-label="Voir notre localisation sur Google Maps">
+                            <i class="fa-solid fa-location-dot text-2xl text-blue-500"></i>
+                            <span class="text-xs uppercase tracking-wider text-gray-400">Maps</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Info List -->
-                <div class="info-card">
-                    <h3>Coordonnées</h3>
-                    <ul class="contact-list">
-                        <li><i class="fa-regular fa-clock text-gold"></i> <span>Lun–Ven : 08:30–18:00<br>Sam : 09:00–13:00</span></li>
-                        <li><i class="fa-solid fa-location-dot text-gold"></i> 7 Avenue KIWELE, N° 27, Makiso, Kisangani (RDC)</li>
-                        <li><i class="fa-solid fa-envelope text-gold"></i> optimumentreprise1@gmail.com</li>
-                        <li><i class="fa-solid fa-phone text-gold"></i> +243 84 066 56 20</li>
+                <!-- Contact Info -->
+                <div class="glass-card p-6 rounded-2xl">
+                    <h3 class="font-display text-brand-gold text-lg font-bold mb-4 pb-2 border-b border-white/10">
+                        Coordonnées
+                    </h3>
+                    <ul class="space-y-4 text-gray-300 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-regular fa-clock text-brand-gold mt-1"></i>
+                            <span>Lun–Ven : 08:30–18:00<br>Sam : 09:00–13:00</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-brand-gold mt-1"></i>
+                            <span>7 Avenue KIWELE, N° 27<br>Makiso, Kisangani (RDC)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-envelope text-brand-gold mt-1"></i>
+                            <span>optimumentreprise1@gmail.com</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-phone text-brand-gold mt-1"></i>
+                            <span>+243 84 066 56 20</span>
+                        </li>
                     </ul>
                 </div>
 
                 <!-- Map -->
-                <div class="info-card" style="padding: 0; border: none; background: transparent;">
-                    <div class="map-container">
+                <div class="glass-card rounded-2xl overflow-hidden">
+                    <div class="map-container h-64">
                         <iframe
                             title="Optimum Entreprise - Localisation"
-                            loading="lazy" allowfullscreen
+                            loading="lazy" 
+                            allowfullscreen
                             referrerpolicy="no-referrer-when-downgrade"
+                            class="w-full h-full border-0"
                             src="https://www.google.com/maps?q=7+Avenue+KIWELE,+N%C2%B0+27,+Makiso,+Kisangani&output=embed">
                         </iframe>
                     </div>
                 </div>
             </aside>
 
-            <!-- RIGHT COLUMN: FORM -->
-            <section>
-                <div class="form-wrapper">
-                    <h3 style="font-family: var(--f-display); font-size: 2rem; margin-bottom: 0.5rem;">Écrivez-nous</h3>
-                    <p style="color: #888; margin-bottom: 2rem; font-size: 0.9rem;">Sélectionnez un service pour orienter votre demande.</p>
+            <!-- Right Column: Form -->
+            <section class="lg:col-span-2">
+                <div class="glass-panel p-8 rounded-2xl">
+                    <h2 class="font-display text-2xl font-bold mb-2">Écrivez-nous</h2>
+                    <p class="text-gray-500 text-sm mb-6">Sélectionnez un service pour orienter votre demande.</p>
 
                     <!-- Service Pills -->
-                    <div class="pills-container" id="service-pills">
-                        <button class="pill active" data-service="Programmation">Programmation</button>
-                        <button class="pill" data-service="SEO & Marketing">SEO & Marketing</button>
-                        <button class="pill" data-service="Maintenance">Maintenance IT</button>
-                        <button class="pill" data-service="Apps Mobile">Apps Mobile</button>
-                        <button class="pill" data-service="Formation">Formation</button>
-                        <button class="pill" data-service="Consulting">Consulting</button>
-                        <button class="pill" data-service="Autre">Autre</button>
+                    <div class="flex flex-wrap gap-2 mb-8" id="service-pills" role="group" aria-label="Sélection du service">
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider active" data-service="Programmation" aria-pressed="true">
+                            Programmation
+                        </button>
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider" data-service="SEO & Marketing" aria-pressed="false">
+                            SEO & Marketing
+                        </button>
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider" data-service="Maintenance" aria-pressed="false">
+                            Maintenance IT
+                        </button>
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider" data-service="Apps Mobile" aria-pressed="false">
+                            Apps Mobile
+                        </button>
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider" data-service="Formation" aria-pressed="false">
+                            Formation
+                        </button>
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider" data-service="Consulting" aria-pressed="false">
+                            Consulting
+                        </button>
+                        <button class="service-pill px-4 py-2 rounded-full border border-white/20 text-gray-400 text-sm uppercase tracking-wider" data-service="Autre" aria-pressed="false">
+                            Autre
+                        </button>
                     </div>
 
                     <form id="contact-form" novalidate>
-                        <input type="text" name="website" autocomplete="off" tabindex="-1" style="display:none" aria-hidden="true"/>
+                        <!-- Honeypot -->
+                        <input type="text" name="website" autocomplete="off" tabindex="-1" class="hidden" aria-hidden="true">
+                        
+                        <!-- Hidden service field -->
+                        <input type="hidden" id="service" name="service" value="Programmation">
 
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="nom">Nom Complet</label>
-                                <input id="nom" name="nom" type="text" class="form-input" required placeholder="Votre nom">
-                                <p class="error-msg" data-error-for="nom">Nom requis</p>
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="nom" class="block text-brand-gold text-xs uppercase tracking-wider mb-2">Nom Complet *</label>
+                                <input id="nom" name="nom" type="text" required
+                                       class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-500"
+                                       placeholder="Votre nom"
+                                       aria-required="true">
+                                <p class="text-red-500 text-xs mt-1 hidden" id="error-nom">Nom requis</p>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" name="email" type="email" class="form-input" required placeholder="Ex: pro@gmail.com">
-                                <p class="error-msg" data-error-for="email">Email invalide</p>
+                            <div>
+                                <label for="email" class="block text-brand-gold text-xs uppercase tracking-wider mb-2">Email *</label>
+                                <input id="email" name="email" type="email" required
+                                       class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-500"
+                                       placeholder="pro@exemple.com"
+                                       aria-required="true">
+                                <p class="text-red-500 text-xs mt-1 hidden" id="error-email">Email invalide</p>
                             </div>
                         </div>
 
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="phone">Téléphone</label>
-                                <input id="phone" name="phone" type="text" class="form-input" placeholder="+243 ...">
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="phone" class="block text-brand-gold text-xs uppercase tracking-wider mb-2">Téléphone</label>
+                                <input id="phone" name="phone" type="tel"
+                                       class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-500"
+                                       placeholder="+243 ...">
                             </div>
-                            <div class="form-group">
-                                <label for="budget">Budget Estimé</label>
-                                <select id="budget" name="budget" class="form-select">
-                                    <option>Je ne sais pas</option>
-                                    <option>&lt; 300 USD</option>
-                                    <option>300 – 800 USD</option>
-                                    <option>800 – 2 000 USD</option>
-                                    <option>&gt; 2 000 USD</option>
+                            <div>
+                                <label for="budget" class="block text-brand-gold text-xs uppercase tracking-wider mb-2">Budget Estimé</label>
+                                <select id="budget" name="budget"
+                                        class="form-input w-full px-4 py-3 rounded-lg text-white bg-transparent">
+                                    <option value="Je ne sais pas" class="bg-gray-900">Je ne sais pas</option>
+                                    <option value="< 300 USD" class="bg-gray-900">&lt; 300 USD</option>
+                                    <option value="300 – 800 USD" class="bg-gray-900">300 – 800 USD</option>
+                                    <option value="800 – 2000 USD" class="bg-gray-900">800 – 2 000 USD</option>
+                                    <option value="> 2000 USD" class="bg-gray-900">&gt; 2 000 USD</option>
                                 </select>
                             </div>
                         </div>
 
-                        <!-- Hidden select synced with pills -->
-                        <div class="form-group" style="display:none;">
-                            <select id="service" name="service" class="form-select">
-                                <option>Programmation</option>
-                                <option>SEO & Marketing</option>
-                                <option>Maintenance</option>
-                                <option>Apps Mobile</option>
-                                <option>Formation</option>
-                                <option>Consulting</option>
-                                <option>Autre</option>
+                        <div class="mb-6">
+                            <label for="objet" class="block text-brand-gold text-xs uppercase tracking-wider mb-2">Objet</label>
+                            <select id="objet" name="objet"
+                                    class="form-input w-full px-4 py-3 rounded-lg text-white bg-transparent">
+                                <option value="Devis / Estimation" class="bg-gray-900">Devis / Estimation</option>
+                                <option value="Brief Projet" class="bg-gray-900">Brief Projet</option>
+                                <option value="Partenariat" class="bg-gray-900">Partenariat</option>
+                                <option value="Support / Maintenance" class="bg-gray-900">Support / Maintenance</option>
+                                <option value="Autre" class="bg-gray-900">Autre</option>
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="objet">Objet</label>
-                            <select id="objet" name="objet" class="form-select">
-                                <option>Devis / Estimation</option>
-                                <option>Brief Projet</option>
-                                <option>Partenariat</option>
-                                <option>Support / Maintenance</option>
-                                <option>Autre</option>
-                            </select>
+                        <div class="mb-6">
+                            <label for="message" class="block text-brand-gold text-xs uppercase tracking-wider mb-2">Message *</label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="form-input w-full px-4 py-3 rounded-lg text-white placeholder-gray-500 resize-none"
+                                      placeholder="Décrivez vos besoins..."
+                                      aria-required="true"></textarea>
+                            <p class="text-red-500 text-xs mt-1 hidden" id="error-message">Message requis</p>
                         </div>
 
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="4" class="form-textarea" required placeholder="Décrivez vos besoins..."></textarea>
-                            <p class="error-msg" data-error-for="message">Message requis</p>
+                        <div class="flex items-center gap-3 mb-8">
+                            <input id="rgpd" type="checkbox" required
+                                   class="w-4 h-4 accent-brand-gold rounded"
+                                   aria-required="true">
+                            <label for="rgpd" class="text-gray-400 text-sm">J'accepte d'être recontacté·e.</label>
                         </div>
 
-                        <div class="checkbox-group">
-                            <input id="rgpd" type="checkbox" required style="accent-color: var(--c-gold);">
-                            <label for="rgpd">J'accepte d'être recontacté·e.</label>
-                        </div>
-
-                        <div class="actions">
-                            <button type="submit" class="btn btn-filled">
-                                <i class="fa-solid fa-paper-plane"></i> Envoyer
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button type="submit" 
+                                    class="flex-1 flex items-center justify-center gap-3 bg-brand-red hover:bg-brand-redLight text-white font-bold py-4 px-8 rounded-xl transition-all duration-300"
+                                    aria-label="Envoyer le formulaire">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Envoyer</span>
                             </button>
-                            <a id="cta-whatsapp" target="_blank" class="btn btn-whatsapp">
-                                <i class="fa-brands fa-whatsapp"></i> Via WhatsApp
+                            <a id="cta-whatsapp" href="https://wa.me/243840665620" target="_blank" rel="noopener noreferrer"
+                               class="flex-1 flex items-center justify-center gap-3 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white font-bold py-4 px-8 rounded-xl transition-all duration-300"
+                               aria-label="Nous contacter via WhatsApp">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                                <span>Via WhatsApp</span>
                             </a>
                         </div>
                     </form>
                 </div>
             </section>
         </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast fixed top-24 right-6 bg-green-600/90 backdrop-blur-sm text-white px-6 py-4 rounded-xl shadow-2xl z-50 flex items-center gap-3" role="alert" aria-live="polite">
+        <i class="fa-solid fa-check-circle text-xl"></i>
+        <span>Message envoyé ! Nous vous recontacterons sous 24h.</span>
     </div>
 
-    <div id="toast" class="toast"></div>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="f-logo f-col">
-                    <h3>OPTIMUM</h3>
-                    <p style="color: #666; font-size: 0.9rem;">Agence digitale premium basée à Kisangani, RDC. Nous façonnons le futur numérique de l'Afrique.</p>
-                </div>
-                <div class="f-col">
-                    <h4>Agence</h4>
-                    <ul>
-                        <li><a href="index.html#about">À Propos</a></li>
-                        <li><a href="#">Carrières</a></li>
-                        <li><a href="#">Mentions Légales</a></li>
-                    </ul>
-                </div>
-                <div class="f-col">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#">Développement Web</a></li>
-                        <li><a href="#">Apps Mobiles</a></li>
-                        <li><a href="#">Stratégie</a></li>
-                    </ul>
-                </div>
-                <div class="f-col">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="tel:+243840665620">+243 84 066 56 20</a></li>
-                        <li><a href="mailto:optimumentreprise1@gmail.com">Email</a></li>
-                        <li style="color: #888; margin-top: 0.5rem;">7 Avenue KIWELE, N°27<br>Makiso, Kisangani, RDC</li>
-                    </ul>
-                </div>
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-black py-12">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-2">
+                <a href="../../index.html" class="flex items-center gap-3 mb-4" aria-label="Retour à l'accueil">
+                    <img src="../images/off.png" alt="Logo Optimum" class="w-10 h-10 rounded-full border border-brand-gold/30" loading="lazy">
+                    <span class="font-display text-xl font-bold"><span class="text-brand-gold">O</span>PTIMUM</span>
+                </a>
+                <p class="text-gray-500 text-sm max-w-md">Agence digitale premium basée à Kisangani, RDC. Nous façonnons le futur numérique de l'Afrique.</p>
             </div>
-            <div class="f-bottom">
-                &copy; 2024 Optimum Entreprise. Excellence Digitale. Tous droits réservés.
+            <div>
+                <h4 class="text-brand-gold font-bold mb-4 text-sm uppercase tracking-wider">Navigation</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="../../index.html#services" class="text-gray-500 hover:text-white transition-colors">Services</a></li>
+                    <li><a href="../../index.html#projets" class="text-gray-500 hover:text-white transition-colors">Projets</a></li>
+                    <li><a href="../../index.html#formations" class="text-gray-500 hover:text-white transition-colors">Formations</a></li>
+                </ul>
             </div>
+            <div>
+                <h4 class="text-brand-gold font-bold mb-4 text-sm uppercase tracking-wider">Contact</h4>
+                <ul class="space-y-2 text-sm text-gray-500">
+                    <li><a href="tel:+243840665620" class="hover:text-white transition-colors">+243 84 066 56 20</a></li>
+                    <li><a href="mailto:optimumentreprise1@gmail.com" class="hover:text-white transition-colors">Email</a></li>
+                    <li class="pt-2">7 Avenue KIWELE, N°27<br>Makiso, Kisangani, RDC</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/5 text-center text-xs text-gray-600">
+            &copy; <span id="year"></span> Optimum Entreprise. Tous droits réservés.
         </div>
     </footer>
 
     <script>
-        // --- 1. CURSOR ---
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        window.addEventListener('mousemove', (e) => {
-            cursorDot.style.left = `${e.clientX}px`; cursorDot.style.top = `${e.clientY}px`;
-            cursorOutline.animate({ left: `${e.clientX}px`, top: `${e.clientY}px` }, { duration: 500, fill: "forwards" });
-        });
+        // --- 1. PILLS LOGIC ---
+        const pills = document.querySelectorAll('#service-pills .service-pill');
+        const serviceInput = document.getElementById('service');
+        const objetSelect = document.getElementById('objet');
 
-        // --- 2. HEADER SCROLL ---
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if(window.scrollY > 50) header.classList.add('scrolled');
-            else header.classList.remove('scrolled');
-        });
-
-        // --- 3. PILLS LOGIC (Sync with Select & WhatsApp) ---
-        (function(){
-            const pills = document.querySelectorAll('#service-pills .pill');
-            const select = document.getElementById('service');
-            const objet  = document.getElementById('objet');
-
-            function setActive(service){
-                pills.forEach(p => {
-                    if(p.dataset.service === service) {
-                        p.classList.add('active');
-                    } else {
-                        p.classList.remove('active');
-                    }
-                });
-                if(select) select.value = service;
-                
-                // Auto-select objet based on service
-                if(objet){
-                    if(service.includes('Programmation') || service.includes('Apps')) objet.value='Brief Projet';
-                    else if(service.includes('Marketing')) objet.value='Devis / Estimation';
-                    else if(service.includes('Maintenance')) objet.value='Support / Maintenance';
-                    else objet.value='Devis / Estimation';
-                }
-                buildWhatsapp();
-            }
-
-            pills.forEach(p => p.addEventListener('click', (e) => {
-                e.preventDefault(); // Prevent form submit if inside form
-                setActive(p.dataset.service)
-            }));
-            
-            select?.addEventListener('change',()=>setActive(select.value));
-            
-            // Input Listeners for Dynamic WhatsApp Link
-            const inputs = ['nom', 'email', 'phone', 'budget', 'message', 'objet'];
-            inputs.forEach(id => {
-                document.getElementById(id)?.addEventListener('input', () => buildWhatsapp());
+        function setActiveService(service) {
+            pills.forEach(p => {
+                const isActive = p.dataset.service === service;
+                p.classList.toggle('active', isActive);
+                p.setAttribute('aria-pressed', isActive);
             });
+            serviceInput.value = service;
+            
+            // Auto-adjust "objet" based on service
+            if (service.includes('Programmation') || service.includes('Apps')) {
+                objetSelect.value = 'Brief Projet';
+            } else if (service.includes('Marketing')) {
+                objetSelect.value = 'Devis / Estimation';
+            } else if (service.includes('Maintenance')) {
+                objetSelect.value = 'Support / Maintenance';
+            } else {
+                objetSelect.value = 'Devis / Estimation';
+            }
+            
+            updateWhatsAppLink();
+        }
 
-            setActive('Programmation'); // Default
-        })();
+        pills.forEach(p => p.addEventListener('click', () => setActiveService(p.dataset.service)));
 
-        // --- 4. WHATSAPP GENERATOR ---
-        function buildWhatsapp(prefill){
+        // --- 2. WHATSAPP LINK GENERATOR ---
+        function updateWhatsAppLink() {
             const btn = document.getElementById('cta-whatsapp');
-            const service = document.getElementById('service')?.value;
-            const objet = document.getElementById('objet')?.value;
-            const nom = document.getElementById('nom')?.value;
-            const email = document.getElementById('email')?.value;
-            const phone = document.getElementById('phone')?.value;
-            const budget = document.getElementById('budget')?.value;
-            const message = document.getElementById('message')?.value;
+            const data = {
+                service: serviceInput.value,
+                objet: objetSelect.value,
+                nom: document.getElementById('nom').value || '[Non renseigné]',
+                email: document.getElementById('email').value || '[Non renseigné]',
+                phone: document.getElementById('phone').value || '[Non renseigné]',
+                budget: document.getElementById('budget').value,
+                message: document.getElementById('message').value || '[Message vide]'
+            };
 
-            const d = prefill || {}; // Allows passing data directly on submit if needed
-            
-            // Logic: Use provided data OR current input values
-            const finalNom = d.nom || nom;
-            const finalEmail = d.email || email;
-            
             const text = encodeURIComponent(
 `Bonjour Optimum 👋
 Je vous contacte via le site Web.
 
-🔹 Service : ${service}
-🔹 Objet : ${objet}
+🔹 Service : ${data.service}
+🔹 Objet : ${data.objet}
 
-👤 Nom : ${finalNom}
-📧 Email : ${finalEmail}
-📱 Tel : ${d.phone || phone}
-💰 Budget : ${d.budget || budget}
+👤 Nom : ${data.nom}
+📧 Email : ${data.email}
+📱 Tel : ${data.phone}
+💰 Budget : ${data.budget}
 
 📝 Message :
-${d.message || message}`
+${data.message}`
             );
-            btn?.setAttribute('href', `https://wa.me/243840665620?text=${text}`);
+            btn.href = `https://wa.me/243840665620?text=${text}`;
         }
 
-        // --- 5. FORM SUBMIT & VALIDATION ---
+        // Update WhatsApp link on input changes
+        ['nom', 'email', 'phone', 'budget', 'message', 'objet'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', updateWhatsAppLink);
+            document.getElementById(id)?.addEventListener('change', updateWhatsAppLink);
+        });
+
+        // --- 3. FORM VALIDATION & SUBMIT ---
         const form = document.getElementById('contact-form');
         const toast = document.getElementById('toast');
-        const err = name => document.querySelector(`[data-error-for="${name}"]`);
-        const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        const isValidEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const data = Object.fromEntries(new FormData(form).entries());
-            if(data.website) return; // Honeypot
-
-            let ok = true;
-            if(!data.nom?.trim()){ err('nom').style.display='block'; ok=false; } else err('nom').style.display='none';
-            if(!isEmail(data.email||'')){ err('email').style.display='block'; ok=false; } else err('email').style.display='none';
-            if(!data.message?.trim()){ err('message').style.display='block'; ok=false; } else err('message').style.display='none';
-            if(!document.getElementById('rgpd').checked){ alert("Veuillez accepter le RGPD"); ok=false; }
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
             
-            if(!ok) return;
+            // Honeypot check
+            if (data.website) return;
 
-            // Simulate sending or actual Fetch
+            let isValid = true;
+
+            // Validate nom
+            const errorNom = document.getElementById('error-nom');
+            if (!data.nom?.trim()) {
+                errorNom.classList.remove('hidden');
+                isValid = false;
+            } else {
+                errorNom.classList.add('hidden');
+            }
+
+            // Validate email
+            const errorEmail = document.getElementById('error-email');
+            if (!isValidEmail(data.email || '')) {
+                errorEmail.classList.remove('hidden');
+                isValid = false;
+            } else {
+                errorEmail.classList.add('hidden');
+            }
+
+            // Validate message
+            const errorMessage = document.getElementById('error-message');
+            if (!data.message?.trim()) {
+                errorMessage.classList.remove('hidden');
+                isValid = false;
+            } else {
+                errorMessage.classList.add('hidden');
+            }
+
+            // Validate RGPD
+            if (!document.getElementById('rgpd').checked) {
+                alert("Veuillez accepter d'être recontacté.");
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Submit animation
             const btn = form.querySelector('button[type="submit"]');
-            const originalText = btn.innerHTML;
+            const originalHTML = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi...';
+            btn.disabled = true;
 
-            // Fake delay for UX
+            // Simulate sending (replace with real API call)
             setTimeout(() => {
-                toast.textContent = 'Message envoyé ! Nous vous recontacterons sous 24h.';
-                toast.style.display = 'block';
-                setTimeout(()=>toast.style.display='none', 4000);
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 4000);
                 
-                buildWhatsapp(data); // Update WhatsApp button with final data
                 form.reset();
-                btn.innerHTML = originalText;
+                setActiveService('Programmation');
+                btn.innerHTML = originalHTML;
+                btn.disabled = false;
             }, 1500);
         });
 
-        // --- 6. CANVAS PARTICLES (Reuse from Index but simpler) ---
-        const canvas = document.getElementById('hero-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-        const particleCount = 40; 
+        // --- 4. MOBILE MENU ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenu = document.getElementById('close-mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
 
-        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
-        
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width; this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.5; this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2; this.color = '#5d1212';
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color; ctx.fill();
-            }
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
         }
 
-        function init() { particles = []; for(let i=0; i<particleCount; i++) particles.push(new Particle()); }
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
+        mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+        closeMobileMenu?.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
 
-        window.addEventListener('resize', () => { resize(); init(); });
-        resize(); init(); animate();
+        // --- 5. HEADER SCROLL EFFECT ---
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const panel = navbar.querySelector('.glass-panel');
+            if (window.scrollY > 50) {
+                panel.classList.add('bg-black/80', 'border-brand-gold/20');
+            } else {
+                panel.classList.remove('bg-black/80', 'border-brand-gold/20');
+            }
+        });
 
+        // --- 6. FOOTER YEAR ---
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Initialize
+        setActiveService('Programmation');
     </script>
 </body>
 </html>
