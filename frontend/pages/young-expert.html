@@ -27,6 +27,10 @@
       }
     }
   </script>
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="../css/main.css"/>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   
@@ -85,14 +89,51 @@
 
   <!-- Header unifié (Logo mis à jour) -->
   <header id="header" class="py-4">
-    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-      <a href="../../index.html" class="text-2xl font-bold font-display text-white tracking-widest flex items-center gap-2" aria-label="Retour à l'accueil Optimum">
-        <img src="../images/off.png" alt="Logo Optimum Entreprise" class="h-6 w-auto" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/24x24/5d1212/ffffff?text=O';" />
-        Optimum<span class="text-brand-gold">.</span>
-      </a>
-      <nav>
-        <a href="../../index.html#services" class="text-gray-400 hover:text-brand-gold transition duration-200 text-sm" aria-label="Retour aux services">Retour aux Services</a>
-      </nav>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="../../index.html" class="flex items-center gap-3 group" aria-label="Accueil Optimum Entreprise">
+          <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+            <img src="../images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500" loading="lazy">
+          </div>
+          <span class="font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-gold transition-colors">OPTIMUM ENTREPRISE</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="../../index.html#services" class="hover:text-brand-gold transition-colors relative group">
+            Services
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="../../index.html#projets" class="hover:text-brand-gold transition-colors relative group">
+            Projets
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./programmation.html" class="text-brand-gold transition-colors relative group">
+            Formations
+            <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-brand-gold"></span>
+          </a>
+          <a href="./contact.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-red to-red-900 hover:from-red-600 hover:to-brand-red text-white shadow-lg hover:shadow-red-900/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            Contact
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu" aria-expanded="false">
+          <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+      <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
+      </button>
+      <a href="../../index.html#services" class="hover:text-brand-gold mobile-link">Services</a>
+      <a href="../../index.html#projets" class="hover:text-brand-gold mobile-link">Projets</a>
+      <span class="text-brand-gold">Formations</span>
+      <a href="./contact.html" class="hover:text-brand-gold mobile-link">Contact</a>
     </div>
   </header>
   
@@ -203,6 +244,22 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- MENU MOBILE ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+        const isOpen = !mobileMenu.classList.contains('translate-x-full');
+        if(isOpen) mobileMenu.classList.add('translate-x-full');
+        else mobileMenu.classList.remove('translate-x-full');
+    }
+
+    if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    if(closeMobileMenu) closeMobileMenu.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
 
     // Logique du Header au Scroll
     window.addEventListener('scroll', () => {

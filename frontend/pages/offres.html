@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Développement Web - Optimum Entreprise</title>
+  <meta name="description" content="Solutions de développement web sur mesure pour hôtels, écoles, restaurants et entreprises. Boostez votre présence digitale avec Optimum Entreprise.">
 
   <!-- Tailwind + palette unifiée -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,80 +15,322 @@
         extend: {
           colors: { 
             brand: { 
-              red: '#5d1212', // Bordeaux
-              gold: '#facc15', // Jaune Or (Utilisation principale pour CTA)
-              dark: '#0a0a0a', // Noir principal
-              light: '#1e293b', // Gris foncé pour les cartes
+              red: '#5d1212',
+              gold: '#facc15',
+              dark: '#0a0a0a',
+              light: '#1e293b',
             } 
           },
           fontFamily: {
-            display: ['Inter', 'sans-serif'] // Utilisation de la police Inter
+            display: ['Space Grotesk', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
           },
           boxShadow: { 
-            glow: '0 0 20px rgba(250,204,21,.3)', 
-            'gold-light': '0 0 10px rgba(250,204,21,.5)',
+            glow: '0 0 30px rgba(250,204,21,.4)', 
+            'gold-light': '0 0 20px rgba(250,204,21,.3)',
+            'red-glow': '0 0 30px rgba(93,18,18,.5)',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'gradient': 'gradient 8s ease infinite',
+            'slide-up': 'slideUp 0.6s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
           }
         }
       }
     }
   </script>
+  
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="../css/main.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   
   <style>
-    body{
+    body {
       font-family: 'Inter', sans-serif;
-      background-color: #0a0a0a; /* brand-dark */
-      color: #e5e7eb; /* gray-200 */
-      line-height: 1.6;
+      background-color: #050505;
+      color: #e5e7eb;
+      line-height: 1.7;
       overflow-x: hidden;
     }
     
+    /* Animated Background */
+    .hero-gradient {
+      background: linear-gradient(-45deg, #0a0a0a, #1a0505, #0a0a0a, #050a05);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    /* Blobs améliorés */
     .blob {
       position: absolute;
-      filter: blur(100px); 
-      opacity: 0.25;
+      filter: blur(120px);
+      opacity: 0.3;
       transform: translate3d(0,0,0);
       z-index: 0;
       pointer-events: none;
+      transition: all 1s ease;
     }
     
+    .blob:hover {
+      opacity: 0.4;
+    }
+    
+    /* Glass Card Modernisé */
     .glass-card {
-      background: rgba(30, 41, 59, 0.7); /* brand-light/70 */
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.5);
-      transition: all 0.3s ease;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .glass-card:hover {
+      border-color: rgba(250, 204, 21, 0.3);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(250, 204, 21, 0.1);
     }
 
+    /* Header fixe moderne */
     #header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 50;
-        background-color: rgba(10, 10, 10, 0.98);
-        backdrop-filter: blur(15px);
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background-color: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
     }
     
+    #header.scrolled {
+      background-color: rgba(5, 5, 5, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Cartes Offres Modernes */
     .offer-card {
-        cursor: pointer;
-        background-color: #1f2937; /* gray-800 */
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      position: relative;
+      cursor: pointer;
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 1) 100%);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255,255,255,0.05);
     }
+    
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-color, #facc15), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .offer-card:hover::before {
+      opacity: 1;
+    }
+    
     .offer-card:hover {
-        transform: translateY(-8px) scale(1.02);
-        background-color: #0f172a; /* gray-900 */
-        box-shadow: 0 15px 30px rgba(250,204,21,.3);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--glow-color, rgba(250,204,21,0.2));
+      border-color: rgba(250, 204, 21, 0.3);
     }
-    .offer-card-image {
-        /* Placeholder pour la maquette */
-        background-size: cover;
-        background-position: center;
-        height: 200px;
-        border-bottom: 3px solid #facc15;
+    
+    .offer-card-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .offer-card:hover .offer-card-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    /* KPI Cards */
+    .kpi-card {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(20, 20, 20, 0.9) 100%);
+      border-radius: 1rem;
+      padding: 2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--kpi-color), transparent);
+    }
+    
+    .kpi-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--kpi-color);
+    }
+    
+    /* Benefit Cards */
+    .benefit-card {
+      position: relative;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      background: linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.1), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .benefit-card:hover::before {
+      opacity: 1;
+    }
+    
+    .benefit-card:hover {
+      border-color: rgba(250, 204, 21, 0.3);
+      transform: translateY(-5px);
+    }
+    
+    .benefit-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, rgba(93,18,18,0.3) 0%, rgba(93,18,18,0.1) 100%);
+      border: 1px solid rgba(93,18,18,0.3);
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      position: relative;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(250,204,21,0.05) 0%, transparent 50%);
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Badge moderne */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, rgba(250,204,21,0.15) 0%, rgba(250,204,21,0.05) 100%);
+      border: 1px solid rgba(250,204,21,0.3);
+      color: #facc15;
+    }
+    
+    /* Button moderne */
+    .btn-modern {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-modern::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-modern:hover::before {
+      left: 100%;
+    }
+    
+    .btn-gold {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #0a0a0a;
+      box-shadow: 0 10px 30px rgba(250,204,21,0.3);
+    }
+    
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(250,204,21,0.4);
     }
   </style>
 </head>
@@ -100,178 +343,357 @@
 
   <!-- Header -->
   <header id="header" class="py-4">
-    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-      <a href="../../index.html" class="text-2xl font-bold font-display text-white tracking-widest flex items-center gap-2" aria-label="Accueil Optimum Entreprise">
-        <span class="text-brand-red">O</span>ptimum<span class="text-brand-gold">.</span>
-      </a>
-      <nav aria-label="Navigation principale">
-        <a href="../../index.html#services" class="text-gray-400 hover:text-brand-gold transition duration-200 text-sm font-semibold uppercase tracking-wider" aria-label="Retour à la section Services">Services</a>
-      </nav>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="../../index.html" class="flex items-center gap-3 group" aria-label="Accueil Optimum Entreprise">
+          <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+            <img src="../images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500" loading="lazy">
+          </div>
+          <span class="font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-gold transition-colors">OPTIMUM ENTREPRISE</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="../../index.html#services" class="hover:text-brand-gold transition-colors relative group">
+            Services
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="../../index.html#projets" class="hover:text-brand-gold transition-colors relative group">
+            Projets
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./programmation.html" class="hover:text-brand-gold transition-colors relative group">
+            Formations
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./contact.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-red to-red-900 hover:from-red-600 hover:to-brand-red text-white shadow-lg hover:shadow-red-900/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            Contact
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu" aria-expanded="false">
+          <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+      <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
+      </button>
+      <a href="../../index.html#services" class="hover:text-brand-gold mobile-link">Services</a>
+      <a href="../../index.html#projets" class="hover:text-brand-gold mobile-link">Projets</a>
+      <a href="./programmation.html" class="hover:text-brand-gold mobile-link">Formations</a>
+      <a href="./contact.html" class="text-brand-gold mobile-link">Contact</a>
     </div>
   </header>
   
+  <!-- Blocs décoratifs animés -->
+  <div class="blob w-[40rem] h-[40rem] bg-brand-gold rounded-full top-[-15%] right-[-15%] animate-pulse-slow"></div>
+  <div class="blob w-[50rem] h-[50rem] bg-brand-red rounded-full bottom-[10%] left-[-20%] animate-pulse-slow" style="animation-delay: 2s;"></div>
+  <div class="blob w-[30rem] h-[30rem] bg-gradient-to-br from-brand-gold to-brand-red rounded-full top-[50%] right-[5%] animate-float opacity-20"></div>
+
   <main class="relative z-10 pt-32 pb-20">
     <div class="max-w-7xl mx-auto px-6">
       
-      <!-- Hero Section -->
-      <header class="text-center mb-16">
-        <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest bg-brand-light/50 px-3 py-1 rounded-full border border-brand-gold/30">Votre Succès Digital Commence Ici</span>
-        <h1 class="text-5xl md:text-7xl font-extrabold mt-4 mb-4 font-display leading-tight">
-            Développement Web <span class="text-brand-gold block lg:inline">Ciblé</span>
+      <!-- Hero Section Modernisée -->
+      <header class="text-center mb-24 reveal">
+        <div class="badge mx-auto mb-6">
+          <i class="fa-solid fa-rocket"></i>
+          Votre Succès Digital Commence Ici
+        </div>
+        <h1 class="text-5xl md:text-7xl font-extrabold mt-4 mb-6 font-display leading-tight tracking-tight">
+            Développement Web
+            <span class="relative inline-block">
+              <span class="bg-gradient-to-r from-brand-gold via-yellow-300 to-brand-gold bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">Ciblé</span>
+              <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                <path d="M2 10C50 2 150 2 198 10" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </span>
         </h1>
-        <p class="max-w-5xl mx-auto text-xl text-gray-300">
-          Nous ne créons pas seulement des sites, nous construisons des outils de croissance. Découvrez la puissance d'une présence web taillée sur mesure pour votre secteur d'activité.
+        <p class="max-w-3xl mx-auto text-xl text-gray-400 leading-relaxed">
+          Nous ne créons pas seulement des sites, nous construisons des <span class="text-white font-semibold">outils de croissance</span>. Découvrez la puissance d'une présence web taillée sur mesure pour votre secteur d'activité.
         </p>
+        
+        <!-- CTA rapides -->
+        <div class="flex flex-wrap justify-center gap-4 mt-10">
+          <a href="#offres" class="btn-modern btn-gold">
+            <i class="fa-solid fa-eye"></i>
+            Voir nos offres
+          </a>
+          <a href="contact.html?service=Développement Web" class="btn-modern bg-white/10 border border-white/20 text-white hover:bg-white/20">
+            <i class="fa-solid fa-phone"></i>
+            Parler à un expert
+          </a>
+        </div>
       </header>
 
-      <!-- Section: Pourquoi un Site Internet ? (Bénéfices avec icônes) -->
-      <section class="mb-20">
-        <h2 class="text-3xl font-extrabold text-center text-brand-gold mb-12">Les Avantages Clés d'une Plateforme Optimum</h2>
+      <!-- Section: Avantages Clés (Redesign) -->
+      <section class="mb-28 reveal" style="animation-delay: 0.2s;">
+        <div class="text-center mb-14">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 font-display">
+            Les Avantages d'une 
+            <span class="bg-gradient-to-r from-brand-gold to-yellow-300 bg-clip-text text-transparent">Plateforme Optimum</span>
+          </h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">Une présence web professionnelle n'est plus un luxe, c'est une nécessité stratégique.</p>
+        </div>
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <div class="p-6 rounded-xl border border-gray-700 hover:border-brand-gold/50 transition duration-300 transform hover:shadow-gold-light">
-                <i class="fa-solid fa-handshake-angle text-5xl text-brand-red mb-3"></i>
-                <h3 class="font-bold text-white text-xl mb-2">Prestige & Confiance</h3>
-                <p class="text-sm text-gray-400">88% des consommateurs font confiance à une entreprise avec un site professionnel. Créez une première impression mémorable.</p>
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-handshake-angle"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Prestige & Confiance</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">88% des consommateurs font confiance à une entreprise avec un site professionnel. Créez une première impression mémorable.</p>
+                <div class="mt-4 text-xs text-brand-gold/70 font-medium uppercase tracking-wider">
+                  <i class="fa-solid fa-chart-line mr-1"></i> +88% crédibilité
+                </div>
             </div>
 
-            <div class="p-6 rounded-xl border border-gray-700 hover:border-brand-gold/50 transition duration-300 transform hover:shadow-gold-light">
-                <i class="fa-solid fa-globe text-5xl text-brand-red mb-3"></i>
-                <h3 class="font-bold text-white text-xl mb-2">Portée Globale 24/7</h3>
-                <p class="text-sm text-gray-400">Votre activité est ouverte sans interruption. Touchez des clients bien au-delà de votre zone géographique.</p>
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-globe"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Portée Globale 24/7</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Votre activité est ouverte sans interruption. Touchez des clients bien au-delà de votre zone géographique.</p>
+                <div class="mt-4 text-xs text-brand-gold/70 font-medium uppercase tracking-wider">
+                  <i class="fa-solid fa-clock mr-1"></i> Ouvert 24h/24
+                </div>
             </div>
 
-            <div class="p-6 rounded-xl border border-gray-700 hover:border-brand-gold/50 transition duration-300 transform hover:shadow-gold-light">
-                <i class="fa-solid fa-funnel-dollar text-5xl text-brand-red mb-3"></i>
-                <h3 class="font-bold text-white text-xl mb-2">Automatisation & Ventes</h3>
-                <p class="text-sm text-gray-400">Intégrez des systèmes de devis, de réservation ou d'achat pour générer des revenus passifs.</p>
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-funnel-dollar"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Automatisation & Ventes</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Intégrez des systèmes de devis, de réservation ou d'achat pour générer des revenus passifs.</p>
+                <div class="mt-4 text-xs text-brand-gold/70 font-medium uppercase tracking-wider">
+                  <i class="fa-solid fa-bolt mr-1"></i> Revenus passifs
+                </div>
             </div>
 
-            <div class="p-6 rounded-xl border border-gray-700 hover:border-brand-gold/50 transition duration-300 transform hover:shadow-gold-light">
-                <i class="fa-solid fa-chart-area text-5xl text-brand-red mb-3"></i>
-                <h3 class="font-bold text-white text-xl mb-2">Analyse de Performance</h3>
-                <p class="text-sm text-gray-400">Obtenez des données précises sur vos clients pour affiner votre stratégie marketing et vos offres.</p>
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-chart-area"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Analyse de Performance</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Obtenez des données précises sur vos clients pour affiner votre stratégie marketing et vos offres.</p>
+                <div class="mt-4 text-xs text-brand-gold/70 font-medium uppercase tracking-wider">
+                  <i class="fa-solid fa-database mr-1"></i> Data-driven
+                </div>
             </div>
 
         </div>
       </section>
 
-      <!-- Section: Compteurs/KPIs (Nouveaux) -->
-      <section class="mb-20 glass-card p-8 rounded-2xl">
-        <h2 class="text-3xl font-extrabold text-center text-white mb-10">L'Impact Quantifiable de Nos Solutions</h2>
-        
-        <div class="grid md:grid-cols-4 gap-8 text-center">
-            
-            <!-- KPI 1: Augmentation des leads -->
-            <div class="p-4 bg-brand-dark/50 rounded-lg border border-brand-gold/30">
-                <div class="text-6xl font-extrabold text-brand-gold leading-none" data-target="150" id="kpi-leads">0</div>
-                <p class="text-lg font-semibold mt-2 text-white">+ % leads</p>
-                <p class="text-sm text-gray-400">En 6 mois, pour nos clients B2B.</p>
-            </div>
+      <!-- Section: KPIs Modernisés -->
+      <section class="mb-28 reveal" style="animation-delay: 0.4s;">
+        <div class="cta-section rounded-3xl p-10 md:p-14">
+          <h2 class="text-3xl md:text-4xl font-extrabold text-center text-white mb-4 font-display relative z-10">
+            L'Impact <span class="text-brand-gold">Quantifiable</span> de Nos Solutions
+          </h2>
+          <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto relative z-10">Des résultats mesurables qui transforment votre activité</p>
+          
+          <div class="grid md:grid-cols-4 gap-6 relative z-10">
+              
+              <!-- KPI 1 -->
+              <div class="kpi-card text-center" style="--kpi-color: #facc15;">
+                  <div class="text-5xl md:text-6xl font-black bg-gradient-to-br from-brand-gold to-yellow-300 bg-clip-text text-transparent leading-none mb-2" data-target="150" id="kpi-leads">0</div>
+                  <p class="text-lg font-bold text-white">+ % leads</p>
+                  <p class="text-sm text-gray-500 mt-2">En 6 mois pour nos clients B2B</p>
+              </div>
 
-            <!-- KPI 2: Réduction du support -->
-            <div class="p-4 bg-brand-dark/50 rounded-lg border border-brand-red/30">
-                <div class="text-6xl font-extrabold text-brand-red leading-none" data-target="45" id="kpi-support">0</div>
-                <p class="text-lg font-semibold mt-2 text-white">% de réduction</p>
-                <p class="text-sm text-gray-400">Des appels de support (FAQ en ligne).</p>
-            </div>
+              <!-- KPI 2 -->
+              <div class="kpi-card text-center" style="--kpi-color: #5d1212;">
+                  <div class="text-5xl md:text-6xl font-black bg-gradient-to-br from-brand-red to-red-400 bg-clip-text text-transparent leading-none mb-2" data-target="45" id="kpi-support">0</div>
+                  <p class="text-lg font-bold text-white">% réduction</p>
+                  <p class="text-sm text-gray-500 mt-2">Des appels support (FAQ en ligne)</p>
+              </div>
 
-            <!-- KPI 3: Ventes directes (Hôtellerie/Restauration) -->
-            <div class="p-4 bg-brand-dark/50 rounded-lg border border-brand-gold/30">
-                <div class="text-6xl font-extrabold text-brand-gold leading-none" data-target="30" id="kpi-sales">0</div>
-                <p class="text-lg font-semibold mt-2 text-white">+ % ventes</p>
-                <p class="text-sm text-gray-400">De réservations directes/commandes.</p>
-            </div>
+              <!-- KPI 3 -->
+              <div class="kpi-card text-center" style="--kpi-color: #facc15;">
+                  <div class="text-5xl md:text-6xl font-black bg-gradient-to-br from-brand-gold to-yellow-300 bg-clip-text text-transparent leading-none mb-2" data-target="30" id="kpi-sales">0</div>
+                  <p class="text-lg font-bold text-white">+ % ventes</p>
+                  <p class="text-sm text-gray-500 mt-2">Réservations directes/commandes</p>
+              </div>
 
-            <!-- KPI 4: Vitesse de chargement -->
-            <div class="p-4 bg-brand-dark/50 rounded-lg border border-brand-red/30">
-                <div class="text-6xl font-extrabold text-brand-red leading-none" data-target="95" id="kpi-speed">0</div>
-                <p class="text-lg font-semibold mt-2 text-white">/100 score</p>
-                <p class="text-sm text-gray-400">Performance mobile (Google PageSpeed).</p>
-            </div>
+              <!-- KPI 4 -->
+              <div class="kpi-card text-center" style="--kpi-color: #5d1212;">
+                  <div class="text-5xl md:text-6xl font-black bg-gradient-to-br from-brand-red to-red-400 bg-clip-text text-transparent leading-none mb-2" data-target="95" id="kpi-speed">0</div>
+                  <p class="text-lg font-bold text-white">/100 score</p>
+                  <p class="text-sm text-gray-500 mt-2">Performance Google PageSpeed</p>
+              </div>
 
+          </div>
         </div>
       </section>
 
 
-      <!-- Section: Offres Spécialisées par Secteur (Cliquable) -->
-      <section class="mb-16">
-        <h2 class="text-4xl font-extrabold text-center text-white mb-12">Nos Solutions Digitales Par <span class="text-brand-red">Secteur</span></h2>
+      <!-- Section: Offres par Secteur (Redesign complet) -->
+      <section id="offres" class="mb-28 reveal" style="animation-delay: 0.6s;">
+        <div class="text-center mb-14">
+          <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 font-display">
+            Solutions Digitales Par <span class="text-brand-red">Secteur</span>
+          </h2>
+          <p class="text-gray-400 max-w-2xl mx-auto">Chaque industrie a ses défis uniques. Nos solutions sont pensées pour répondre précisément aux vôtres.</p>
+        </div>
         
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             
-            <!-- Offre Hôtel (Cliquable) -->
-            <a href="offre-hotel-premium.html" class="offer-card rounded-xl overflow-hidden block border-b-4 border-brand-gold/70 shadow-2xl">
-                <div class="offer-card-image bg-cover bg-center" style="background-image: url('https://placehold.co/600x400/5d1212/ffffff?text=Hôtel+Booking+App');"></div>
-                <div class="p-5">
-                    <h3 class="text-2xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-bed text-brand-gold mr-3"></i> HÔTELLERIE</h3>
-                    <p class="text-sm text-gray-400">Augmentez l'occupation et réduisez les commissions des OTA avec un système de réservation direct performant.</p>
-                    <span class="inline-block mt-4 text-brand-gold font-bold text-md tracking-wider hover:underline">Voir les formules <i class="fa-solid fa-arrow-right ml-1"></i></span>
+            <!-- Offre Hôtel -->
+            <a href="offre-hotel.html" class="offer-card group" style="--accent-color: #facc15; --glow-color: rgba(250,204,21,0.3);">
+                <div class="p-8">
+                    <div class="offer-card-icon bg-gradient-to-br from-brand-gold/30 to-brand-gold/10 text-brand-gold border border-brand-gold/30">
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-gold transition-colors">HÔTELLERIE</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-6">Augmentez l'occupation et réduisez les commissions des OTA avec un système de réservation direct performant.</p>
+                    <ul class="space-y-2 mb-6 text-xs text-gray-500">
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Booking engine intégré</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Galerie photos HD</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Multi-langues</li>
+                    </ul>
+                    <span class="inline-flex items-center gap-2 text-brand-gold font-bold text-sm tracking-wider group-hover:gap-4 transition-all">
+                      Voir les formules <i class="fa-solid fa-arrow-right"></i>
+                    </span>
                 </div>
             </a>
 
             <!-- Offre École -->
-            <a href="#detail-ecole" class="offer-card rounded-xl overflow-hidden block border-b-4 border-brand-red/70 shadow-2xl">
-                <div class="offer-card-image bg-cover bg-center" style="background-image: url('https://placehold.co/600x400/0f172a/ffffff?text=E-learning+Plateforme'); border-bottom-color: #5d1212;"></div>
-                <div class="p-5">
-                    <h3 class="text-2xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-graduation-cap text-brand-red mr-3"></i> ÉDUCATION</h3>
-                    <p class="text-sm text-gray-400">Plateformes LMS, gestion des inscriptions en ligne et communication simplifiée parents/élèves/administration.</p>
-                    <span class="inline-block mt-4 text-brand-red font-bold text-md tracking-wider hover:underline">En savoir plus <i class="fa-solid fa-arrow-right ml-1"></i></span>
+            <a href="offre-education.html" class="offer-card group" style="--accent-color: #5d1212; --glow-color: rgba(93,18,18,0.3);">
+                <div class="p-8">
+                    <div class="offer-card-icon bg-gradient-to-br from-brand-red/30 to-brand-red/10 text-brand-red border border-brand-red/30">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-red transition-colors">ÉDUCATION</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-6">Plateformes LMS, gestion des inscriptions en ligne et communication simplifiée parents/élèves/administration.</p>
+                    <ul class="space-y-2 mb-6 text-xs text-gray-500">
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Espace élèves/parents</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Inscription en ligne</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> E-learning intégré</li>
+                    </ul>
+                    <span class="inline-flex items-center gap-2 text-brand-red font-bold text-sm tracking-wider group-hover:gap-4 transition-all">
+                      En savoir plus <i class="fa-solid fa-arrow-right"></i>
+                    </span>
                 </div>
             </a>
 
             <!-- Offre Restaurant -->
-            <a href="#detail-restaurant" class="offer-card rounded-xl overflow-hidden block border-b-4 border-brand-gold/70 shadow-2xl">
-                <div class="offer-card-image bg-cover bg-center" style="background-image: url('https://placehold.co/600x400/5d1212/ffffff?text=Restaurant+Menu+QR');"></div>
-                <div class="p-5">
-                    <h3 class="text-2xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-utensils text-brand-gold mr-3"></i> RESTAURATION</h3>
-                    <p class="text-sm text-gray-400">Réservation de table, commande en ligne pour emporter/livraison et menus numériques dynamiques.</p>
-                    <span class="inline-block mt-4 text-brand-gold font-bold text-md tracking-wider hover:underline">En savoir plus <i class="fa-solid fa-arrow-right ml-1"></i></span>
+            <a href="offre-restaurant.html" class="offer-card group" style="--accent-color: #facc15; --glow-color: rgba(250,204,21,0.3);">
+                <div class="p-8">
+                    <div class="offer-card-icon bg-gradient-to-br from-brand-gold/30 to-brand-gold/10 text-brand-gold border border-brand-gold/30">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-gold transition-colors">RESTAURATION</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-6">Réservation de table, commande en ligne pour emporter/livraison et menus numériques dynamiques.</p>
+                    <ul class="space-y-2 mb-6 text-xs text-gray-500">
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Menu QR Code</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Click & Collect</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Réservation en ligne</li>
+                    </ul>
+                    <span class="inline-flex items-center gap-2 text-brand-gold font-bold text-sm tracking-wider group-hover:gap-4 transition-all">
+                      En savoir plus <i class="fa-solid fa-arrow-right"></i>
+                    </span>
                 </div>
             </a>
 
-            <!-- Offre Entreprise / PME -->
-            <a href="#detail-pme" class="offer-card rounded-xl overflow-hidden block border-b-4 border-brand-red/70 shadow-2xl">
-                <div class="offer-card-image bg-cover bg-center" style="background-image: url('https://placehold.co/600x400/0f172a/ffffff?text=Corporate+Vitrine'); border-bottom-color: #5d1212;"></div>
-                <div class="p-5">
-                    <h3 class="text-2xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-briefcase text-brand-red mr-3"></i> ENTREPRISE/ONG</h3>
-                    <p class="text-sm text-gray-400">Site vitrine institutionnel, recrutement, zone client sécurisée et rapports d'impact pour les ONG.</p>
-                    <span class="inline-block mt-4 text-brand-red font-bold text-md tracking-wider hover:underline">En savoir plus <i class="fa-solid fa-arrow-right ml-1"></i></span>
+            <!-- Offre Entreprise -->
+            <a href="offre-entreprise.html" class="offer-card group" style="--accent-color: #5d1212; --glow-color: rgba(93,18,18,0.3);">
+                <div class="p-8">
+                    <div class="offer-card-icon bg-gradient-to-br from-brand-red/30 to-brand-red/10 text-brand-red border border-brand-red/30">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 group-hover:text-brand-red transition-colors">ENTREPRISE/ONG</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-6">Site vitrine institutionnel, recrutement, zone client sécurisée et rapports d'impact pour les ONG.</p>
+                    <ul class="space-y-2 mb-6 text-xs text-gray-500">
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Site corporate</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Espace recrutement</li>
+                      <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Zone client sécurisée</li>
+                    </ul>
+                    <span class="inline-flex items-center gap-2 text-brand-red font-bold text-sm tracking-wider group-hover:gap-4 transition-all">
+                      En savoir plus <i class="fa-solid fa-arrow-right"></i>
+                    </span>
                 </div>
             </a>
 
         </div>
       </section>
 
-      <!-- CTA Final -->
-      <section class="text-center py-12 bg-brand-light rounded-2xl border border-brand-gold/20 shadow-xl">
-          <h2 class="text-4xl font-extrabold text-white mb-4">Vous avez un projet unique ?</h2>
-          <p class="text-gray-300 mb-8 max-w-3xl mx-auto">
-              Chaque entreprise a des besoins spécifiques. Discutons-en pour élaborer une stratégie digitale qui vous est propre.
-          </p>
-          <a href="contact.html?service=Développement Web" class="inline-flex items-center gap-3 bg-brand-gold hover:bg-yellow-500 text-brand-dark font-bold py-4 px-10 rounded-full text-xl transition duration-300 shadow-xl shadow-brand-gold/40 uppercase tracking-widest" aria-label="Contactez l'équipe Optimum">
-              <i class="fa-solid fa-comment-dots"></i>
-              Contactez l'équipe Optimum
-          </a>
+      <!-- CTA Final Modernisé -->
+      <section class="cta-section rounded-3xl p-10 md:p-16 text-center reveal" style="animation-delay: 0.8s;">
+          <div class="relative z-10">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-brand-gold/20 mb-6">
+              <i class="fa-solid fa-lightbulb text-4xl text-brand-gold animate-pulse"></i>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 font-display">Vous avez un projet unique ?</h2>
+            <p class="text-gray-300 mb-10 max-w-2xl mx-auto text-lg">
+                Chaque entreprise a des besoins spécifiques. Discutons-en pour élaborer une stratégie digitale qui vous est propre.
+            </p>
+            <a href="contact.html?service=Développement Web" class="btn-modern btn-gold text-lg" aria-label="Contactez l'équipe Optimum">
+                <i class="fa-solid fa-comment-dots"></i>
+                Contactez l'équipe Optimum
+            </a>
+          </div>
       </section>
 
     </div>
   </main>
 
-  <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-900 mt-10">
-    © <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.
+  <footer class="py-10 text-center text-sm text-gray-500 border-t border-white/5 mt-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <p>© <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.</p>
+    </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // --- LOGIQUE DE COMPTEUR (Counter-up) ---
+    // --- HEADER SCROLL ---
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
 
-    // Fonction pour animer le compteur
+    // --- MENU MOBILE ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+        const isOpen = !mobileMenu.classList.contains('translate-x-full');
+        if(isOpen) mobileMenu.classList.add('translate-x-full');
+        else mobileMenu.classList.remove('translate-x-full');
+    }
+
+    if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    if(closeMobileMenu) closeMobileMenu.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
+
+    // --- REVEAL ANIMATION ---
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // --- LOGIQUE DE COMPTEUR ---
     function animateCounter(element, target) {
-      const duration = 1500; // Durée de l'animation en ms
-      const start = 0;
+      const duration = 1500;
       let startTime;
 
       function step(timestamp) {
@@ -285,39 +707,27 @@
         if (percentage < 1) {
           window.requestAnimationFrame(step);
         } else {
-          element.textContent = target; // Assure que le nombre final est exact
+          element.textContent = target;
         }
       }
 
       window.requestAnimationFrame(step);
     }
 
-    // Gestion de l'affichage des compteurs via Intersection Observer
     const kpiElements = document.querySelectorAll('[data-target]');
     
-    // Options pour l'observer : déclenche dès que l'élément est dans le viewport
-    const kpiObserverOptions = {
-        root: null, 
-        rootMargin: '0px',
-        threshold: 0.8
-    };
-
     const kpiObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const element = entry.target;
                 const targetValue = parseInt(element.getAttribute('data-target'));
                 animateCounter(element, targetValue);
-                // Arrête d'observer une fois l'animation lancée
                 observer.unobserve(element); 
             }
         });
-    }, kpiObserverOptions);
+    }, { threshold: 0.8 });
 
-    kpiElements.forEach(element => {
-        kpiObserver.observe(element);
-    });
-
+    kpiElements.forEach(element => kpiObserver.observe(element));
   </script>
 </body>
 </html>

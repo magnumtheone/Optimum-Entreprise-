@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Solutions Restauration - Optimum Entreprise</title>
+  <meta name="description" content="Solutions digitales pour restaurants : menu QR code, réservation en ligne, click & collect, livraison. Augmentez vos ventes et simplifiez la gestion.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { 
+            brand: { 
+              red: '#5d1212',
+              gold: '#facc15',
+              dark: '#0a0a0a',
+              light: '#1e293b',
+            } 
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050505;
+      color: #e5e7eb;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    .blob {
+      position: absolute;
+      filter: blur(120px);
+      opacity: 0.3;
+      transform: translate3d(0,0,0);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    #header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background-color: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    #header.scrolled {
+      background-color: rgba(5, 5, 5, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, rgba(250,204,21,0.15) 0%, rgba(250,204,21,0.05) 100%);
+      border: 1px solid rgba(250,204,21,0.3);
+      color: #facc15;
+    }
+    
+    .pricing-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 1) 100%);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(250, 204, 21, 0.3);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(250,204,21,0.1);
+    }
+    
+    .pricing-card.featured {
+      border: 2px solid rgba(250, 204, 21, 0.5);
+      transform: scale(1.05);
+    }
+    
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-8px);
+    }
+    
+    .feature-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      border-color: rgba(250, 204, 21, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    .btn-modern {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-gold {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #0a0a0a;
+      box-shadow: 0 10px 30px rgba(250,204,21,0.3);
+    }
+    
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(250,204,21,0.4);
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .cta-section {
+      position: relative;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.1) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(250,204,21,0.05) 0%, transparent 50%);
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    .service-showcase {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .service-item {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.7) 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .service-item:hover {
+      border-color: rgba(250, 204, 21, 0.4);
+      transform: translateY(-5px);
+    }
+    
+    .service-item i {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+
+  <!-- Blocs décoratifs -->
+  <div class="blob w-[40rem] h-[40rem] bg-brand-gold rounded-full top-[-15%] right-[-15%] animate-pulse-slow"></div>
+  <div class="blob w-[50rem] h-[50rem] bg-brand-red rounded-full bottom-[10%] left-[-20%] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+  <!-- Header -->
+  <header id="header" class="py-4">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+        <a href="../../index.html" class="flex items-center gap-3 group" aria-label="Accueil">
+          <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+            <img src="../images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500" loading="lazy">
+          </div>
+          <span class="font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-gold transition-colors">OPTIMUM ENTREPRISE</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="./offres.html" class="hover:text-brand-gold transition-colors relative group">
+            Toutes les offres
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="../../index.html#services" class="hover:text-brand-gold transition-colors relative group">
+            Services
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./contact.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-red to-red-900 hover:from-red-600 hover:to-brand-red text-white shadow-lg hover:shadow-red-900/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            Contact
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+      <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark text-3xl"></i>
+      </button>
+      <a href="./offres.html" class="hover:text-brand-gold mobile-link">Toutes les offres</a>
+      <a href="../../index.html#services" class="hover:text-brand-gold mobile-link">Services</a>
+      <a href="./contact.html" class="text-brand-gold mobile-link">Contact</a>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Hero Section -->
+      <header class="text-center mb-20 reveal">
+        <a href="./offres.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-brand-gold transition-colors mb-6 text-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          Retour aux offres
+        </a>
+        <div class="badge mx-auto mb-6">
+          <i class="fa-solid fa-utensils"></i>
+          Solutions Restauration
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 font-display leading-tight">
+          Boostez vos <span class="bg-gradient-to-r from-brand-gold to-yellow-300 bg-clip-text text-transparent">Ventes & Commandes</span>
+        </h1>
+        <p class="max-w-3xl mx-auto text-xl text-gray-400 leading-relaxed">
+          Menu QR Code, <span class="text-white font-semibold">Click & Collect</span>, réservation en ligne et intégration livraison. Transformez l'expérience de vos clients.
+        </p>
+      </header>
+
+      <!-- Services showcase -->
+      <section class="mb-20 reveal" style="animation-delay: 0.2s;">
+        <div class="service-showcase max-w-2xl mx-auto">
+          <div class="service-item">
+            <i class="fa-solid fa-qrcode text-brand-gold"></i>
+            <h3 class="font-bold text-white">Menu QR Code</h3>
+            <p class="text-gray-400 text-sm">Carte digitale dynamique</p>
+          </div>
+          <div class="service-item">
+            <i class="fa-solid fa-calendar-check text-brand-gold"></i>
+            <h3 class="font-bold text-white">Réservation</h3>
+            <p class="text-gray-400 text-sm">Gestion des tables en ligne</p>
+          </div>
+          <div class="service-item">
+            <i class="fa-solid fa-bag-shopping text-brand-gold"></i>
+            <h3 class="font-bold text-white">Click & Collect</h3>
+            <p class="text-gray-400 text-sm">Commande à emporter</p>
+          </div>
+          <div class="service-item">
+            <i class="fa-solid fa-motorcycle text-brand-gold"></i>
+            <h3 class="font-bold text-white">Livraison</h3>
+            <p class="text-gray-400 text-sm">Intégration livreurs</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Statistiques clés -->
+      <section class="mb-20 reveal" style="animation-delay: 0.3s;">
+        <div class="grid md:grid-cols-4 gap-6">
+          <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-brand-gold/10 to-transparent border border-brand-gold/20">
+            <div class="text-4xl font-black text-brand-gold mb-2">+35%</div>
+            <p class="text-gray-400 text-sm">Panier moyen</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-brand-red/10 to-transparent border border-brand-red/20">
+            <div class="text-4xl font-black text-brand-red mb-2">-50%</div>
+            <p class="text-gray-400 text-sm">No-shows</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-brand-gold/10 to-transparent border border-brand-gold/20">
+            <div class="text-4xl font-black text-brand-gold mb-2">2min</div>
+            <p class="text-gray-400 text-sm">Mise à jour menu</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl bg-gradient-to-br from-brand-red/10 to-transparent border border-brand-red/20">
+            <div class="text-4xl font-black text-brand-red mb-2">0%</div>
+            <p class="text-gray-400 text-sm">Commission plateforme</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fonctionnalités -->
+      <section class="mb-20 reveal" style="animation-delay: 0.4s;">
+        <h2 class="text-3xl font-bold text-center text-white mb-12">
+          Fonctionnalités <span class="text-brand-gold">Clés</span>
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-wand-magic-sparkles text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Menu Dynamique</h3>
+            <p class="text-gray-400 text-sm">Modifiez prix, plats et disponibilités en temps réel. Photos HD et descriptions détaillées.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-credit-card text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Paiement Intégré</h3>
+            <p class="text-gray-400 text-sm">Orange Money, Wave, cartes bancaires. Paiement sécurisé à la commande ou à la réservation.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-bell text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Notifications</h3>
+            <p class="text-gray-400 text-sm">Alertes SMS/WhatsApp pour nouvelles commandes. Confirmation automatique aux clients.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-print text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Ticket Cuisine</h3>
+            <p class="text-gray-400 text-sm">Impression automatique des bons de commande. Compatible avec votre imprimante thermique.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-clock-rotate-left text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Historique & Stats</h3>
+            <p class="text-gray-400 text-sm">Plats populaires, heures de pointe, clients fidèles. Données pour optimiser votre carte.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-brands fa-whatsapp text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Bot WhatsApp</h3>
+            <p class="text-gray-400 text-sm">Commandes via WhatsApp automatisées. Vos clients commandent depuis leur messagerie préférée.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarifs -->
+      <section class="mb-20 reveal" style="animation-delay: 0.5s;">
+        <h2 class="text-3xl font-bold text-center text-white mb-4">
+          Nos <span class="text-brand-gold">Formules</span>
+        </h2>
+        <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">De la maquis au restaurant gastronomique, nous avons la solution adaptée</p>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Vitrine -->
+          <div class="pricing-card p-8">
+            <div class="text-brand-gold font-semibold text-sm uppercase tracking-wider mb-2">Vitrine</div>
+            <div class="text-4xl font-black text-white mb-2">250 000 <span class="text-lg font-normal text-gray-400">FCFA</span></div>
+            <p class="text-gray-400 text-sm mb-6">Pour maquis et petits restos</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Site vitrine 1 page
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Menu QR Code statique
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Lien WhatsApp commande
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Google Maps intégré
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                10 QR codes imprimés
+              </li>
+            </ul>
+            <a href="contact.html?service=Restaurant-Vitrine" class="block w-full text-center py-3 rounded-full border border-brand-gold text-brand-gold font-bold hover:bg-brand-gold hover:text-brand-dark transition-all">
+              Demander un devis
+            </a>
+          </div>
+
+          <!-- Pro (Featured) -->
+          <div class="pricing-card featured p-8">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-gold to-yellow-300"></div>
+            <div class="bg-brand-gold text-brand-dark text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">BEST-SELLER</div>
+            <div class="text-brand-gold font-semibold text-sm uppercase tracking-wider mb-2">Pro</div>
+            <div class="text-4xl font-black text-white mb-2">550 000 <span class="text-lg font-normal text-gray-400">FCFA</span></div>
+            <p class="text-gray-400 text-sm mb-6">Restaurants et chaînes locales</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Tout le pack Vitrine +
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                <strong class="text-white">Menu dynamique admin</strong>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Click & Collect
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Réservation en ligne
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Paiement mobile intégré
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Notifications SMS
+              </li>
+            </ul>
+            <a href="contact.html?service=Restaurant-Pro" class="btn-modern btn-gold w-full justify-center">
+              Demander un devis
+            </a>
+          </div>
+
+          <!-- Franchise -->
+          <div class="pricing-card p-8">
+            <div class="text-brand-red font-semibold text-sm uppercase tracking-wider mb-2">Franchise</div>
+            <div class="text-4xl font-black text-white mb-2">Sur mesure</div>
+            <p class="text-gray-400 text-sm mb-6">Chaînes et multi-sites</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Tout le pack Pro +
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                <strong class="text-white">Multi-établissements</strong>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Bot WhatsApp commande
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Intégration livreurs
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Dashboard centralisé
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                API caisse
+              </li>
+            </ul>
+            <a href="contact.html?service=Restaurant-Franchise" class="block w-full text-center py-3 rounded-full border border-brand-red text-brand-red font-bold hover:bg-brand-red hover:text-white transition-all">
+              Nous contacter
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Témoignage -->
+      <section class="mb-20 reveal" style="animation-delay: 0.6s;">
+        <div class="bg-gradient-to-br from-brand-light/50 to-brand-dark/50 rounded-2xl p-8 md:p-12 border border-white/10 max-w-4xl mx-auto">
+          <div class="flex items-center gap-2 mb-4">
+            <i class="fa-solid fa-star text-brand-gold"></i>
+            <i class="fa-solid fa-star text-brand-gold"></i>
+            <i class="fa-solid fa-star text-brand-gold"></i>
+            <i class="fa-solid fa-star text-brand-gold"></i>
+            <i class="fa-solid fa-star text-brand-gold"></i>
+          </div>
+          <blockquote class="text-xl text-white italic mb-6">
+            "Depuis qu'on a le menu QR Code et le Click & Collect, notre chiffre d'affaires a augmenté de 40%. Les clients adorent commander depuis leur table et récupérer directement."
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-brand-gold/20 flex items-center justify-center">
+              <i class="fa-solid fa-user text-brand-gold"></i>
+            </div>
+            <div>
+              <div class="font-bold text-white">Restaurant La Terrasse</div>
+              <div class="text-gray-400 text-sm">Lomé, Togo</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Final -->
+      <section class="cta-section rounded-3xl p-10 md:p-16 text-center reveal" style="animation-delay: 0.7s;">
+        <div class="relative z-10">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-brand-gold/20 mb-6">
+            <i class="fa-solid fa-burger text-4xl text-brand-gold"></i>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Prêt à digitaliser votre restaurant ?</h2>
+          <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+            Démonstration gratuite et personnalisée. Découvrez comment simplifier votre gestion dès demain.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="contact.html?service=Restaurant-Demo" class="btn-modern btn-gold">
+              <i class="fa-solid fa-play"></i>
+              Demander une démo
+            </a>
+            <a href="tel:+243840665620" class="btn-modern bg-white/10 border border-white/20 text-white hover:bg-white/20">
+              <i class="fa-solid fa-phone"></i>
+              +243 84 066 56 20
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="py-10 text-center text-sm text-gray-500 border-t border-white/5 mt-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <p>© <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('translate-x-full');
+    }
+
+    mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+    closeMobileMenu?.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
+
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>

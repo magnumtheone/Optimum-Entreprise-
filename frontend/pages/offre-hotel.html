@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Solutions Hôtellerie - Optimum Entreprise</title>
+  <meta name="description" content="Solutions web sur mesure pour l'hôtellerie : moteur de réservation, réduction des commissions OTA, site multilingue. Boostez vos réservations directes.">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { 
+            brand: { 
+              red: '#5d1212',
+              gold: '#facc15',
+              dark: '#0a0a0a',
+              light: '#1e293b',
+            } 
+          },
+          fontFamily: {
+            display: ['Space Grotesk', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
+          },
+          boxShadow: { 
+            glow: '0 0 30px rgba(250,204,21,.4)', 
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+          }
+        }
+      }
+    }
+  </script>
+  
+  <link rel="stylesheet" href="../css/main.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #050505;
+      color: #e5e7eb;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    
+    .blob {
+      position: absolute;
+      filter: blur(120px);
+      opacity: 0.3;
+      transform: translate3d(0,0,0);
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    #header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background-color: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
+    }
+    
+    #header.scrolled {
+      background-color: rgba(5, 5, 5, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, rgba(250,204,21,0.15) 0%, rgba(250,204,21,0.05) 100%);
+      border: 1px solid rgba(250,204,21,0.3);
+      color: #facc15;
+    }
+    
+    .pricing-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 1) 100%);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(250, 204, 21, 0.3);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(250,204,21,0.1);
+    }
+    
+    .pricing-card.featured {
+      border: 2px solid rgba(250, 204, 21, 0.5);
+      transform: scale(1.05);
+    }
+    
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-8px);
+    }
+    
+    .feature-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      border-color: rgba(250, 204, 21, 0.3);
+      transform: translateY(-3px);
+    }
+    
+    .btn-modern {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-gold {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #0a0a0a;
+      box-shadow: 0 10px 30px rgba(250,204,21,0.3);
+    }
+    
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(250,204,21,0.4);
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .cta-section {
+      position: relative;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(250,204,21,0.05) 0%, transparent 50%);
+      animation: float 10s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+
+  <!-- Blocs décoratifs -->
+  <div class="blob w-[40rem] h-[40rem] bg-brand-gold rounded-full top-[-15%] right-[-15%] animate-pulse-slow"></div>
+  <div class="blob w-[50rem] h-[50rem] bg-brand-red rounded-full bottom-[10%] left-[-20%] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+  <!-- Header -->
+  <header id="header" class="py-4">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+        <a href="../../index.html" class="flex items-center gap-3 group" aria-label="Accueil Optimum Entreprise">
+          <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+            <img src="../images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500" loading="lazy">
+          </div>
+          <span class="font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-gold transition-colors">OPTIMUM ENTREPRISE</span>
+        </a>
+
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="./offres.html" class="hover:text-brand-gold transition-colors relative group">
+            Toutes les offres
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="../../index.html#services" class="hover:text-brand-gold transition-colors relative group">
+            Services
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./contact.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-red to-red-900 hover:from-red-600 hover:to-brand-red text-white shadow-lg hover:shadow-red-900/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            Contact
+          </a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+      <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark text-3xl"></i>
+      </button>
+      <a href="./offres.html" class="hover:text-brand-gold mobile-link">Toutes les offres</a>
+      <a href="../../index.html#services" class="hover:text-brand-gold mobile-link">Services</a>
+      <a href="./contact.html" class="text-brand-gold mobile-link">Contact</a>
+    </div>
+  </header>
+
+  <main class="relative z-10 pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- Hero Section -->
+      <header class="text-center mb-20 reveal">
+        <a href="./offres.html" class="inline-flex items-center gap-2 text-gray-400 hover:text-brand-gold transition-colors mb-6 text-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          Retour aux offres
+        </a>
+        <div class="badge mx-auto mb-6">
+          <i class="fa-solid fa-bed"></i>
+          Solutions Hôtellerie
+        </div>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 font-display leading-tight">
+          Maximisez vos <span class="bg-gradient-to-r from-brand-gold to-yellow-300 bg-clip-text text-transparent">Réservations Directes</span>
+        </h1>
+        <p class="max-w-3xl mx-auto text-xl text-gray-400 leading-relaxed">
+          Réduisez vos commissions OTA jusqu'à <span class="text-white font-semibold">30%</span> avec une plateforme de réservation qui vous appartient. Design premium, multilingue et optimisé pour la conversion.
+        </p>
+      </header>
+
+      <!-- Statistiques clés -->
+      <section class="mb-20 reveal" style="animation-delay: 0.2s;">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-brand-gold/10 to-transparent border border-brand-gold/20">
+            <div class="text-5xl font-black text-brand-gold mb-2">-30%</div>
+            <p class="text-gray-400">Commissions OTA économisées</p>
+          </div>
+          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-brand-red/10 to-transparent border border-brand-red/20">
+            <div class="text-5xl font-black text-brand-red mb-2">+45%</div>
+            <p class="text-gray-400">Réservations directes</p>
+          </div>
+          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-brand-gold/10 to-transparent border border-brand-gold/20">
+            <div class="text-5xl font-black text-brand-gold mb-2">24/7</div>
+            <p class="text-gray-400">Disponibilité du système</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fonctionnalités -->
+      <section class="mb-20 reveal" style="animation-delay: 0.3s;">
+        <h2 class="text-3xl font-bold text-center text-white mb-12">
+          Fonctionnalités <span class="text-brand-gold">Incluses</span>
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-calendar-check text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Moteur de Réservation</h3>
+            <p class="text-gray-400 text-sm">Système de booking intégré avec calendrier de disponibilités en temps réel et paiement sécurisé.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-language text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Multilingue</h3>
+            <p class="text-gray-400 text-sm">Jusqu'à 10 langues pour toucher une clientèle internationale. Traduction professionnelle incluse.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-images text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Galerie HD</h3>
+            <p class="text-gray-400 text-sm">Showcase immersif avec photos optimisées, visites virtuelles 360° et vidéos intégrées.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-star text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Avis & Témoignages</h3>
+            <p class="text-gray-400 text-sm">Intégration des avis TripAdvisor, Google et système de collecte d'avis propriétaire.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-chart-line text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Analytics Avancés</h3>
+            <p class="text-gray-400 text-sm">Tableau de bord avec KPIs clés : taux de conversion, RevPAR, origine des visiteurs.</p>
+          </div>
+          <div class="feature-card">
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/20 flex items-center justify-center mb-4">
+              <i class="fa-solid fa-mobile-screen text-brand-gold text-xl"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg mb-2">Mobile-First</h3>
+            <p class="text-gray-400 text-sm">Design responsive optimisé pour mobile où 70% des recherches d'hébergement sont effectuées.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tarifs -->
+      <section class="mb-20 reveal" style="animation-delay: 0.4s;">
+        <h2 class="text-3xl font-bold text-center text-white mb-4">
+          Nos <span class="text-brand-gold">Formules</span>
+        </h2>
+        <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">Choisissez la formule adaptée à la taille de votre établissement</p>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Starter -->
+          <div class="pricing-card p-8">
+            <div class="text-brand-gold font-semibold text-sm uppercase tracking-wider mb-2">Starter</div>
+            <div class="text-4xl font-black text-white mb-2">490 000 <span class="text-lg font-normal text-gray-400">FCFA</span></div>
+            <p class="text-gray-400 text-sm mb-6">Idéal pour maisons d'hôtes et petits hôtels</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Site vitrine 5 pages
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Galerie photos HD
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Formulaire de contact
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                2 langues
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Hébergement 1 an inclus
+              </li>
+            </ul>
+            <a href="contact.html?service=Hotel-Starter" class="block w-full text-center py-3 rounded-full border border-brand-gold text-brand-gold font-bold hover:bg-brand-gold hover:text-brand-dark transition-all">
+              Demander un devis
+            </a>
+          </div>
+
+          <!-- Pro (Featured) -->
+          <div class="pricing-card featured p-8">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-gold to-yellow-300"></div>
+            <div class="bg-brand-gold text-brand-dark text-xs font-bold px-3 py-1 rounded-full inline-block mb-4">POPULAIRE</div>
+            <div class="text-brand-gold font-semibold text-sm uppercase tracking-wider mb-2">Pro</div>
+            <div class="text-4xl font-black text-white mb-2">890 000 <span class="text-lg font-normal text-gray-400">FCFA</span></div>
+            <p class="text-gray-400 text-sm mb-6">Pour hôtels indépendants et boutique-hôtels</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Tout le pack Starter +
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                <strong class="text-white">Moteur de réservation</strong>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Paiement en ligne intégré
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                5 langues
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Intégration avis clients
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-gold"></i>
+                Formation équipe incluse
+              </li>
+            </ul>
+            <a href="contact.html?service=Hotel-Pro" class="btn-modern btn-gold w-full justify-center">
+              Demander un devis
+            </a>
+          </div>
+
+          <!-- Enterprise -->
+          <div class="pricing-card p-8">
+            <div class="text-brand-red font-semibold text-sm uppercase tracking-wider mb-2">Enterprise</div>
+            <div class="text-4xl font-black text-white mb-2">Sur mesure</div>
+            <p class="text-gray-400 text-sm mb-6">Chaînes hôtelières et resorts</p>
+            <ul class="space-y-3 mb-8">
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Tout le pack Pro +
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                <strong class="text-white">Multi-établissements</strong>
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Channel Manager intégré
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                10+ langues
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                API personnalisée
+              </li>
+              <li class="flex items-center gap-3 text-sm text-gray-300">
+                <i class="fa-solid fa-check text-brand-red"></i>
+                Support prioritaire 24/7
+              </li>
+            </ul>
+            <a href="contact.html?service=Hotel-Enterprise" class="block w-full text-center py-3 rounded-full border border-brand-red text-brand-red font-bold hover:bg-brand-red hover:text-white transition-all">
+              Nous contacter
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Final -->
+      <section class="cta-section rounded-3xl p-10 md:p-16 text-center reveal" style="animation-delay: 0.5s;">
+        <div class="relative z-10">
+          <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-brand-gold/20 mb-6">
+            <i class="fa-solid fa-concierge-bell text-4xl text-brand-gold"></i>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Prêt à augmenter vos réservations ?</h2>
+          <p class="text-gray-300 mb-8 max-w-2xl mx-auto">
+            Obtenez une démonstration personnalisée et découvrez comment notre solution peut transformer votre établissement.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="contact.html?service=Hotel-Demo" class="btn-modern btn-gold">
+              <i class="fa-solid fa-play"></i>
+              Demander une démo
+            </a>
+            <a href="tel:+243840665620" class="btn-modern bg-white/10 border border-white/20 text-white hover:bg-white/20">
+              <i class="fa-solid fa-phone"></i>
+              +243 84 066 56 20
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="py-10 text-center text-sm text-gray-500 border-t border-white/5 mt-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <p>© <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Header scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+      mobileMenu.classList.toggle('translate-x-full');
+    }
+
+    mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+    closeMobileMenu?.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
+
+    // Reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>

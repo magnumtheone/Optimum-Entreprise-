@@ -4,379 +4,879 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Offres Site Vitrine – Optimum Entreprise</title>
+  <meta name="description" content="Créez votre site vitrine professionnel avec Optimum Entreprise. Des solutions adaptées à votre budget pour une présence en ligne percutante.">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Configuration Tailwind unifiée avec la page principale (index.html)
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
             brand: { 
-              red: '#5d1212', // Bordeaux
-              gold: '#facc15', // Jaune Or
-              dark: '#0a0a0a' // Noir principal
-            },
-            // Ajout des couleurs spécifiques utilisées dans l'ancienne version pour l'unification
-            'opt-bordeaux': '#5d1212',
-            'opt-yellow': '#facc15'
+              red: '#5d1212',
+              gold: '#facc15',
+              dark: '#0a0a0a',
+              light: '#1e293b',
+            }
           },
           fontFamily: {
-            display: ['Inter', 'sans-serif'] // Utilisation de la police Inter
+            display: ['Space Grotesk', 'Inter', 'sans-serif'],
+            sans: ['Inter', 'sans-serif']
           },
           boxShadow: { 
-            glow: '0 0 0 3px rgba(250,204,21,.35)' 
+            glow: '0 0 30px rgba(250,204,21,.4)',
+            'gold-light': '0 0 20px rgba(250,204,21,.3)',
+            'red-glow': '0 0 30px rgba(93,18,18,.5)',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'gradient': 'gradient 8s ease infinite',
+            'slide-up': 'slideUp 0.6s ease-out forwards',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
           }
         }
       }
     }
   </script>
 
+  <!-- CSS Principal -->
+  <link rel="stylesheet" href="../css/main.css"/>
+
   <!-- Polices et Icônes -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   
-  <!-- Styles Global et Glass Card Unifié -->
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #0a0a0a; /* brand-dark */
-      color: #e5e7eb; /* gray-200 */
-      line-height: 1.6;
+      background-color: #050505;
+      color: #e5e7eb;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
     
-    /* Decoration: Ajout des styles des blobs pour le fond */
+    /* Animated Background */
+    .hero-gradient {
+      background: linear-gradient(-45deg, #0a0a0a, #1a0505, #0a0a0a, #050a05);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+    }
+    
+    /* Blobs améliorés */
     .blob {
       position: absolute;
-      filter: blur(80px); /* L'effet est plus subtil */
-      opacity: 0.25;
+      filter: blur(120px);
+      opacity: 0.3;
       transform: translate3d(0,0,0);
       z-index: 0;
       pointer-events: none;
+      transition: all 1s ease;
     }
-
-    /* Glass Card Unifié */
+    
+    /* Glass Card Modernisé */
     .glass-card {
-      /* Utilise un fond sombre pour la cohérence */
-      background: rgba(20, 20, 20, 0.7); /* dark mode: gray-900/70 */
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      transition: all 0.3s ease;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     .glass-card:hover {
-      border-color: rgba(250, 204, 21, 0.4); /* gold/40 on hover */
-      transform: translateY(-2px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      border-color: rgba(250, 204, 21, 0.3);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(250, 204, 21, 0.1);
     }
 
-    /* Style du Header pour l'unification */
+    /* Header fixe moderne */
     #header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 50;
-        background-color: transparent;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      background-color: rgba(5, 5, 5, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: all 0.3s ease;
     }
+    
     #header.scrolled {
-        background-color: rgba(10, 10, 10, 0.95); /* brand-dark avec transparence */
-        backdrop-filter: blur(10px);
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      background-color: rgba(5, 5, 5, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     }
+    
+    /* Pricing Cards */
+    .pricing-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(31, 41, 55, 0.9) 0%, rgba(17, 24, 39, 1) 100%);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-color, #facc15), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .pricing-card:hover::before {
+      opacity: 1;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--glow-color, rgba(250,204,21,0.2));
+      border-color: rgba(250, 204, 21, 0.3);
+    }
+    
+    .pricing-card.featured {
+      border: 2px solid rgba(250, 204, 21, 0.5);
+      box-shadow: 0 0 60px rgba(250, 204, 21, 0.15);
+      transform: scale(1.02);
+    }
+    
+    .pricing-card.featured:hover {
+      transform: translateY(-12px) scale(1.05);
+    }
+    
+    /* Benefit Cards */
+    .benefit-card {
+      position: relative;
+      padding: 2rem;
+      border-radius: 1.5rem;
+      background: linear-gradient(145deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.005) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.4s ease;
+      overflow: hidden;
+    }
+    
+    .benefit-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.1), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .benefit-card:hover::before {
+      opacity: 1;
+    }
+    
+    .benefit-card:hover {
+      border-color: rgba(250, 204, 21, 0.3);
+      transform: translateY(-5px);
+    }
+    
+    .benefit-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, rgba(93,18,18,0.3) 0%, rgba(93,18,18,0.1) 100%);
+      border: 1px solid rgba(93,18,18,0.3);
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      position: relative;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid rgba(250, 204, 21, 0.2);
+      overflow: hidden;
+    }
+    
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(250,204,21,0.05) 0%, transparent 50%);
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    /* Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Badge moderne */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, rgba(250,204,21,0.15) 0%, rgba(250,204,21,0.05) 100%);
+      border: 1px solid rgba(250,204,21,0.3);
+      color: #facc15;
+    }
+    
+    /* Button moderne */
+    .btn-modern {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+    
+    .btn-modern::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .btn-modern:hover::before {
+      left: 100%;
+    }
+    
+    .btn-gold {
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      color: #0a0a0a;
+      box-shadow: 0 10px 30px rgba(250,204,21,0.3);
+    }
+    
+    .btn-gold:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(250,204,21,0.4);
+    }
+    
+    .btn-red {
+      background: linear-gradient(135deg, #5d1212 0%, #7f1d1d 100%);
+      color: white;
+      box-shadow: 0 10px 30px rgba(93,18,18,0.3);
+    }
+    
+    .btn-red:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(93,18,18,0.4);
+    }
+    
+    /* Text Input */
     .text-input {
-      background-color: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
       color: white;
-      transition: border-color 0.3s;
+      transition: all 0.3s ease;
+      border-radius: 0.75rem;
     }
+    
     .text-input:focus {
-      border-color: #facc15; /* brand-gold */
+      border-color: #facc15;
       outline: none;
-      box-shadow: 0 0 0 1px #facc15;
+      box-shadow: 0 0 0 3px rgba(250,204,21,0.2);
+    }
+    
+    /* Process Steps */
+    .process-step {
+      position: relative;
+      padding-left: 4rem;
+    }
+    
+    .process-step::before {
+      content: attr(data-step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3rem;
+      height: 3rem;
+      background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #0a0a0a;
+      font-size: 1.25rem;
+    }
+    
+    .process-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 1.4rem;
+      top: 3.5rem;
+      width: 2px;
+      height: calc(100% - 1rem);
+      background: linear-gradient(to bottom, #facc15, transparent);
     }
   </style>
 </head>
 
 <body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
 
-  <!-- Blocs de fond décoratifs (Blobs) -->
-  <div class="blob w-96 h-96 bg-brand-gold rounded-full top-[-10%] left-[-10%]"></div>
-  <div class="blob w-[30rem] h-[30rem] bg-brand-red rounded-full bottom-[-10%] right-[-10%]"></div>
+  <!-- Blocs décoratifs animés -->
+  <div class="blob w-48 h-48 md:w-[40rem] md:h-[40rem] bg-brand-gold rounded-full top-[-5%] right-[-10%] md:top-[-15%] md:right-[-15%] animate-pulse-slow"></div>
+  <div class="blob w-64 h-64 md:w-[50rem] md:h-[50rem] bg-brand-red rounded-full bottom-[10%] left-[-15%] md:left-[-20%] animate-pulse-slow" style="animation-delay: 2s;"></div>
+  <div class="blob hidden md:block w-[30rem] h-[30rem] bg-gradient-to-br from-brand-gold to-brand-red rounded-full top-[50%] right-[5%] animate-float opacity-20"></div>
 
   <!-- Header unifié avec la page principale -->
   <header id="header" class="py-4">
-    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-      <a href="../../index.html" class="text-2xl font-bold font-display text-white tracking-widest flex items-center gap-2" aria-label="Accueil Optimum Entreprise">
-        <i class="fa-solid fa-gem text-brand-gold" aria-hidden="true"></i>
-        Optimum<span class="text-brand-gold">.</span>
-      </a>
-      <nav aria-label="Navigation principale">
-        <a href="../../index.html#services" class="text-gray-400 hover:text-brand-gold transition duration-200 text-sm" aria-label="Retour à la section Services">Retour aux Services</a>
-      </nav>
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="glass-panel rounded-2xl px-6 py-3 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="../../index.html" class="flex items-center gap-3 group" aria-label="Accueil Optimum Entreprise">
+          <div class="relative w-10 h-10 overflow-hidden rounded-full border-2 border-brand-gold/50 shadow-[0_0_15px_rgba(250,204,21,0.3)] bg-black">
+            <img src="../images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5 group-hover:scale-110 transition-transform duration-500" loading="lazy">
+          </div>
+          <span class="hidden sm:inline font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-gold transition-colors">OPTIMUM ENTREPRISE</span>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+          <a href="../../index.html#services" class="hover:text-brand-gold transition-colors relative group">
+            Services
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="../../index.html#projets" class="hover:text-brand-gold transition-colors relative group">
+            Projets
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./programmation.html" class="hover:text-brand-gold transition-colors relative group">
+            Formations
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all duration-300 group-hover:w-full"></span>
+          </a>
+          <a href="./contact.html" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-red to-red-900 hover:from-red-600 hover:to-brand-red text-white shadow-lg hover:shadow-red-900/40 transition-all duration-300 transform hover:-translate-y-0.5">
+            Contact
+          </a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu" aria-expanded="false">
+          <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+      <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
+        <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
+      </button>
+      <a href="../../index.html#services" class="hover:text-brand-gold mobile-link">Services</a>
+      <a href="../../index.html#projets" class="hover:text-brand-gold mobile-link">Projets</a>
+      <a href="./programmation.html" class="hover:text-brand-gold mobile-link">Formations</a>
+      <a href="./contact.html" class="text-brand-gold mobile-link">Contact</a>
     </div>
   </header>
 
-  <main class="relative z-10 pt-24 pb-16">
+  <main class="relative z-10 pt-32 pb-20">
     <div class="max-w-7xl mx-auto px-6">
-      <!-- Hero Section -->
-      <header class="text-center py-16 reveal">
-        <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">Web & Présence</span>
-        <h1 class="text-5xl md:text-6xl font-extrabold mt-2 mb-4 font-display">
-            Des Sites Vitrines qui <span class="text-brand-gold">Convertissent</span>.
+      
+      <!-- Hero Section Modernisée -->
+      <header class="text-center mb-20 reveal">
+        <div class="badge mx-auto mb-6">
+          <i class="fa-solid fa-globe"></i>
+          Sites Vitrines Professionnels
+        </div>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold mt-4 mb-6 font-display leading-tight tracking-tight">
+            Des Sites Vitrines qui
+            <span class="relative inline-block">
+              <span class="bg-gradient-to-r from-brand-gold via-yellow-300 to-brand-gold bg-clip-text text-transparent animate-gradient bg-[length:200%_auto]">Convertissent</span>
+              <svg class="absolute -bottom-1 md:-bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                <path d="M2 10C50 2 150 2 198 10" stroke="#facc15" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </span>
         </h1>
-        <p class="max-w-3xl mx-auto text-lg text-gray-400">
-          Transformez votre vision en une présence en ligne percutante et professionnelle. Choisissez l'offre qui correspond à l'ambition de votre marque.
+        <p class="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed px-2">
+          Transformez votre vision en une <span class="text-white font-semibold">présence en ligne percutante</span>. Choisissez l'offre qui correspond à l'ambition de votre marque.
         </p>
-      </header>
-    </div>
-    
-    <!-- Section des Plans Tarifaires -->
-    <section class="max-w-7xl mx-auto px-6 py-12">
-      <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
         
-        <!-- Plan 1 : ESSENTIELLE -->
-        <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
-          <div class="mb-6">
-            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Essentielle</h2>
-            <p class="text-sm text-gray-400 mb-4">Le meilleur départ pour les TPE et indépendants.</p>
-            <p class="text-4xl font-extrabold text-white mb-6">
-              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Dès</span> 499 €
-            </p>
-            <div class="space-y-3">
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">1 Page (Landing Page)</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Design moderne & Responsive</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Optimisation SEO de base</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Formulaire de contact simple</span>
-              </div>
-              <div class="flex items-start gap-3 text-gray-500 line-through">
-                <i class="fa-solid fa-xmark text-brand-red mt-1"></i>
-                <span class="text-gray-500">Blog ou Gestion de Contenu</span>
-              </div>
-            </div>
-          </div>
-          <button onclick="openDevis('Essentielle')" class="w-full bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 rounded-lg mt-4 transition duration-200">
-            Choisir ce plan
-          </button>
-        </div>
-
-        <!-- Plan 2 : PREMIUM (Mis en avant) -->
-        <div class="glass-card p-6 rounded-xl flex flex-col justify-between border-2 border-brand-gold shadow-2xl shadow-brand-gold/10">
-          <div class="mb-6">
-            <div class="text-center mb-4">
-              <span class="inline-block bg-brand-gold text-brand-dark px-3 py-1 text-xs font-bold rounded-full uppercase">Le plus populaire</span>
-            </div>
-            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Premium</h2>
-            <p class="text-sm text-gray-400 mb-4">L'offre complète pour PME et professionnels ambitieux.</p>
-            <p class="text-5xl font-extrabold text-white mb-6">
-              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Dès</span> 999 €
-            </p>
-            <div class="space-y-3">
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Jusqu'à 5 pages professionnelles</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Système de gestion de contenu (CMS)</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Optimisation des performances (Vitesse)</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Accès au Blog / Actualités</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">1h de formation à la prise en main</span>
-              </div>
-            </div>
-          </div>
-          <button onclick="openDevis('Premium')" class="w-full bg-brand-gold hover:bg-brand-gold/80 text-brand-dark font-bold py-3 rounded-lg mt-4 transition duration-200 shadow-lg shadow-brand-gold/20">
-            Choisir ce plan
-          </button>
-        </div>
-
-        <!-- Plan 3 : PRESTIGE -->
-        <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
-          <div class="mb-6">
-            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Prestige</h2>
-            <p class="text-sm text-gray-400 mb-4">Le site sur-mesure pour les structures exigeantes.</p>
-            <p class="text-4xl font-extrabold text-white mb-6">
-              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Dès</span> 1999 €
-            </p>
-            <div class="space-y-3">
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Pages illimitées</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Fonctionnalités spécifiques (multi-langue, portail)</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Design UX/UI personnalisé</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Intégration CRM / outils tiers</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-check text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Audit et stratégie SEO avancée</span>
-              </div>
-            </div>
-          </div>
-          <button onclick="openDevis('Prestige')" class="w-full bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 rounded-lg mt-4 transition duration-200">
-            Choisir ce plan
-          </button>
-        </div>
-        
-        <!-- Plan 4 : SUR-MESURE (Nouveau style pour plus de cohérence) -->
-        <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
-          <div class="mb-6">
-            <h2 class="text-3xl font-bold text-brand-gold mb-1 font-display">Sur-Mesure</h2>
-            <p class="text-sm text-gray-400 mb-4">Pour une solution unique sans les contraintes d'une offre standard.</p>
-            <p class="text-4xl font-extrabold text-white mb-6">
-              <span class="text-2xl font-semibold align-top text-gray-400 mr-1">Prix sur</span> Devis
-            </p>
-            <div class="space-y-3">
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-star text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Idéal pour les projets complexes.</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-star text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Applications Web personnalisées.</span>
-              </div>
-              <div class="flex items-start gap-3">
-                <i class="fa-solid fa-star text-brand-gold mt-1"></i>
-                <span class="text-gray-300">Soutien technique dédié.</span>
-              </div>
-            </div>
-          </div>
-          <button onclick="openDevis('Sur-Mesure')" class="w-full bg-brand-red hover:bg-brand-red/80 text-white font-bold py-3 rounded-lg mt-4 transition duration-200">
+        <!-- CTA rapides -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10 px-4 sm:px-0">
+          <a href="#tarifs" class="btn-modern btn-gold sm:max-w-xs text-sm sm:text-base">
+            <i class="fa-solid fa-tags"></i>
+            Voir les tarifs
+          </a>
+          <a href="#devis-form" class="btn-modern bg-white/10 border border-white/20 text-white hover:bg-white/20 sm:max-w-xs text-sm sm:text-base">
+            <i class="fa-solid fa-paper-plane"></i>
             Demander un devis
-          </button>
+          </a>
         </div>
-      </div>
-    </section>
+      </header>
 
-    <!-- Section du Formulaire de Devis (Unifié) -->
-    <section id="devis-form" class="max-w-3xl mx-auto px-6 py-16">
-      <h2 class="text-3xl font-bold text-center mb-8 font-display">
-        Demandez votre Devis Personnalisé
-      </h2>
-      <form class="glass-card p-8 rounded-xl space-y-4" onsubmit="handleFormSubmit(event)">
+      <!-- Section: Ce qui est inclus -->
+      <section class="mb-28 reveal" style="animation-delay: 0.2s;">
+        <div class="text-center mb-10 md:mb-14 px-2">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4 font-display">
+            Ce qui est <span class="bg-gradient-to-r from-brand-gold to-yellow-300 bg-clip-text text-transparent">Inclus</span> dans Chaque Site
+          </h2>
+          <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">Toutes nos offres incluent ces fonctionnalités essentielles pour votre réussite.</p>
+        </div>
         
-        <input type="text" id="form-name" placeholder="Votre Nom / Nom de l'entreprise" required class="text-input w-full rounded p-3" />
-        <input type="email" id="form-email" placeholder="Votre Email" required class="text-input w-full rounded p-3" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-mobile-screen"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">100% Responsive</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Votre site s'adapte parfaitement à tous les écrans : mobile, tablette et desktop.</p>
+            </div>
+
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Ultra Rapide</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Optimisé pour un chargement éclair. Score PageSpeed supérieur à 90/100.</p>
+            </div>
+
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Sécurisé SSL</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Certificat HTTPS inclus pour protéger vos visiteurs et gagner en confiance.</p>
+            </div>
+
+            <div class="benefit-card group">
+                <div class="benefit-icon text-brand-gold">
+                  <i class="fa-solid fa-headset"></i>
+                </div>
+                <h3 class="font-bold text-white text-xl mb-3 group-hover:text-brand-gold transition-colors">Support Réactif</h3>
+                <p class="text-sm text-gray-400 leading-relaxed">Une équipe disponible pour vous accompagner après la livraison de votre projet.</p>
+            </div>
+
+        </div>
+      </section>
+
+      <!-- Section des Plans Tarifaires -->
+      <section id="tarifs" class="mb-28 reveal" style="animation-delay: 0.4s;">
+        <div class="text-center mb-10 md:mb-14 px-2">
+          <h2 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white mb-4 font-display">
+            Nos <span class="text-brand-gold">Formules</span>
+          </h2>
+          <p class="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">Des solutions adaptées à chaque budget et chaque ambition.</p>
+        </div>
         
-        <!-- Champ de l'Offre Pré-sélectionnée -->
-        <select id="form-service" class="text-input w-full rounded p-3">
-          <option value="" disabled selected>Choisissez l'offre qui vous intéresse...</option>
-          <option value="Offre Essentielle">Offre Essentielle</option>
-          <option value="Offre Premium">Offre Premium</option>
-          <option value="Offre Prestige">Offre Prestige</option>
-          <option value="Sur-Mesure">Projet Sur-Mesure</option>
-        </select>
-        
-        <textarea id="form-message" placeholder="Décrivez votre projet et vos attentes (détails, objectifs, budget)" required class="text-input w-full rounded p-3 h-32"></textarea>
-        
-        <div class="flex justify-end gap-3 pt-4">
-          <button type="reset" class="px-6 py-2 rounded-lg border border-gray-700 text-gray-400 hover:text-white hover:border-white/50 transition duration-200">Annuler</button>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           
-          <!-- CTA principale en GOLD -->
-          <button type="submit" class="px-6 py-2 rounded-lg bg-brand-gold text-brand-dark font-bold hover:bg-brand-gold/90 transition duration-200 shadow-md">
-            Envoyer la demande
-          </button>
-        </div>
-        <div id="form-toast" class="hidden mt-4 p-3 bg-green-900/50 text-green-300 border border-green-700 rounded-lg text-sm">
-            Message envoyé ! Nous vous recontacterons très vite.
-        </div>
-      </form>
-    </section>
+          <!-- Plan 1 : ESSENTIELLE -->
+          <div class="pricing-card p-8" style="--accent-color: #facc15; --glow-color: rgba(250,204,21,0.2);">
+            <div class="mb-6">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-gold/30 to-brand-gold/10 flex items-center justify-center text-brand-gold text-2xl mb-4">
+                <i class="fa-solid fa-seedling"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-brand-gold mb-2 font-display">Essentielle</h2>
+              <p class="text-sm text-gray-400 mb-6">Le meilleur départ pour les TPE et indépendants.</p>
+              <div class="mb-6">
+                <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+                  1.400.000 <span class="text-sm sm:text-lg font-medium text-gray-400">FC</span>
+                </p>
+                <p class="text-xs text-gray-500 mt-1">≈ 500 USD</p>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">1 Page (Landing Page)</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Design moderne & Responsive</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Optimisation SEO de base</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Formulaire de contact</span>
+                </div>
+                <div class="flex items-start gap-3 opacity-50">
+                  <i class="fa-solid fa-xmark text-gray-500 mt-1 text-sm"></i>
+                  <span class="text-gray-500 text-sm line-through">Blog / Actualités</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="openDevis('Essentielle')" class="btn-modern btn-red mt-4">
+              Choisir ce plan
+            </button>
+          </div>
 
+          <!-- Plan 2 : PREMIUM (Mis en avant) -->
+          <div class="pricing-card featured p-8" style="--accent-color: #facc15; --glow-color: rgba(250,204,21,0.3);">
+            <div class="absolute top-0 left-0 right-0">
+              <div class="text-center py-2 bg-gradient-to-r from-brand-gold to-yellow-400 text-brand-dark text-xs font-bold uppercase tracking-wider rounded-t-3xl">
+                <i class="fa-solid fa-star mr-1"></i> Le plus populaire
+              </div>
+            </div>
+            <div class="mb-6 pt-6">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-gold/30 to-brand-gold/10 flex items-center justify-center text-brand-gold text-2xl mb-4">
+                <i class="fa-solid fa-rocket"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-brand-gold mb-2 font-display">Premium</h2>
+              <p class="text-sm text-gray-400 mb-6">L'offre complète pour PME et professionnels ambitieux.</p>
+              <div class="mb-6">
+                <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+                  2.800.000 <span class="text-sm sm:text-lg font-medium text-gray-400">FC</span>
+                </p>
+                <p class="text-xs text-gray-500 mt-1">≈ 1.000 USD</p>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Jusqu'à 5 pages professionnelles</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Système de gestion (CMS)</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Optimisation performances</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Blog / Actualités</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">1h de formation incluse</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="openDevis('Premium')" class="btn-modern btn-gold mt-4">
+              Choisir ce plan
+            </button>
+          </div>
+
+          <!-- Plan 3 : PRESTIGE -->
+          <div class="pricing-card p-8" style="--accent-color: #5d1212; --glow-color: rgba(93,18,18,0.2);">
+            <div class="mb-6">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-red/30 to-brand-red/10 flex items-center justify-center text-brand-red text-2xl mb-4">
+                <i class="fa-solid fa-crown"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-brand-gold mb-2 font-display">Prestige</h2>
+              <p class="text-sm text-gray-400 mb-6">Le site sur-mesure pour les structures exigeantes.</p>
+              <div class="mb-6">
+                <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+                  5.600.000 <span class="text-sm sm:text-lg font-medium text-gray-400">FC</span>
+                </p>
+                <p class="text-xs text-gray-500 mt-1">≈ 2.000 USD</p>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Pages illimitées</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Multi-langue, portail client</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Design UX/UI personnalisé</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Intégration CRM / outils tiers</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-check text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Stratégie SEO avancée</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="openDevis('Prestige')" class="btn-modern btn-red mt-4">
+              Choisir ce plan
+            </button>
+          </div>
+          
+          <!-- Plan 4 : SUR-MESURE -->
+          <div class="pricing-card p-8" style="--accent-color: #facc15; --glow-color: rgba(250,204,21,0.2);">
+            <div class="mb-6">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-brand-gold/30 to-brand-gold/10 flex items-center justify-center text-brand-gold text-2xl mb-4">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+              <h2 class="text-2xl font-bold text-brand-gold mb-2 font-display">Sur-Mesure</h2>
+              <p class="text-sm text-gray-400 mb-6">Solution unique sans contraintes d'offre standard.</p>
+              <div class="mb-6">
+                <p class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+                  Sur <span class="text-sm sm:text-lg font-medium text-gray-400">Devis</span>
+                </p>
+                <p class="text-xs text-gray-500 mt-1">Parlons de votre projet</p>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-star text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Projets complexes</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-star text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Applications Web</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-star text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Support technique dédié</span>
+                </div>
+                <div class="flex items-start gap-3">
+                  <i class="fa-solid fa-star text-brand-gold mt-1 text-sm"></i>
+                  <span class="text-gray-300 text-sm">Fonctionnalités avancées</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="openDevis('Sur-Mesure')" class="btn-modern btn-red mt-4">
+              Demander un devis
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Notre Processus -->
+      <section class="mb-20 md:mb-28 reveal" style="animation-delay: 0.6s;">
+        <div class="cta-section rounded-2xl md:rounded-3xl p-6 sm:p-10 md:p-14">
+          <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+              <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4 font-display">
+                Notre <span class="text-brand-gold">Processus</span>
+              </h2>
+              <p class="text-gray-400 mb-8">De l'idée à la mise en ligne, nous vous accompagnons à chaque étape.</p>
+              
+              <div class="space-y-8">
+                <div class="process-step" data-step="1">
+                  <h3 class="font-bold text-white text-lg mb-2">Écoute & Brief</h3>
+                  <p class="text-gray-400 text-sm">Nous analysons vos besoins, votre identité et vos objectifs business.</p>
+                </div>
+                <div class="process-step" data-step="2">
+                  <h3 class="font-bold text-white text-lg mb-2">Design & Validation</h3>
+                  <p class="text-gray-400 text-sm">Création des maquettes et ajustements jusqu'à votre satisfaction.</p>
+                </div>
+                <div class="process-step" data-step="3">
+                  <h3 class="font-bold text-white text-lg mb-2">Développement</h3>
+                  <p class="text-gray-400 text-sm">Codage professionnel, optimisation SEO et tests de performance.</p>
+                </div>
+                <div class="process-step" data-step="4">
+                  <h3 class="font-bold text-white text-lg mb-2">Mise en Ligne & Support</h3>
+                  <p class="text-gray-400 text-sm">Déploiement, formation et accompagnement post-lancement.</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-10 md:mt-0">
+              <div class="relative">
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-gold/20 to-brand-red/20 rounded-2xl md:rounded-3xl blur-3xl"></div>
+                <div class="relative glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl border border-brand-gold/20">
+                  <div class="text-center">
+                    <div class="w-16 h-16 md:w-20 md:h-20 mx-auto rounded-full bg-brand-gold/20 flex items-center justify-center mb-4 md:mb-6">
+                      <i class="fa-solid fa-clock text-3xl md:text-4xl text-brand-gold"></i>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Délai moyen</h3>
+                    <p class="text-4xl md:text-5xl font-extrabold text-brand-gold mb-2">7-14</p>
+                    <p class="text-gray-400 text-sm md:text-base">jours ouvrés</p>
+                    <div class="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-white/10">
+                      <p class="text-xs md:text-sm text-gray-500">Selon la complexité du projet</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section du Formulaire de Devis -->
+      <section id="devis-form" class="reveal" style="animation-delay: 0.8s;">
+        <div class="max-w-3xl mx-auto">
+          <div class="text-center mb-8 md:mb-10 px-2">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4 font-display">
+              Demandez votre <span class="text-brand-gold">Devis Personnalisé</span>
+            </h2>
+            <p class="text-gray-400 text-sm sm:text-base">Remplissez ce formulaire et recevez votre devis sous 24h.</p>
+          </div>
+          
+          <form class="glass-card p-5 sm:p-8 md:p-10 rounded-xl md:rounded-2xl space-y-5 md:space-y-6" onsubmit="handleFormSubmit(event)">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div>
+                <label class="block text-xs sm:text-sm font-semibold text-brand-gold mb-2">Nom / Entreprise</label>
+                <input type="text" id="form-name" placeholder="Votre nom ou entreprise" required class="text-input w-full p-4" />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-brand-gold mb-2">Email</label>
+                <input type="email" id="form-email" placeholder="votre@email.com" required class="text-input w-full p-4" />
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-brand-gold mb-2">Offre qui vous intéresse</label>
+              <select id="form-service" class="text-input w-full p-4">
+                <option value="" disabled selected>Choisissez une offre...</option>
+                <option value="Offre Essentielle">Essentielle - 1.400.000 FC</option>
+                <option value="Offre Premium">Premium - 2.800.000 FC</option>
+                <option value="Offre Prestige">Prestige - 5.600.000 FC</option>
+                <option value="Sur-Mesure">Sur-Mesure - Devis personnalisé</option>
+              </select>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-semibold text-brand-gold mb-2">Décrivez votre projet</label>
+              <textarea id="form-message" placeholder="Parlez-nous de votre activité, vos objectifs et vos attentes..." required class="text-input w-full p-4 h-36"></textarea>
+            </div>
+            
+            <div class="flex flex-col sm:flex-row justify-end gap-4 pt-4">
+              <button type="reset" class="px-8 py-3 rounded-xl border border-gray-700 text-gray-400 hover:text-white hover:border-white/50 transition duration-200">
+                Annuler
+              </button>
+              <button type="submit" class="btn-modern btn-gold max-w-xs">
+                <i class="fa-solid fa-paper-plane"></i>
+                Envoyer la demande
+              </button>
+            </div>
+            
+            <div id="form-toast" class="hidden mt-4 p-4 bg-green-900/50 text-green-300 border border-green-700 rounded-xl text-sm text-center">
+              <i class="fa-solid fa-check-circle mr-2"></i>
+              Message envoyé ! Nous vous recontacterons très vite.
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <footer class="py-8 text-center text-sm text-gray-500 dark:text-gray-400 border-t border-gray-900">
-    © <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.
+  <footer class="py-10 text-center text-sm text-gray-500 border-t border-white/5 mt-10">
+    <div class="max-w-7xl mx-auto px-6">
+      <p>© <span id="year">2025</span> Optimum Entreprise — Votre vision, notre mission digitale.</p>
+    </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- HEADER SCROLL ---
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // --- MENU MOBILE ---
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.getElementById('close-mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+        const isOpen = !mobileMenu.classList.contains('translate-x-full');
+        if(isOpen) mobileMenu.classList.add('translate-x-full');
+        else mobileMenu.classList.remove('translate-x-full');
+    }
+
+    if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    if(closeMobileMenu) closeMobileMenu.addEventListener('click', toggleMobileMenu);
+    mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
     
-    // helper pour le bouton Choisir
+    // --- REVEAL ANIMATION ---
+    const revealElements = document.querySelectorAll('.reveal');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+    
+    // --- OPEN DEVIS ---
     function openDevis(plan){
       const sel = document.getElementById('form-service');
-      if(sel) sel.value = 'Offre ' + plan;
-      
-      // Si c'est l'option "Sur-Mesure" on sélectionne l'option sans le préfixe "Offre"
-      if(plan === 'Sur-Mesure') {
+      if(sel) {
+        if(plan === 'Sur-Mesure') {
           sel.value = 'Sur-Mesure';
+        } else {
+          sel.value = 'Offre ' + plan;
+        }
       }
-
       const target = document.getElementById('devis-form');
       if(target) target.scrollIntoView({behavior:'smooth'});
     }
 
-    // Gestion de l'envoi du formulaire (Simulation)
+    // --- FORM SUBMIT ---
     function handleFormSubmit(e) {
       e.preventDefault();
       const form = e.target;
       const btn = form.querySelector('button[type="submit"]');
       const toast = document.getElementById('form-toast');
-      const originalText = btn.innerText;
+      const originalHTML = btn.innerHTML;
       
-      // Animation du bouton
-      btn.innerText = "Envoi...";
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi...';
       btn.disabled = true;
 
-      // Simulation de l'envoi (vous remplacerez ceci par votre vraie logique de soumission)
       setTimeout(() => {
-          // Affichage du message de succès
           toast.classList.remove('hidden');
-          toast.classList.add('animate-fadeIn');
-          
-          // Réinitialisation du formulaire et du bouton
           form.reset();
-          btn.innerText = originalText;
+          btn.innerHTML = originalHTML;
           btn.disabled = false;
           
-          // Masquage du toast après 4 secondes
           setTimeout(() => {
               toast.classList.add('hidden');
-              toast.classList.remove('animate-fadeIn');
           }, 4000);
       }, 1500);
     }
-    
-    // Logique du Header au Scroll
-    window.addEventListener('scroll', () => {
-      const header = document.getElementById('header');
-      if(window.scrollY > 50) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
-    });
-
   </script>
 </body>
 </html>

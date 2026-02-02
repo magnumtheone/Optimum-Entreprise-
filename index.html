@@ -31,6 +31,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="./frontend/css/main.css">
+    
     <!-- Tailwind CSS (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -69,109 +72,11 @@
     </script>
 
     <style>
-        /* Custom Styles for Immersion */
-        :root {
-            --cursor-size: 20px;
-        }
+        /* 
+         * Styles spécifiques à index.html
+         * Les styles globaux sont dans ./frontend/css/main.css 
+         */
         
-        body {
-            background-color: #050505;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f0f0f; }
-        ::-webkit-scrollbar-thumb { background: #5d1212; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #facc15; }
-
-        /* Glassmorphism Classes */
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
-        }
-        
-        .glass-card {
-            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .glass-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: rgba(250, 204, 21, 0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(250, 204, 21, 0.1);
-        }
-
-        /* Text Gradients */
-        .text-gradient {
-            background: linear-gradient(135deg, #facc15 0%, #ffffff 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .text-gradient-red {
-            background: linear-gradient(135deg, #ff4d4d 0%, #5d1212 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Canvas Background */
-        #bg-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.6;
-        }
-
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Chat Widget Styles */
-        .chat-widget {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .chat-messages::-webkit-scrollbar { width: 4px; }
-        .typing-dot {
-            animation: typing 1.4s infinite ease-in-out both;
-        }
-        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
-        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
-        
-        @keyframes typing {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-
-        /* Glow Effects */
-        .glow-point {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(93,18,18,0.4) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
-            z-index: 0;
-            filter: blur(40px);
-        }
-
         /* Styles spécifiques pour l'animation du menu déroulant (inclus dans la réponse précédente) */
         .glass-panel {
             background: rgba(20, 20, 20, 0.6);
@@ -290,7 +195,12 @@
                 <!-- Abstract 3D-like Shape using CSS -->
                 <div class="relative w-full max-w-md aspect-square animate-float">
                     <div class="absolute inset-0 bg-gradient-to-tr from-brand-red to-brand-gold rounded-full opacity-20 blur-[80px]"></div>
-                    <img src="./frontend/images/offbg.png" alt="Hero visuel tech Optimum" class="relative z-10 w-full h-full object-contain drop-shadow-2xl opacity-90" loading="lazy">
+                    <!-- Logo central animé -->
+                    <div class="relative z-10 w-full h-full flex items-center justify-center">
+                        <div class="w-48 h-48 rounded-full border-4 border-brand-gold/50 shadow-[0_0_60px_rgba(250,204,21,0.4)] bg-black overflow-hidden">
+                            <img src="./frontend/images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-4" loading="lazy">
+                        </div>
+                    </div>
                     
                     <!-- Floating Cards -->
                     <div class="absolute top-10 -right-4 glass-panel p-4 rounded-xl animate-float" style="animation-delay: 1s;">
@@ -315,42 +225,195 @@
                 <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Des solutions complètes pour chaque étape de votre croissance numérique.</p>
             </div>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1 : Développement Web (AVEC MENU INTERACTIF) -->
-                <div class="glass-card p-8 rounded-2xl reveal relative z-40" id="web-dev-card">
-                    <div class="cursor-pointer group" onclick="toggleWebMenu(event)">
-                        <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl pointer-events-none">
-                            <i class="fa-solid fa-globe"></i>
+            <!-- ===== CARTE VEDETTE : Développement Web ===== -->
+            <div class="mb-12 reveal">
+                <div class="glass-card p-8 md:p-10 rounded-3xl relative z-[100] border-2 border-brand-gold/30 bg-gradient-to-br from-brand-red/5 via-transparent to-brand-gold/5 overflow-hidden" id="web-dev-card" role="region" aria-labelledby="web-dev-title">
+                    <!-- Badge "Service phare" -->
+                    <div class="absolute top-4 right-4 md:top-6 md:right-6">
+                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-gold/20 border border-brand-gold/40 text-brand-gold text-[10px] font-bold uppercase tracking-widest">
+                            <i class="fa-solid fa-star text-[8px]" aria-hidden="true"></i>
+                            Service Phare
+                        </span>
+                    </div>
+
+                    <!-- Décoration de fond -->
+                    <div class="absolute -top-20 -right-20 w-64 h-64 bg-brand-gold/10 rounded-full blur-[80px] pointer-events-none"></div>
+                    <div class="absolute -bottom-20 -left-20 w-48 h-48 bg-brand-red/10 rounded-full blur-[60px] pointer-events-none"></div>
+
+                    <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
+                        <!-- Contenu gauche -->
+                        <div>
+                            <!-- Bouton accessible avec attributs ARIA -->
+                            <button 
+                                type="button"
+                                id="web-menu-trigger"
+                                class="w-full text-left cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark rounded-xl p-1 -m-1 transition-all duration-300"
+                                onclick="toggleWebMenu(event)"
+                                onkeydown="handleWebMenuKeydown(event)"
+                                aria-expanded="false"
+                                aria-controls="web-menu"
+                                aria-haspopup="menu"
+                            >
+                                <!-- Icône avec animation au survol -->
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-red/40 to-brand-gold/20 flex items-center justify-center mb-6 text-brand-gold text-3xl group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] transition-all duration-300 border border-brand-gold/20">
+                                    <i class="fa-solid fa-globe group-hover:rotate-12 transition-transform duration-300" aria-hidden="true"></i>
+                                </div>
+                                
+                                <h3 id="web-dev-title" class="text-2xl md:text-3xl font-bold mb-4 font-display flex items-center gap-3 select-none">
+                                    Développement Web
+                                    <i class="fa-solid fa-chevron-down text-sm text-brand-gold opacity-60 group-hover:opacity-100 group-focus-visible:opacity-100 transition-all duration-300" id="web-menu-arrow" aria-hidden="true"></i>
+                                </h3>
+                                
+                                <p class="text-gray-400 text-base leading-relaxed mb-6">
+                                    Sites vitrines, e-commerce et applications web sur-mesure. Rapides, sécurisés et optimisés pour convertir vos visiteurs en clients.
+                                </p>
+                                
+                                <ul class="text-sm text-gray-400 space-y-3 mb-6" aria-label="Caractéristiques principales">
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center">
+                                            <i class="fa-solid fa-check text-brand-gold text-xs" aria-hidden="true"></i>
+                                        </div>
+                                        Responsive Design
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center">
+                                            <i class="fa-solid fa-check text-brand-gold text-xs" aria-hidden="true"></i>
+                                        </div>
+                                        UX/UI Moderne
+                                    </li>
+                                    <li class="flex items-center gap-3">
+                                        <div class="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center">
+                                            <i class="fa-solid fa-check text-brand-gold text-xs" aria-hidden="true"></i>
+                                        </div>
+                                        Optimisation SEO
+                                    </li>
+                                </ul>
+
+                                <!-- Bouton d'action -->
+                                <div class="inline-flex items-center gap-2 px-6 py-3 bg-brand-gold/20 hover:bg-brand-gold/30 border border-brand-gold/40 rounded-xl text-brand-gold font-semibold transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(250,204,21,0.2)]">
+                                    <i class="fa-solid fa-hand-pointer text-sm group-hover:animate-bounce" aria-hidden="true"></i>
+                                    <span>Explorer les options</span>
+                                    <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
+                                </div>
+                            </button>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 font-display flex justify-between items-center select-none">
-                            Développement Web
-                            <i class="fa-solid fa-chevron-down text-xs text-brand-gold opacity-50 group-hover:opacity-100 transition-all duration-300" id="web-menu-arrow"></i>
-                        </h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-4 pointer-events-none">Sites vitrines, e-commerce et applications web sur-mesure. Rapides, sécurisés et optimisés.</p>
-                        <ul class="text-xs text-gray-500 space-y-2 pointer-events-none">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> Responsive Design</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-gold"></i> UX/UI Moderne</li>
-                        </ul>
+
+                        <!-- Aperçu des options à droite (visible sur desktop) -->
+                        <div class="hidden md:grid grid-cols-1 gap-3">
+                            <a href="./frontend/pages/sitevi.html" class="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-gold/30 rounded-xl transition-all duration-300 group">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-red/30 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-laptop text-brand-gold text-lg" aria-hidden="true"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-semibold text-white group-hover:text-brand-gold transition-colors">Site Vitrine</div>
+                                    <div class="text-xs text-gray-500">Présentez votre activité</div>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-gold opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></i>
+                            </a>
+                            <a href="./frontend/pages/offres.html" class="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-gold/30 rounded-xl transition-all duration-300 group">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-red/30 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-cart-shopping text-brand-gold text-lg" aria-hidden="true"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-semibold text-white group-hover:text-brand-gold transition-colors">E-commerce</div>
+                                    <div class="text-xs text-gray-500">Vendez en ligne 24h/24</div>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-gold opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></i>
+                            </a>
+                            <a href="./frontend/pages/offres.html" class="flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-brand-gold/30 rounded-xl transition-all duration-300 group">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-red/30 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-code text-brand-gold text-lg" aria-hidden="true"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="font-semibold text-white group-hover:text-brand-gold transition-colors">Application Web</div>
+                                    <div class="text-xs text-gray-500">Solutions sur-mesure</div>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-gold opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true"></i>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Dropdown Menu (Menu Déroulant) -->
-                    <div id="web-menu" class="hidden absolute left-0 top-full mt-2 w-full glass-panel rounded-xl p-2 z-50 shadow-[0_10px_40px_rgba(0,0,0,0.7)] border border-brand-gold/20 transform transition-all duration-200 origin-top scale-95 opacity-0">
-                        <a href="./frontend/pages/sitevi.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-brand-gold rounded-lg transition-colors group">
-                            <div class="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center"><i class="fa-solid fa-laptop text-brand-red group-hover:text-brand-gold transition-colors"></i></div>
-                            <span>Site Vitrine (Présentation)</span>
+                    <!-- Menu déroulant accessible (pour mobile) -->
+                    <nav 
+                        id="web-menu" 
+                        class="hidden absolute left-4 right-4 md:left-8 md:right-auto md:w-96 top-full mt-3 glass-panel rounded-xl p-3 z-[200] shadow-[0_15px_50px_rgba(0,0,0,0.8),0_0_0_1px_rgba(250,204,21,0.2)] border border-brand-gold/30 transform transition-all duration-300 origin-top scale-95 opacity-0"
+                        role="menu"
+                        aria-labelledby="web-menu-trigger"
+                        aria-orientation="vertical"
+                    >
+                        <!-- Titre du menu -->
+                        <div class="px-3 py-2 mb-2 border-b border-white/10">
+                            <span class="text-[10px] uppercase tracking-widest text-gray-500 font-bold">Choisissez votre solution</span>
+                        </div>
+
+                        <a href="./frontend/pages/sitevi.html" 
+                           class="flex items-center gap-4 px-4 py-4 text-sm text-gray-300 hover:bg-gradient-to-r hover:from-brand-red/20 hover:to-transparent hover:text-brand-gold rounded-xl transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-inset"
+                           role="menuitem"
+                           tabindex="-1"
+                        >
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-red/20 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(250,204,21,0.2)] transition-all duration-300">
+                                <i class="fa-solid fa-laptop text-brand-red group-hover:text-brand-gold transition-colors text-lg" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold group-hover:text-brand-gold transition-colors">Site Vitrine</div>
+                                <div class="text-xs text-gray-500 mt-0.5">Présentez votre activité avec élégance</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-brand-gold" aria-hidden="true"></i>
                         </a>
-                        <a href="./frontend/pages/offres.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-brand-gold rounded-lg transition-colors group">
-                            <div class="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center"><i class="fa-solid fa-cart-shopping text-brand-red group-hover:text-brand-gold transition-colors"></i></div>
-                            <span>E-commerce (Boutique en ligne)</span>
+
+                        <a href="./frontend/pages/offres.html" 
+                           class="flex items-center gap-4 px-4 py-4 text-sm text-gray-300 hover:bg-gradient-to-r hover:from-brand-red/20 hover:to-transparent hover:text-brand-gold rounded-xl transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-inset"
+                           role="menuitem"
+                           tabindex="-1"
+                        >
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-red/20 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(250,204,21,0.2)] transition-all duration-300">
+                                <i class="fa-solid fa-cart-shopping text-brand-red group-hover:text-brand-gold transition-colors text-lg" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold group-hover:text-brand-gold transition-colors">E-commerce</div>
+                                <div class="text-xs text-gray-500 mt-0.5">Vendez en ligne 24h/24</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-brand-gold" aria-hidden="true"></i>
                         </a>
-                        <a href="./frontend/pages/offres.html" class="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 hover:bg-white/10 hover:text-brand-gold rounded-lg transition-colors group">
-                            <div class="w-8 h-8 rounded-lg bg-brand-red/10 flex items-center justify-center"><i class="fa-solid fa-code text-brand-red group-hover:text-brand-gold transition-colors"></i></div>
-                            <span>Application Web (Sur-mesure)</span>
+
+                        <a href="./frontend/pages/offres.html" 
+                           class="flex items-center gap-4 px-4 py-4 text-sm text-gray-300 hover:bg-gradient-to-r hover:from-brand-red/20 hover:to-transparent hover:text-brand-gold rounded-xl transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-inset"
+                           role="menuitem"
+                           tabindex="-1"
+                        >
+                            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-red/20 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(250,204,21,0.2)] transition-all duration-300">
+                                <i class="fa-solid fa-code text-brand-red group-hover:text-brand-gold transition-colors text-lg" aria-hidden="true"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold group-hover:text-brand-gold transition-colors">Application Web</div>
+                                <div class="text-xs text-gray-500 mt-0.5">Solutions sur-mesure complexes</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-xs opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 text-brand-gold" aria-hidden="true"></i>
                         </a>
-                    </div>
+
+                        <!-- Lien vers toutes les offres -->
+                        <div class="mt-3 pt-3 border-t border-white/10">
+                            <a href="./frontend/pages/offres.html" 
+                               class="flex items-center justify-center gap-2 px-4 py-3 text-xs font-bold text-brand-gold hover:bg-brand-gold/10 rounded-lg transition-all duration-300 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+                               role="menuitem"
+                               tabindex="-1"
+                            >
+                                <span>Découvrir toutes nos offres</span>
+                                <i class="fa-solid fa-external-link text-[10px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </nav>
                 </div>
+            </div>
 
-                <!-- Card 2 -->
+            <!-- ===== Titre pour les autres services ===== -->
+            <div class="text-center mb-8 reveal">
+                <h3 class="text-xl font-display font-semibold text-gray-400">Et bien plus encore...</h3>
+            </div>
+
+            <!-- ===== GRILLE DES 5 AUTRES SERVICES ===== -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 2 : Apps Mobiles -->
                 <div class="glass-card p-8 rounded-2xl reveal delay-100">
                     <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl">
                         <i class="fa-solid fa-mobile-screen"></i>
@@ -363,7 +426,7 @@
                     </ul>
                 </div>
 
-                <!-- Card 3 -->
+                <!-- Card 3 : SEO & Marketing -->
                 <div class="glass-card p-8 rounded-2xl reveal delay-200">
                     <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl">
                         <i class="fa-solid fa-magnifying-glass-chart"></i>
@@ -376,7 +439,7 @@
                     </ul>
                 </div>
 
-                <!-- Card 4 -->
+                <!-- Card 4 : Formations -->
                 <div class="glass-card p-8 rounded-2xl reveal">
                     <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl">
                         <i class="fa-solid fa-graduation-cap"></i>
@@ -386,7 +449,7 @@
                     <a href="./frontend/pages/young-expert.html" class="text-brand-gold text-sm font-bold hover:underline">Découvrir le catalogue →</a>
                 </div>
 
-                <!-- Card 5 -->
+                <!-- Card 5 : Maintenance IT -->
                 <div class="glass-card p-8 rounded-2xl reveal delay-100">
                     <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl">
                         <i class="fa-solid fa-shield-halved"></i>
@@ -396,7 +459,7 @@
                     <a href="./frontend/pages/maintenance.html" class="text-brand-gold text-sm font-bold hover:underline">En savoir plus  →</a>
                 </div>
 
-                <!-- Card 6 -->
+                <!-- Card 6 : Consulting IA -->
                 <div class="glass-card p-8 rounded-2xl reveal delay-200">
                     <div class="w-14 h-14 rounded-xl bg-brand-red/20 flex items-center justify-center mb-6 text-brand-gold text-2xl">
                         <i class="fa-solid fa-brain"></i>
@@ -420,14 +483,18 @@
                 
                 <div class="space-y-4">
                     <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
-                        <img src="./frontend/images/ac.png" alt="Projet E-commerce B2C" class="w-16 h-16 rounded-lg object-cover group-hover:scale-105 transition-transform" loading="lazy">
+                        <div class="w-16 h-16 rounded-lg bg-brand-red/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-cart-shopping text-brand-gold text-2xl"></i>
+                        </div>
                         <div>
                             <h4 class="font-bold text-lg group-hover:text-brand-gold transition-colors">Plateforme E-commerce B2C</h4>
                             <p class="text-xs text-gray-500">Web • Paiement • UX</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group">
-                        <img src="./frontend/images/serv.png" alt="Application mobile de services" class="w-16 h-16 rounded-lg object-cover group-hover:scale-105 transition-transform" loading="lazy">
+                        <div class="w-16 h-16 rounded-lg bg-brand-red/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                            <i class="fa-solid fa-mobile-screen text-brand-gold text-2xl"></i>
+                        </div>
                         <div>
                             <h4 class="font-bold text-lg group-hover:text-brand-gold transition-colors">App Mobile Services</h4>
                             <p class="text-xs text-gray-500">Mobile • Geo • Push</p>
@@ -441,7 +508,13 @@
             </div>
             
             <div class="relative h-[400px] rounded-2xl overflow-hidden glass-panel reveal delay-200 group">
-                <img src="./frontend/images/crea.jpg" alt="Étude de cas transformation digitale" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-700" loading="lazy">
+                <!-- Background avec gradient au lieu d'image -->
+                <div class="absolute inset-0 bg-gradient-to-br from-brand-red/30 via-brand-dark to-brand-gold/20"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-32 h-32 rounded-full border-2 border-brand-gold/30 flex items-center justify-center">
+                        <i class="fa-solid fa-rocket text-6xl text-brand-gold/50"></i>
+                    </div>
+                </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                 <div class="absolute bottom-8 left-8">
                     <div class="text-brand-gold font-bold mb-2">Étude de Cas</div>
@@ -537,7 +610,9 @@
         <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
             <div class="col-span-1 md:col-span-2">
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="./frontend/images/off.png" alt="Logo Optimum Entreprise" class="w-8 h-8 object-contain bg-white rounded-full" loading="lazy">
+                    <div class="w-8 h-8 rounded-full border-2 border-brand-gold/50 bg-black overflow-hidden">
+                        <img src="./frontend/images/offbg.png" alt="Logo Optimum Entreprise" class="w-full h-full object-contain p-0.5" loading="lazy">
+                    </div>
                     <span class="font-display font-bold text-lg">OPTIMUM ENTREPRISE</span>
                 </div>
                 <p class="text-gray-500 text-sm max-w-xs">
@@ -931,48 +1006,124 @@
             }, 1500);
         });
 
-        // --- 6. WEB DEV MENU LOGIC (Ajouter ce bloc) ---
+        // --- 6. WEB DEV MENU LOGIC (Modernisé avec accessibilité) ---
         function toggleWebMenu(e) {
-            e.stopPropagation(); // Empêche l'événement de se propager à la fenêtre (qui ferme le menu)
+            e.stopPropagation();
             const menu = document.getElementById('web-menu');
             const arrow = document.getElementById('web-menu-arrow');
+            const trigger = document.getElementById('web-menu-trigger');
+            const menuItems = menu.querySelectorAll('[role="menuitem"]');
             
             if (menu.classList.contains('hidden')) {
                 // Ouvrir le menu
                 menu.classList.remove('hidden');
-                // Nécessaire pour que l'animation CSS se déclenche
+                trigger.setAttribute('aria-expanded', 'true');
+                
                 setTimeout(() => {
                     menu.classList.remove('scale-95', 'opacity-0');
                     menu.classList.add('scale-100', 'opacity-100');
+                    // Focus sur le premier élément du menu
+                    if (menuItems.length > 0) {
+                        menuItems[0].setAttribute('tabindex', '0');
+                        menuItems[0].focus();
+                    }
                 }, 10);
                 arrow.style.transform = 'rotate(180deg)';
                 arrow.style.opacity = '1';
             } else {
-                // Fermer le menu
-                menu.classList.remove('scale-100', 'opacity-100');
-                menu.classList.add('scale-95', 'opacity-0');
-                arrow.style.transform = 'rotate(0deg)';
-                // Masquer complètement après la fin de l'animation
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 200);
+                closeWebMenu();
             }
         }
+
+        function closeWebMenu() {
+            const menu = document.getElementById('web-menu');
+            const arrow = document.getElementById('web-menu-arrow');
+            const trigger = document.getElementById('web-menu-trigger');
+            const menuItems = menu.querySelectorAll('[role="menuitem"]');
+            
+            menu.classList.remove('scale-100', 'opacity-100');
+            menu.classList.add('scale-95', 'opacity-0');
+            arrow.style.transform = 'rotate(0deg)';
+            trigger.setAttribute('aria-expanded', 'false');
+            
+            // Réinitialiser les tabindex
+            menuItems.forEach(item => item.setAttribute('tabindex', '-1'));
+            
+            setTimeout(() => {
+                menu.classList.add('hidden');
+            }, 200);
+        }
+
+        // Navigation au clavier dans le menu
+        function handleWebMenuKeydown(e) {
+            const menu = document.getElementById('web-menu');
+            const isOpen = !menu.classList.contains('hidden');
+            
+            // Ouvrir avec Entrée, Espace, ou flèche bas
+            if (!isOpen && (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown')) {
+                e.preventDefault();
+                toggleWebMenu(e);
+                return;
+            }
+        }
+
+        // Gestion des touches dans le menu ouvert
+        document.getElementById('web-menu')?.addEventListener('keydown', (e) => {
+            const menuItems = Array.from(document.querySelectorAll('#web-menu [role="menuitem"]'));
+            const currentIndex = menuItems.indexOf(document.activeElement);
+            
+            switch(e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    const nextIndex = (currentIndex + 1) % menuItems.length;
+                    menuItems[currentIndex]?.setAttribute('tabindex', '-1');
+                    menuItems[nextIndex].setAttribute('tabindex', '0');
+                    menuItems[nextIndex].focus();
+                    break;
+                    
+                case 'ArrowUp':
+                    e.preventDefault();
+                    const prevIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
+                    menuItems[currentIndex]?.setAttribute('tabindex', '-1');
+                    menuItems[prevIndex].setAttribute('tabindex', '0');
+                    menuItems[prevIndex].focus();
+                    break;
+                    
+                case 'Escape':
+                    e.preventDefault();
+                    closeWebMenu();
+                    document.getElementById('web-menu-trigger').focus();
+                    break;
+                    
+                case 'Tab':
+                    // Fermer le menu si on quitte avec Tab
+                    closeWebMenu();
+                    break;
+                    
+                case 'Home':
+                    e.preventDefault();
+                    menuItems[currentIndex]?.setAttribute('tabindex', '-1');
+                    menuItems[0].setAttribute('tabindex', '0');
+                    menuItems[0].focus();
+                    break;
+                    
+                case 'End':
+                    e.preventDefault();
+                    menuItems[currentIndex]?.setAttribute('tabindex', '-1');
+                    menuItems[menuItems.length - 1].setAttribute('tabindex', '0');
+                    menuItems[menuItems.length - 1].focus();
+                    break;
+            }
+        });
 
         // Fermer le menu lorsque l'utilisateur clique n'importe où ailleurs sur la page
         document.addEventListener('click', (e) => {
             const card = document.getElementById('web-dev-card');
             const menu = document.getElementById('web-menu');
-            const arrow = document.getElementById('web-menu-arrow');
             
             // Si le clic n'est pas dans la carte et que le menu est ouvert
             if (card && !card.contains(e.target) && menu && !menu.classList.contains('hidden')) {
-                menu.classList.remove('scale-100', 'opacity-100');
-                menu.classList.add('scale-95', 'opacity-0');
-                if(arrow) arrow.style.transform = 'rotate(0deg)';
-                setTimeout(() => {
-                    menu.classList.add('hidden');
-                }, 200);
+                closeWebMenu();
             }
         });
 
