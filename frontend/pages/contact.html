@@ -144,6 +144,7 @@
     </style>
 </head>
 <body class="antialiased selection:bg-brand-gold selection:text-brand-dark font-sans">
+    <a href="#main-content" class="skip-link">Aller au contenu</a>
 
     <!-- Background Effects -->
     <div class="glow-point fixed top-0 left-0"></div>
@@ -170,14 +171,14 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Ouvrir le menu mobile">
+                <button id="mobile-menu-btn" class="md:hidden text-white p-2" aria-label="Ouvrir le menu mobile" aria-expanded="false" aria-controls="mobile-menu">
                     <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+        <div id="mobile-menu" role="navigation" aria-hidden="true" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
             <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
                 <i class="fa-solid fa-xmark text-3xl"></i>
             </button>
@@ -201,7 +202,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-6 pb-20">
+    <main id="main-content" class="max-w-7xl mx-auto px-6 pb-20">
         <div class="grid lg:grid-cols-3 gap-8">
             
             <!-- Left Column: Quick Info -->
@@ -585,7 +586,16 @@ ${data.message}`
         const mobileLinks = document.querySelectorAll('.mobile-link');
 
         function toggleMobileMenu() {
-            mobileMenu.classList.toggle('translate-x-full');
+            const isOpen = !mobileMenu.classList.contains('translate-x-full');
+            if (isOpen) {
+                mobileMenu.classList.add('translate-x-full');
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.setAttribute('aria-hidden', 'false');
+                mobileMenuBtn.setAttribute('aria-expanded', 'true');
+            }
         }
 
         mobileMenuBtn?.addEventListener('click', toggleMobileMenu);

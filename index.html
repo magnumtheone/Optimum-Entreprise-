@@ -90,6 +90,7 @@
     </style>
 </head>
 <body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+    <a href="#main-content" class="skip-link">Aller au contenu</a>
 
     <!-- Background Animation -->
     <canvas id="bg-canvas"></canvas>
@@ -135,19 +136,19 @@
         </div>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+        <div id="mobile-menu" role="navigation" aria-hidden="true" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
             <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu de navigation">
                 <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
             </button>
             <a href="#services" class="hover:text-brand-gold mobile-link">Services</a>
             <a href="#projets" class="hover:text-brand-gold mobile-link">Projets</a>
-            <a href="#formations" class="hover:text-brand-gold mobile-link">Formations</a>
+            <a href="./frontend/pages/programmation.html" class="hover:text-brand-gold mobile-link">Formations</a>
             <a href="./frontend/pages/contact.html" class="text-brand-gold mobile-link">Contact</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header id="accueil" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <header id="accueil" class="relative min-h-screen flex items-center justify-center pt-32 md:pt-20 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
             <!-- Text Content -->
             <div class="text-center lg:text-left reveal active">
@@ -984,9 +985,15 @@
             else mobileMenu.classList.remove('translate-x-full');
         }
 
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-        closeMobileMenu.addEventListener('click', toggleMobileMenu);
-        mobileLinks.forEach(l => l.addEventListener('click', toggleMobileMenu));
+        function updateMobileMenuAriaAttrs() {
+            const isHidden = mobileMenu.classList.contains('translate-x-full');
+            mobileMenuBtn.setAttribute('aria-expanded', !isHidden);
+            mobileMenu.setAttribute('aria-hidden', isHidden);
+        }
+
+        mobileMenuBtn.addEventListener('click', () => { toggleMobileMenu(); updateMobileMenuAriaAttrs(); });
+        closeMobileMenu.addEventListener('click', () => { toggleMobileMenu(); updateMobileMenuAriaAttrs(); });
+        mobileLinks.forEach(l => l.addEventListener('click', () => { toggleMobileMenu(); updateMobileMenuAriaAttrs(); }));
 
         // Form Submission Mock
         document.getElementById('contactForm').addEventListener('submit', (e) => {

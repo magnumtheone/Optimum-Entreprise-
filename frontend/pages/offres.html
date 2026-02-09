@@ -336,6 +336,7 @@
 </head>
 
 <body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+  <a href="#main-content" class="skip-link">Aller au contenu</a>
 
   <!-- Blocs de fond décoratifs (Blobs) -->
   <div class="blob w-[30rem] h-[30rem] bg-brand-gold rounded-full top-[-10%] right-[-10%]"></div>
@@ -380,7 +381,7 @@
     </div>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+    <div id="mobile-menu" role="navigation" aria-hidden="true" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
       <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
         <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
       </button>
@@ -396,7 +397,7 @@
   <div class="blob w-[50rem] h-[50rem] bg-brand-red rounded-full bottom-[10%] left-[-20%] animate-pulse-slow" style="animation-delay: 2s;"></div>
   <div class="blob w-[30rem] h-[30rem] bg-gradient-to-br from-brand-gold to-brand-red rounded-full top-[50%] right-[5%] animate-float opacity-20"></div>
 
-  <main class="relative z-10 pt-32 pb-20">
+  <main id="main-content" class="relative z-10 pt-32 pb-20">
     <div class="max-w-7xl mx-auto px-6">
       
       <!-- Hero Section Modernisée -->
@@ -670,8 +671,15 @@
 
     function toggleMobileMenu() {
         const isOpen = !mobileMenu.classList.contains('translate-x-full');
-        if(isOpen) mobileMenu.classList.add('translate-x-full');
-        else mobileMenu.classList.remove('translate-x-full');
+        if(isOpen) {
+            mobileMenu.classList.add('translate-x-full');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        } else {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        }
     }
 
     if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);

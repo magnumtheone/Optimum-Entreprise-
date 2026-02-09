@@ -63,6 +63,45 @@
 }
 
 /* ============================================
+   Accessibility helpers
+   ============================================ */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+    padding: 0.5rem 1rem;
+    z-index: 9999;
+    border-radius: 0 0 6px 6px;
+    transform: translateY(-4px);
+    transition: transform 120ms ease;
+}
+.skip-link:focus {
+    top: 0.5rem;
+    transform: none;
+}
+
+/* Utility: screen-reader only */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus-visible for better keyboard accessibility */
+:focus-visible {
+    outline: 3px solid var(--brand-gold);
+    outline-offset: 2px;
+}
+
+/* ============================================
    2. RESET & BASE
    ============================================ */
 *, *::before, *::after {

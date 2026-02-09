@@ -130,6 +130,7 @@
 </head>
 
 <body class="antialiased selection:bg-brand-gold selection:text-brand-dark">
+  <a href="#main-content" class="skip-link">Aller au contenu</a>
 
   <!-- Message de succès flottant -->
   <div id="form-message" class="message-box"></div>
@@ -170,14 +171,14 @@
         </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu" aria-expanded="false">
+        <button id="mobile-menu-btn" class="md:hidden text-white hover:text-brand-gold transition-colors" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu">
           <i class="fa-solid fa-bars text-xl" aria-hidden="true"></i>
         </button>
       </div>
     </div>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
+      <div id="mobile-menu" role="navigation" aria-hidden="true" class="fixed inset-0 bg-black/95 z-40 transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 text-2xl font-display">
       <button id="close-mobile-menu" class="absolute top-8 right-8 text-white/50 hover:text-white" aria-label="Fermer le menu">
         <i class="fa-solid fa-xmark text-3xl" aria-hidden="true"></i>
       </button>
